@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://yoursite.com/resources/images/用户管理.png">
 <meta property="og:image" content="http://yoursite.com/resources/images/效果图.png">
 <meta property="og:image" content="http://yoursite.com/resources/images/自定义标签执行流程图.png">
-<meta property="og:updated_time" content="2017-02-14T09:34:17.289Z">
+<meta property="og:updated_time" content="2017-02-14T09:38:10.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="X市数据管理系统分析">
 <meta name="twitter:description" content="X市数据管理系统分析X市数据管理系统是我实习期间第一个接触到的项目，该项目是用于海域规划管理的系统，除了基本的增删改查外。还实现了附件的上传、下载，Excel导入导出,图表展示,还有一个地图模块显示二三维地图。后台:使用了Spring,Spring MVC框架,使用的数据库为Oracle,与数据库的交互使用的是JPA和JDBCTemplate,前台:jQuery,EasyUI,ArcGIS">
@@ -180,7 +180,7 @@
 </ul>
 <p><img src="resources/images/用户管理.png" alt="用户管理"></p>
 <ul>
-<li>效果图</li>
+<li>不同用户登陆的效果图</li>
 </ul>
 <p><img src="resources/images/效果图.png" alt="效果图"></p>
 <h4 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h4><p>建立一个Resource表,表每一项都是用户可以操作的动作每一项都包含一个自定义的权限标签ID。建立一张Role表,Role与Resource是多对多的关系,建立一张User表,User与Role也是<br>多对多关系。执行自定义标签，查询用户是否具有该标签的ID,使用JPA能够自动进行关联查询。因为EasyUI在节点关闭且该节点下没有子节点时，在展开时会向后台传递该节点ID以请求节点JSON数据,所以可以通过Resource表自关联实现数据的树形菜单。</p>
@@ -475,6 +475,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="color3">日志</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="color3">书评</a>
               </li>
             
             <div class="clearfix"></div>
