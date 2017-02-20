@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://yoursite.com/resources/images/用户管理.png">
 <meta property="og:image" content="http://yoursite.com/resources/images/效果图.png">
 <meta property="og:image" content="http://yoursite.com/resources/images/自定义标签执行流程图.png">
-<meta property="og:updated_time" content="2017-02-16T05:00:00.418Z">
+<meta property="og:updated_time" content="2017-02-20T01:53:39.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="X市数据管理系统分析">
 <meta name="twitter:description" content="X市数据管理系统分析X市数据管理系统是我实习期间第一个接触到的项目，该项目是用于海域规划管理的系统，除了基本的增删改查外。还实现了附件的上传、下载，Excel导入导出,图表展示,还有一个地图模块显示二三维地图。后台:使用了Spring,Spring MVC框架,使用的数据库为Oracle,与数据库的交互使用的是JPA和JDBCTemplate,前台:jQuery,EasyUI,ArcGIS">
@@ -215,6 +215,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//将所有的导入逻辑都写在一个方法中造成了这个方法代码量巨大(达到了8000多行),造成了维护上的困难。我认为至少应该要将导入的逻辑分成散为其他的函数(即将if,else if 逻辑里面的代码块重构为一个方法)，以便于以后Excel导入的更新</span></div><div class="line"><span class="function"><span class="keyword">public</span> List&lt;Object&gt; <span class="title">excelImport</span><span class="params">(Class&lt;?&gt; clazz, InputStream in, String createBy)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="string">"dms.vo.sea.FunctionDivisions"</span>.equals(clazz.getName()))&#123;</div><div class="line">        <span class="comment">//...</span></div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"dms.vo.sea.OwnerProject"</span>.equals(clazz.getName()))&#123;</div><div class="line">        <span class="comment">//...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>修改官方的jar包。为了使用jotm管理分布式事务，但是spring-tx，4.2版本中已经废弃了jotm库。公司采取了将在jar包中加入jotm的java文件,使得jotm可以使用,这种方法为以后的开发、维护埋下了巨大的隐患。</li>
+<li>用户体验较差,比如:查询、登陆无法回车执行,查看一条记录不能双击执行</li>
 </ul>
 
       
@@ -505,15 +506,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="color3">日志</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="color3">书评</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="color2">Python</a>
               </li>
             
             <div class="clearfix"></div>

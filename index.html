@@ -166,10 +166,9 @@
         <h1 id="curses学习"><a href="#curses学习" class="headerlink" title="curses学习"></a>curses学习</h1><h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><p>curses模块提供了以文本显示为基础的像linux的控制台的API,包括绘制以及键盘处理等</p>
 <h3 id="打开和关闭一个curses应用程序"><a href="#打开和关闭一个curses应用程序" class="headerlink" title="打开和关闭一个curses应用程序"></a>打开和关闭一个curses应用程序</h3><p>打开curses</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 初始化curses,该函数根据不同设备返回一个windows对象代表整个屏幕,这个对象通常叫做stdscr</span></div><div class="line">stdscr = curses.initscr()</div><div class="line"><span class="comment"># 使用curses通常要关闭回显,目的是读取字符尽在适当的环境下输出。</span></div><div class="line">curses.noecho()</div><div class="line"><span class="comment"># 设置为立即响应模式</span></div><div class="line">curses.cbreak()</div><div class="line"><span class="comment"># 使得程序能够处理特殊的按键如PgUp,Home等</span></div><div class="line">curses.keypad(<span class="number">1</span>)</div></pre></td></tr></table></figure>
-<p>关闭curses</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 关闭字符终端功能</span></div><div class="line">curses.nocbreak()</div><div class="line"><span class="comment"># 关闭特殊按键的接收</span></div><div class="line">stdscr.keypad(<span class="number">0</span>)</div><div class="line"><span class="comment"># 打开输入回显功能</span></div><div class="line">curses.echo()</div><div class="line"><span class="comment"># 调用endwin()恢复默认设置</span></div><div class="line">curses.endwin()</div></pre></td></tr></table></figure>
-<p>可以导入curses.wrapper模块。这个函数做了一些初始化的工作，包括上面提到的和颜色的初始化。然后再执行你提供的函数，最后重置。而且被调用的函数写在try-catch中。也就是应用了curses.wrapper模块只需要考虑代码逻辑即可。</p>
-
+        
+          <a class="article-more-a" href="/2017/02/17/curses模块学习/#more">more >></a>
+        
       
 
       
@@ -524,15 +523,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="color3">日志</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="color3">书评</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="color2">Python</a>
               </li>
             
             <div class="clearfix"></div>
