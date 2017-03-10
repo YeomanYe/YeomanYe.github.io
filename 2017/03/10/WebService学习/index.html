@@ -6,14 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2017/3 | FWHeart的博客</title>
+  <title>WebService | FWHeart的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="FWHeart的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2017/03/index.html">
+  <meta name="description" content="WebService学习WebService(jax-ws)三要素
+
+SOAP: 基于HTTP协议，采用XML格式，用来传递信息的格式。
+WSDL: 用来描述如何访问具体的服务。
+UDDI: 用户自己可以按UDDI标准搭建UDDI服务器，用来管理，分发，查询WebService 。其他用户可以自己注册发布WebService调用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebService">
+<meta property="og:url" content="http://yoursite.com/2017/03/10/WebService学习/index.html">
 <meta property="og:site_name" content="FWHeart的博客">
+<meta property="og:description" content="WebService学习WebService(jax-ws)三要素
+
+SOAP: 基于HTTP协议，采用XML格式，用来传递信息的格式。
+WSDL: 用来描述如何访问具体的服务。
+UDDI: 用户自己可以按UDDI标准搭建UDDI服务器，用来管理，分发，查询WebService 。其他用户可以自己注册发布WebService调用。">
+<meta property="og:image" content="http://yoursite.com/resources/images/WebService学习.png">
+<meta property="og:updated_time" content="2017-03-10T15:04:24.552Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FWHeart的博客">
+<meta name="twitter:title" content="WebService">
+<meta name="twitter:description" content="WebService学习WebService(jax-ws)三要素
+
+SOAP: 基于HTTP协议，采用XML格式，用来传递信息的格式。
+WSDL: 用来描述如何访问具体的服务。
+UDDI: 用户自己可以按UDDI标准搭建UDDI服务器，用来管理，分发，查询WebService 。其他用户可以自己注册发布WebService调用。">
+<meta name="twitter:image" content="http://yoursite.com/resources/images/WebService学习.png">
   
   
     <link rel="icon" href="/resources/blogImg/favicon.ico">
@@ -155,36 +173,85 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-WebService学习" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/10/WebService学习/" class="archive-article-date">
-  	<time datetime="2017-03-10T03:10:06.556Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/10/WebService学习/">WebService</a>
+    <h1 class="article-title" itemprop="name">
+      WebService
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        <a href="/2017/03/10/WebService学习/" class="archive-article-date">
+  	<time datetime="2017-03-10T03:10:06.556Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-10</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="WebService学习"><a href="#WebService学习" class="headerlink" title="WebService学习"></a>WebService学习</h1><p>WebService(jax-ws)三要素</p>
+<ul>
+<li>SOAP: 基于HTTP协议，采用XML格式，用来传递信息的格式。</li>
+<li>WSDL: 用来描述如何访问具体的服务。</li>
+<li>UDDI: 用户自己可以按UDDI标准搭建UDDI服务器，用来管理，分发，查询WebService 。其他用户可以自己注册发布WebService调用。</li>
+</ul>
+<a id="more"></a>
+<h2 id="SOAP-通讯协议"><a href="#SOAP-通讯协议" class="headerlink" title="SOAP(通讯协议)"></a>SOAP(通讯协议)</h2><p>Simple Object Accrss Protocol，简单对象访问协议是在分散或分布式的环境中交换信息的简单的协议，是一个基于XML的协议，它包括四个部分:<br>1 SOAP封装(envelop)，封装定义了一个描述消息中的内容是什么，是谁发送的，谁应当接受并处理它，以及如何处理它们的框架;<br>2 SOAP编码规则，用于表示应用程序需要使用的数据类型的实例。<br>3 SOAP RPC 表示远程过程调用和应答的协定。<br>4 SOAP绑定(binding)，使用底层协议交换信息。</p>
+<h3 id="请求的协议体"><a href="#请求的协议体" class="headerlink" title="请求的协议体"></a>请求的协议体</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">POST /weather HTTP/1.1</div><div class="line">Accept: text/xml, multipart/related</div><div class="line">Content-Type: text/xml; charset=utf-8</div><div class="line">SOAPAction: "http://weather.itheima.com/WeatherInterface/getWeatherByCityNameRequest"</div><div class="line">User-Agent: JAX-WS RI 2.2.4-b01</div><div class="line">Host: 127.0.0.1:54321</div><div class="line">Connection: keep-alive</div><div class="line">Content-Length: 235</div><div class="line">&lt;?xml version="1.0" ?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">S:Envelope</span> <span class="attr">xmlns:S</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">S:Body</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">ns2:getWeatherByCityName</span> <span class="attr">xmlns:ns2</span>=<span class="string">"http://weather.itheima.com"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">cityName</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">cityName</span>&gt;</span></div><div class="line">             <span class="tag">&lt;/<span class="name">ns2:getWeatherByCityName</span>&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">S:Body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">S:Envelope</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="响应的协议体"><a href="#响应的协议体" class="headerlink" title="响应的协议体"></a>响应的协议体</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Transfer-encoding: chunked</div><div class="line">Content-type: text/xml; charset=utf-8</div><div class="line">Date: Fri, 09 Oct 2015 07:23:29 GMT</div><div class="line">&lt;?xml version="1.0" ?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">S:Envelope</span> <span class="attr">xmlns:S</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">S:Body</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">ns2:getWeatherByCityNameResponse</span> <span class="attr">xmlns:ns2</span>=<span class="string">"http://weather.itheima.com"</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">WeatherInfo</span>&gt;</span>今天风很大<span class="tag">&lt;/<span class="name">WeatherInfo</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">ns2:getWeatherByCityNameResponse</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">S:Body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">S:Envelope</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="WSDL"><a href="#WSDL" class="headerlink" title="WSDL"></a>WSDL</h2><p>WSDL(Web Service Description Language)，是一个用来描述Web服务（Web Service）和说明如何与Web服务通信的XML语言。因为是基于XML的，所以WSDL既是机器可阅读的，又是人可阅读的，这将是一个很大的好处。</p>
+<p><img src="resources/images/WebService学习.png" alt="WebService学习"></p>
+<h3 id="WSDL阅读方法"><a href="#WSDL阅读方法" class="headerlink" title="WSDL阅读方法"></a>WSDL阅读方法</h3><p>是从下往上读。<br>每个wsdl有且只有一个Service节点。<br>1、先找Service节点<br>2、Service节点中找port节点。每个port对应一个PortType。<br>3、Port节点对应一binding节点。每个binding节点对应一个PortType<br>4、PortType中有operation 节点就是服务的方法。<br>5、operation 中有Input（参数）和output（返回值）<br>6、Input（参数）和output（返回值）对应message节点<br>7、Message对应element节点(定义在XSD中)。Element节点对应complexType节点描述了参数及返回值的数据类型。</p>
+<h3 id="使用注解规范"><a href="#使用注解规范" class="headerlink" title="使用注解规范"></a>使用注解规范</h3><p>@WebService: 定义服务，在public class上边。<br>  targetNamespace:指定命名空间。<br>  name:portType的名称。<br>  portName:port的名称。<br>serviceName:服务名称。<br>@WebResult:定义返回值。<br>  name:返回结果值的名称。<br>@WebParam:定义参数。<br>  name:指定参数的名称。<br>@WebMethod<br>  exclude:排除指定的方法。</p>
+<h3 id="XSD"><a href="#XSD" class="headerlink" title="XSD"></a>XSD</h3><p>XML解决了数据表示的问题，但它没有定义一套标准的数据类型，更没有说怎么去扩展这套数据类型。例如，整形数到底代表什么？16位，32位，还是64位？这些细节对实现互操作性都是很重要的。W3C制定的XML Schema(XSD)就是专门解决这个问题的一套标准。它定义了一套标准的数据类型，并给出了一种语言来扩展这套数据类型。Web service平台就是用XSD来作为其数据类型系统的。</p>
+<h2 id="UUDI"><a href="#UUDI" class="headerlink" title="UUDI"></a>UUDI</h2><p>UDDI 是一种目录服务，通过它，企业可注册并搜索 Web services。企业将自己提供的Web Service注册在UDDI，也可以使用别的企业在UDDI注册的web service服务，从而达到资源共享。</p>
+<p>UDDI旨在将全球的webservcie资源进行共享，促进全球经济合作。</p>
+<p>但是使用webservice并不是必须使用UDDI，因为用户通过WSDL知道了web service的地址，可以直接通过WSDL调用webservice。</p>
+<h2 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h2><p>服务端:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WeatherInterface</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getWeatherByCity</span><span class="params">(String city)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@WebService</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherInterfaceImpl</span> <span class="keyword">implements</span> <span class="title">WeatherInterface</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getWeatherByCity</span><span class="params">(String city)</span> </span>&#123;</div><div class="line">    String result = <span class="string">",天气寒冷"</span>;</div><div class="line">    <span class="keyword">return</span> city + result;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherServer</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">    Endpoint.publish(<span class="string">"http://localhost:12345/weather"</span>, <span class="keyword">new</span> WeatherInterfaceImpl());</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>服务端启动后进入客户端工程相应的目录下使用<code>wsimport -s . http://localhost:12345/weather?wsdl</code>生成代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherClient</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">    WeatherInterfaceImplService service = <span class="keyword">new</span> WeatherInterfaceImplService();</div><div class="line">    WeatherInterfaceImpl portType = service.getWeatherInterfaceImplPort();</div><div class="line">    String result = portType.getWeatherByCity(<span class="string">"北京"</span>);</div><div class="line">    System.out.println(result);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Apache-CXF"><a href="#Apache-CXF" class="headerlink" title="Apache CXF"></a>Apache CXF</h2><p>Apache CXF是一个开源的Web Services框架:</p>
+<ul>
+<li>支持多种协议:SOAP1.1,1,2 XML/HTTP、RESTful 或者CORBA</li>
+<li>部署灵活:可以运行在Tomcat,Jboss,Jetty(内置),weblogic上面。</li>
+<li>可嵌入的Web服务组件：例如可以嵌入到Spring Framework和Geronimo中。</li>
+<li>高性能,最小的计算开销。</li>
+</ul>
+<h3 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h3><p>实体类:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Weather</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">int</span> minTemp;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">int</span> maxTemp;</div><div class="line">  <span class="keyword">private</span> String info;</div><div class="line">  <span class="keyword">private</span> Date date;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>服务接口与实现:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@WebService</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WeatherInterface</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> List&lt;Weather&gt; <span class="title">getWeatherByCity</span><span class="params">(String city)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherInterfaceImpl</span> <span class="keyword">implements</span> <span class="title">WeatherInterface</span></span>&#123;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> List&lt;Weather&gt; <span class="title">getWeatherByCity</span><span class="params">(String city)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> getWeatherInfo(city);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">private</span> List&lt;Weather&gt; <span class="title">getWeatherInfo</span><span class="params">(String city)</span></span>&#123;</div><div class="line">    List&lt;Weather&gt; weathers = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    Calendar c = Calendar.getInstance();</div><div class="line">    Date d1 = c.getTime();</div><div class="line">    c.set(Calendar.DATE, c.get(Calendar.DATE) + <span class="number">1</span>);</div><div class="line">    Date d2 = c.getTime();</div><div class="line">    c.set(Calendar.DATE, c.get(Calendar.DATE) + <span class="number">2</span>);</div><div class="line">    Date d3 = c.getTime();</div><div class="line">    c.set(Calendar.DATE, c.get(Calendar.DATE) + <span class="number">3</span>);</div><div class="line">    </div><div class="line">    weathers.add(<span class="keyword">new</span> Weather(<span class="number">30</span>,<span class="number">20</span>,city+<span class="string">":今天很热"</span>,d1));</div><div class="line">    weathers.add(<span class="keyword">new</span> Weather(<span class="number">31</span>,<span class="number">21</span>,city+<span class="string">":今天很热"</span>,d2));</div><div class="line">    weathers.add(<span class="keyword">new</span> Weather(<span class="number">32</span>,<span class="number">22</span>,city+<span class="string">":今天很热"</span>,d3));</div><div class="line">    <span class="keyword">return</span> weathers;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>服务启动:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherService</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">    <span class="comment">//创建JaxWsClientFactoryBean</span></div><div class="line">    JaxWsServerFactoryBean factoryBean = <span class="keyword">new</span> JaxWsServerFactoryBean();</div><div class="line">    <span class="comment">//设置SEI接口</span></div><div class="line">    factoryBean.setServiceClass(WeatherInterface.class);</div><div class="line">    <span class="comment">//设置SEI实现类对象</span></div><div class="line">    factoryBean.setServiceBean(<span class="keyword">new</span> WeatherInterfaceImpl());</div><div class="line">    <span class="comment">//设置服务发布地址</span></div><div class="line">    factoryBean.setAddress(<span class="string">"http://localhost:12345/weather"</span>);</div><div class="line">    <span class="comment">//发布服务</span></div><div class="line">    factoryBean.create();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><p>先使用Apache CXF的<code>wsdl2java -d . http://localhost:12345/weather?wsdl</code>生成客户端代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CXFClient</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">    <span class="comment">//创建一个JaxWsProxyFactoryBean</span></div><div class="line">    JaxWsProxyFactoryBean factoryBean = <span class="keyword">new</span> JaxWsProxyFactoryBean();</div><div class="line">    <span class="comment">//设置portType的class</span></div><div class="line">    factoryBean.setServiceClass(WeatherInterface.class);</div><div class="line">    <span class="comment">//设置地址</span></div><div class="line">    factoryBean.setAddress(<span class="string">"http://localhost:12345/weather?wsdl"</span>);</div><div class="line">    <span class="comment">//调用create方法生成portType对象</span></div><div class="line">    WeatherInterface portType = (WeatherInterface) factoryBean.create();</div><div class="line">    <span class="comment">//调用服务端方法</span></div><div class="line">    List&lt;Weather&gt; weathers = portType.getWeatherByCity(<span class="string">"北京"</span>);</div><div class="line">    <span class="keyword">for</span>(Weather w:weathers)&#123;</div><div class="line">      System.out.println(w);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.cnblogs.com/yangang2013/p/5708917.html" target="_blank" rel="external">WebService基础学习</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list">
@@ -196,95 +263,104 @@
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/08/dojoDom学习/" class="archive-article-date">
-  	<time datetime="2017-03-08T05:57:21.660Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/08/dojoDom学习/">dojo DOM学习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list">
-			 
-        <li class="article-tag-list-item">
-        	<a href="javascript:void(0)" class="article-tag-list-link color3">前端</a>
-        </li>
       
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/07/dojo起步/" class="archive-article-date">
-  	<time datetime="2017-03-07T03:52:03.920Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/07/dojo起步/">dojo</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list">
-			 
-        <li class="article-tag-list-item">
-        	<a href="javascript:void(0)" class="article-tag-list-link color3">前端</a>
-        </li>
       
-		</ul>
-	</div>
 
-          
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/10/WebService学习/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
-  
 
-    
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/08/dojoDom学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">dojo DOM学习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="WebService学习" data-title="WebService" data-url="http://yoursite.com/2017/03/10/WebService学习/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"FWHeart"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 
           </div>
@@ -307,8 +383,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
