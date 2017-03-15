@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -106,7 +106,7 @@
     motion: true,
     duoshuo: {
       userId: '0',
-      author: '博主'
+      author: 'Author'
     },
     algolia: {
       applicationID: '',
@@ -129,7 +129,7 @@
   <title> 探险 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
 
@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首页
+            Home
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            分类
+            Categories
           </a>
         </li>
       
@@ -214,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            Archives
           </a>
         </li>
       
@@ -224,7 +224,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            标签
+            Tags
           </a>
         </li>
       
@@ -294,9 +294,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-14T16:27:44+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-14T16:27:44+08:00">
                 2017-03-14
               </time>
             
@@ -315,7 +315,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -355,11 +355,8 @@
 
       
         
-          
-            <h1>Java 8新特性</h1>
-<ul>
-<li>在语言方面:
-<ol>
+          <h1 id="Java-8新特性"><a href="#Java-8新特性" class="headerlink" title="Java 8新特性"></a>Java 8新特性</h1><ul>
+<li>在语言方面:<ol>
 <li>增加了lambda表达式代替以前的内部类</li>
 <li>接口可以有方法的默认实现与静态方法</li>
 <li>特殊的方法引用(Car::new,Car::collide)</li>
@@ -369,78 +366,13 @@
 <li>编译器:能够使用反射机制获取到类名</li>
 <li>类库:Optional,Stream,Base64,并行(parallel)数组</li>
 <li>新的命令行工具:jjs,jdeps
-&lt;!-- more --&gt;</li>
-</ul>
-<h2>Java 语言的新特性</h2>
-<h3>Lambda表达式</h3>
-<p>Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中），或者把代码看成数据。(Java使用的是匿名类的机制实现该功能)</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*参数e是通过编译器推断出来的*/</span></div><div class="line">Arrays.asList( <span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"d"</span> ).forEach( e -&gt; System.out.println( e ) );</div><div class="line"></div><div class="line">Arrays.asList( <span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"d"</span> ).forEach( e -&gt; &#123;</div><div class="line">    System.out.print( e );</div><div class="line">    System.out.print( e );</div><div class="line">&#125; );</div><div class="line"><span class="comment">/*也可以通过把参数类型与参数包括在括号中的形式直接给出参数的类型*/</span></div><div class="line">Arrays.asList( <span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"d"</span> ).forEach( ( String e ) -&gt; System.out.println( e ) );</div></pre></td></tr></table></figure></p>
-<p>Lambda可以引用类的成员变量与局部变量（如果这些变量不是final的话，它们会被隐含的转为final，这样效率更高）。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">String separator = <span class="string">","</span>;</div><div class="line">Arrays.asList( <span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"d"</span> ).forEach( </div><div class="line">    ( String e ) -&gt; System.out.print( e + separator ) );</div><div class="line"><span class="comment">/*等价于*/</span></div><div class="line"><span class="keyword">final</span> String separator = <span class="string">","</span>;</div><div class="line"><span class="comment">//...</span></div></pre></td></tr></table></figure></p>
-<p>Lambda可能会返回一个值。返回值的类型也是由编译器推测出来的。如果lambda的函数体只有一行的话，那么没有必要显式使用return语句。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Arrays.asList( <span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"d"</span> ).sort( ( e1, e2 ) -&gt; e1.compareTo( e2 ) );</div><div class="line"><span class="comment">//等价于</span></div><div class="line">Arrays.asList( <span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"d"</span> ).sort( ( e1, e2 ) -&gt; &#123;</div><div class="line">    <span class="keyword">int</span> result = e1.compareTo( e2 );</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125; );</div></pre></td></tr></table></figure></p>
-<p>语言设计者投入了大量精力来思考如何使现有的函数友好地支持lambda。最终采取的方法是：增加函数式接口的概念。函数式接口就是一个具有一个方法的普通接口。像这样的接口，可以被隐式转换为lambda表达式。java.lang.Runnable与java.util.concurrent.Callable是函数式接口最典型的两个例子。在实际使用过程中，函数式接口是容易出错的：如有某个人在接口定义中增加了另一个方法，这时，这个接口就不再是函数式的了，并且编译过程也会失败。为了克服函数式接口的这种脆弱性并且能够明确声明接口作为函数式接口的意图，Java8增加了一种特殊的注解@FunctionalInterface（Java 8中所有类库的已有接口都添加了@FunctionalInterface注解）。让我们看一下这种函数式接口的定义：</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*这使得默认方法与静态方法不影响函数式接口的契约*/</span></div><div class="line"><span class="meta">@FunctionalInterface</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Functional</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">defaultMethod</span><span class="params">()</span> </span>&#123;            </div><div class="line">    &#125;        </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3>接口的默认方法与静态方法</h3>
-<p>默认方法与抽象方法不同之处在于抽象方法必须要求实现，但是默认方法则没有这个要求。相反，每个接口都必须提供一个所谓的默认实现，这样所有的接口实现者将会默认继承它（如果有必要的话，可以覆盖这个默认实现）。
-可以在接口中声明静态默认方法</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">interface</span> <span class="title">Defaulable</span> </span>&#123;</div><div class="line">    <span class="comment">// Interfaces now allow default methods, the implementer may or </span></div><div class="line">    <span class="comment">// may not implement (override) them.</span></div><div class="line">    <span class="function"><span class="keyword">default</span> String <span class="title">notRequired</span><span class="params">()</span> </span>&#123; </div><div class="line">        <span class="keyword">return</span> <span class="string">"Default implementation"</span>; </div><div class="line">    &#125;        </div><div class="line">    <span class="comment">// Interfaces now allow static methods</span></div><div class="line">    <span class="function"><span class="keyword">static</span> Defaulable <span class="title">create</span><span class="params">( Supplier&lt; Defaulable &gt; supplier )</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> supplier.get();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3>方法引用</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Car <span class="title">create</span><span class="params">( <span class="keyword">final</span> Supplier&lt; Car &gt; supplier )</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> supplier.get();</div><div class="line">    &#125;              </div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">collide</span><span class="params">( <span class="keyword">final</span> Car car )</span> </span>&#123;</div><div class="line">        System.out.println( <span class="string">"Collided "</span> + car.toString() );</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">follow</span><span class="params">( <span class="keyword">final</span> Car another )</span> </span>&#123;</div><div class="line">        System.out.println( <span class="string">"Following the "</span> + another.toString() );</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">repair</span><span class="params">()</span> </span>&#123;   </div><div class="line">        System.out.println( <span class="string">"Repaired "</span> + <span class="keyword">this</span>.toString() );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*==========方法引用示例===========*/</span></div><div class="line"><span class="comment">//第一种方法引用是构造器引用，它的语法是Class::new，或者更一般的Class&lt; T &gt;::new。请注意构造器没有参数。</span></div><div class="line"><span class="keyword">final</span> Car car = Car.create( Car::<span class="keyword">new</span> );</div><div class="line"></div><div class="line"><span class="comment">//第二种方法引用是静态方法引用，它的语法是Class::static_method。请注意这个方法接受一个Car类型的参数。</span></div><div class="line">cars.forEach( Car::collide );</div><div class="line"></div><div class="line"><span class="comment">//第三种方法引用是特定类的任意对象的方法引用，它的语法是Class::method。请注意，这个方法没有参数。</span></div><div class="line">cars.forEach( Car::repair );</div><div class="line"></div><div class="line"><span class="comment">//第四种方法引用是特定对象的方法引用，它的语法是instance::method。请注意，这个方法接受一个Car类型的参数</span></div><div class="line"><span class="keyword">final</span> Car police = Car.create( Car::<span class="keyword">new</span> );</div><div class="line">cars.forEach( police::follow );</div></pre></td></tr></table></figure></p>
-<h3>重复注解</h3>
-<p>相同的注解可以在同一个地方声明多次。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.javacodegeeks.java8.repeatable.annotations;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Repeatable;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Target;</div><div class="line"><span class="comment">/*</span></div><div class="line">使用@Repeatable( Filters.class )注解的注解类Filter，Filters仅仅是Filter注解的数组，但Java编译器并不想让程序员意识到Filters的存在。这样，接口Filterable就拥有了两次Filter（并没有提到Filter）注解。</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RepeatingAnnotations</span> </span>&#123;</div><div class="line">    <span class="meta">@Target</span>( ElementType.TYPE )</div><div class="line">    <span class="meta">@Retention</span>( RetentionPolicy.RUNTIME )</div><div class="line">    <span class="keyword">public</span> <span class="meta">@interface</span> Filters &#123;</div><div class="line">        Filter[] value();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@Target</span>( ElementType.TYPE )</div><div class="line">    <span class="meta">@Retention</span>( RetentionPolicy.RUNTIME )</div><div class="line">    <span class="meta">@Repeatable</span>( Filters.class )</div><div class="line">    <span class="keyword">public</span> <span class="meta">@interface</span> Filter &#123;</div><div class="line">        <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    <span class="meta">@Filter</span>( <span class="string">"filter1"</span> )</div><div class="line">    <span class="meta">@Filter</span>( <span class="string">"filter2"</span> )</div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Filterable</span> </span>&#123;        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/*</span></div><div class="line">    反射相关的API提供了新的函数getAnnotationsByType()来返回重复注解的类型（请注意Filterable.class.getAnnotation( Filters.class )经编译器处理后将会返回Filters的实例）。</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>( Filter filter: Filterable.class.getAnnotationsByType( Filter.class ) ) &#123;</div><div class="line">            System.out.println( filter.value() );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3>更好的类型推测机制</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.javacodegeeks.java8.type.inference;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Value</span>&lt; <span class="title">T</span> &gt; </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span>&lt; T &gt; <span class="function">T <span class="title">defaultValue</span><span class="params">()</span> </span>&#123; </div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>; </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getOrDefault</span><span class="params">( T value, T defaultValue )</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> ( value != <span class="keyword">null</span> ) ? value : defaultValue;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*用法示例*/</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TypeInference</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> Value&lt; String &gt; value = <span class="keyword">new</span> Value&lt;&gt;();</div><div class="line">        <span class="comment">/*</span></div><div class="line">        Value.defaultValue()的参数类型可以被推测出，所以就不必明确给出。在Java 7中，相同的例子将不会通过编译，正确的书写方式是 Value.&lt; String &gt;defaultValue()。</div><div class="line">         */</div><div class="line">        value.getOrDefault( <span class="string">"22"</span>, Value.defaultValue() );</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3>扩展注解的支持</h3>
-<p>几乎可以为任何东西添加注解:局部变量、泛型类、父类与接口的实现,就连方法的异常也能添加注解。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.javacodegeeks.java8.annotations;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Target;</div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.Collection;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Annotations</span> </span>&#123;</div><div class="line">    <span class="meta">@Retention</span>( RetentionPolicy.RUNTIME )</div><div class="line">    <span class="meta">@Target</span>( &#123; ElementType.TYPE_USE, ElementType.TYPE_PARAMETER &#125; )</div><div class="line">    <span class="keyword">public</span> <span class="meta">@interface</span> NonEmpty &#123;        </div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Holder</span>&lt; @<span class="title">NonEmpty</span> <span class="title">T</span> &gt; <span class="keyword">extends</span> @<span class="title">NonEmpty</span> <span class="title">Object</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> <span class="keyword">throws</span> @NonEmpty Exception </span>&#123;           </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    <span class="meta">@SuppressWarnings</span>( <span class="string">"unused"</span> )</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> Holder&lt; String &gt; holder = <span class="keyword">new</span> <span class="meta">@NonEmpty</span> Holder&lt; String &gt;();       </div><div class="line">        <span class="meta">@NonEmpty</span> Collection&lt; <span class="meta">@NonEmpty</span> String &gt; strings = <span class="keyword">new</span> ArrayList&lt;&gt;();       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2>Java编译器的新特性</h2>
-<p>保存参数名字在字节码中,并且能够在运行时获取它们。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Parameter;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterNames</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Method method = ParameterNames.class.getMethod( <span class="string">"main"</span>, String[].class );</div><div class="line">        <span class="keyword">for</span>( <span class="keyword">final</span> Parameter parameter: method.getParameters() ) &#123;</div><div class="line">            System.out.println( <span class="string">"Parameter: "</span> + parameter.getName() );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2>Java类库的新特性</h2>
-<h3>Optional</h3>
-<p>Optional实际上是个容器：它可以保存类型T的值，或者仅仅保存null。Optional提供很多有用的方法，这样我们就不用显式进行空值检测。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">isPresent()//判断对象是否不为空</div><div class="line">orElseGet()//为空，则返回一个默认值(回调函数形式)</div><div class="line">orElse()//为空,返回一个默认值</div><div class="line"> */</div><div class="line">Optional&lt; String &gt; fullName = Optional.ofNullable( <span class="keyword">null</span> );</div><div class="line">System.out.println( <span class="string">"Full Name is set? "</span> + fullName.isPresent() );        </div><div class="line">System.out.println( <span class="string">"Full Name: "</span> + fullName.orElseGet( () -&gt; <span class="string">"[none]"</span> ) ); </div><div class="line">System.out.println( fullName.map( s -&gt; <span class="string">"Hey "</span> + s + <span class="string">"!"</span> ).orElse( <span class="string">"Hey Stranger!"</span> ) );</div><div class="line"></div><div class="line"><span class="comment">//Output:</span></div><div class="line"><span class="comment">//Full Name is set? false</span></div><div class="line"><span class="comment">//Full Name: [none]</span></div><div class="line"><span class="comment">//Hey Stranger!</span></div><div class="line"></div><div class="line">Optional&lt; String &gt; firstName = Optional.of( <span class="string">"Tom"</span> );</div><div class="line">System.out.println( <span class="string">"First Name is set? "</span> + firstName.isPresent() );        </div><div class="line">System.out.println( <span class="string">"First Name: "</span> + firstName.orElseGet( () -&gt; <span class="string">"[none]"</span> ) ); </div><div class="line">System.out.println( firstName.map( s -&gt; <span class="string">"Hey "</span> + s + <span class="string">"!"</span> ).orElse( <span class="string">"Hey Stranger!"</span> ) );</div><div class="line">System.out.println();</div><div class="line"></div><div class="line"><span class="comment">//Output:</span></div><div class="line"><span class="comment">//First Name is set? true</span></div><div class="line"><span class="comment">//First Name: Tom</span></div><div class="line"><span class="comment">//Hey Tom!</span></div></pre></td></tr></table></figure></p>
-<h3>Stream</h3>
-<p>Stream API极大简化了集合框架的处理(但它的处理范围不仅仅限于集合框架的处理)</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Streams</span>  </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">enum</span> Status &#123;</div><div class="line">        OPEN, CLOSED</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Task</span> </span>&#123;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Status status;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Integer points;</div><div class="line"></div><div class="line">        Task( <span class="keyword">final</span> Status status, <span class="keyword">final</span> Integer points ) &#123;</div><div class="line">            <span class="keyword">this</span>.status = status;</div><div class="line">            <span class="keyword">this</span>.points = points;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="function"><span class="keyword">public</span> Integer <span class="title">getPoints</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> points;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="function"><span class="keyword">public</span> Status <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> status;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> String.format( <span class="string">"[%s, %d]"</span>, status, points );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">final</span> Collection&lt; Task &gt; tasks = Arrays.asList(</div><div class="line">    <span class="keyword">new</span> Task( Status.OPEN, <span class="number">5</span> ),</div><div class="line">    <span class="keyword">new</span> Task( Status.OPEN, <span class="number">13</span> ),</div><div class="line">    <span class="keyword">new</span> Task( Status.CLOSED, <span class="number">8</span> ) </div><div class="line">);</div><div class="line"></div><div class="line"><span class="comment">// Calculate total points of all active tasks using sum()</span></div><div class="line"><span class="keyword">final</span> <span class="keyword">long</span> totalPointsOfOpenTasks = tasks</div><div class="line">    .stream()</div><div class="line">    .filter( task -&gt; task.getStatus() == Status.OPEN )</div><div class="line">    .mapToInt( Task::getPoints )</div><div class="line">    .sum();</div><div class="line">        </div><div class="line">System.out.println( <span class="string">"Total points: "</span> + totalPointsOfOpenTasks );</div><div class="line"><span class="comment">//Total points: 18</span></div></pre></td></tr></table></figure></p>
-<p>中间操作返回一个新的stream对象。中间操作总是采用惰性求值方式，运行一个像filter这样的中间操作实际上没有进行任何过滤，相反它在遍历元素时会产生了一个新的stream对象，这个新的stream对象包含原始stream中符合给定谓词的所有元素。
-最终操作像forEach、sum这样的最终操作可能直接遍历stream，产生一个结果或副作用。当最终操作执行结束之后，stream管道被认为已经被消耗了，没有可能再被使用了。在大多数情况下，最终操作都是采用及早求值方式，及早完成底层数据源的遍历。
-原生支持并行运算:</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Calculate total points of all tasks</span></div><div class="line"><span class="keyword">final</span> <span class="keyword">double</span> totalPoints = tasks</div><div class="line">   .stream()</div><div class="line">   .parallel()</div><div class="line">   .map( task -&gt; task.getPoints() ) <span class="comment">// or map( Task::getPoints ) </span></div><div class="line">   .reduce( <span class="number">0</span>, Integer::sum );</div><div class="line">    </div><div class="line">System.out.println( <span class="string">"Total points (all tasks): "</span> + totalPoints );</div><div class="line"><span class="comment">//Total points (all tasks): 26.0</span></div></pre></td></tr></table></figure></p>
-<p>流中显示改变数据类型</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Calculate the weight of each tasks (as percent of total points) </span></div><div class="line"><span class="keyword">final</span> Collection&lt; String &gt; result = tasks</div><div class="line">    .stream()                                        <span class="comment">// Stream&lt; String &gt;</span></div><div class="line">    .mapToInt( Task::getPoints )                     <span class="comment">// IntStream</span></div><div class="line">    .asLongStream()                                  <span class="comment">// LongStream</span></div><div class="line">    .mapToDouble( points -&gt; points / totalPoints )   <span class="comment">// DoubleStream</span></div><div class="line">    .boxed()                                         <span class="comment">// Stream&lt; Double &gt;</span></div><div class="line">    .mapToLong( weigth -&gt; ( <span class="keyword">long</span> )( weigth * <span class="number">100</span> ) ) <span class="comment">// LongStream</span></div><div class="line">    .mapToObj( percentage -&gt; percentage + <span class="string">"%"</span> )      <span class="comment">// Stream&lt; String&gt; </span></div><div class="line">    .collect( Collectors.toList() );                 <span class="comment">// List&lt; String &gt; </span></div><div class="line">        </div><div class="line">System.out.println( result );</div><div class="line"><span class="comment">//[19%,50%,30%]</span></div></pre></td></tr></table></figure></p>
-<p>Stream处理I/O流</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> Path path = <span class="keyword">new</span> File( <span class="string">"C:\\Users\\KINGBOOK\\Desktop\\list.txt"</span> ).toPath();</div><div class="line">        <span class="keyword">try</span>( Stream&lt; String &gt; lines = Files.lines( path, StandardCharsets.UTF_8 ) ) &#123;</div><div class="line">            <span class="comment">//调用Stream关闭方法的回调函数</span></div><div class="line">            lines.onClose( () -&gt; System.out.println(<span class="string">"Done!"</span>) ).forEach( System.out::println );</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
-<h3>Date/Time API(JSR 310)</h3>
-<p>新的java.time包涵盖了所有处理日期，时间，日期/时间，时区，时刻（instants），过程（during）与时钟（clock）的操作
-Clock类，它通过指定一个时区，然后就可以获取到当前的时刻，日期与时间。Clock可以替换System.currentTimeMillis()与TimeZone.getDefault()</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Get the system clock as UTC offset </span></div><div class="line"><span class="keyword">final</span> Clock clock = Clock.systemUTC();</div><div class="line">System.out.println( clock.instant() );</div><div class="line">System.out.println( clock.millis() );</div><div class="line"><span class="comment">//2016-12-26T06:13:09.953Z</span></div><div class="line"><span class="comment">//1482732790198</span></div></pre></td></tr></table></figure></p>
-<p>LocaleDate只持有ISO-8601格式且无时区信息的日期部分。相应的，LocaleTime只持有ISO-8601格式且无时区信息的时间部分。LocaleDate与LocalTime都可以从Clock中得到。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Get the local date and local time</span></div><div class="line"><span class="keyword">final</span> LocalDate date = LocalDate.now();</div><div class="line"><span class="keyword">final</span> LocalDate dateFromClock = LocalDate.now( clock );</div><div class="line">        </div><div class="line">System.out.println( date );</div><div class="line">System.out.println( dateFromClock );</div><div class="line">        </div><div class="line"><span class="comment">// Get the local date and local time</span></div><div class="line"><span class="keyword">final</span> LocalTime time = LocalTime.now();</div><div class="line"><span class="keyword">final</span> LocalTime timeFromClock = LocalTime.now( clock );</div><div class="line">        </div><div class="line">System.out.println( time );</div><div class="line">System.out.println( timeFromClock );</div><div class="line"><span class="comment">//2016-12-26</span></div><div class="line"><span class="comment">//2016-12-26</span></div><div class="line"><span class="comment">//14:16:31.692</span></div><div class="line"><span class="comment">//06:16:31.692</span></div></pre></td></tr></table></figure></p>
-<p>LocaleDateTime把LocaleDate与LocaleTime的功能合并起来，它持有的是ISO-8601格式无时区信息的日期与时间。
-ZoneDateTime持有ISO-8601格式具具有时区信息的日期与时间
-在秒与纳秒级别上的一段时间。Duration使计算两个日期间的不同变的十分简单。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Get duration between two dates</span></div><div class="line"><span class="keyword">final</span> LocalDateTime from = LocalDateTime.of( <span class="number">2014</span>, Month.APRIL, <span class="number">16</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span> );</div><div class="line"><span class="keyword">final</span> LocalDateTime to = LocalDateTime.of( <span class="number">2015</span>, Month.APRIL, <span class="number">16</span>, <span class="number">23</span>, <span class="number">59</span>, <span class="number">59</span> );</div><div class="line"></div><div class="line"><span class="keyword">final</span> Duration duration = Duration.between( from, to );</div><div class="line">System.out.println( <span class="string">"Duration in days: "</span> + duration.toDays() );</div><div class="line">System.out.println( <span class="string">"Duration in hours: "</span> + duration.toHours() );</div><div class="line"></div><div class="line"><span class="comment">//Duration in days: 365</span></div><div class="line"><span class="comment">//Duration in hours: 8783</span></div></pre></td></tr></table></figure></p>
-<h3>JavaScript引擎Nashorn</h3>
-<p>Nashorn就是javax.script.ScriptEngine的另一种实现，并且它们俩遵循相同的规则，允许Java与JavaScript相互调用。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ScriptEngineManager manager = <span class="keyword">new</span> ScriptEngineManager();</div><div class="line">ScriptEngine engine = manager.getEngineByName( <span class="string">"JavaScript"</span> );</div><div class="line">        </div><div class="line">System.out.println( engine.getClass().getName() );</div><div class="line">System.out.println( <span class="string">"Result:"</span> + engine.eval( <span class="string">"function f() &#123; return 1; &#125;; f() + 1;"</span> ) );</div><div class="line"><span class="comment">//jdk.nashorn.api.scripting.NashornScriptEngine</span></div><div class="line"><span class="comment">//Result: 2</span></div></pre></td></tr></table></figure></p>
-<h3>Base64</h3>
-<p>在Java 8中，Base64编码已经成为Java类库的标准。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.javacodegeeks.java8.base64;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</div><div class="line"><span class="keyword">import</span> java.util.Base64;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Base64s</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> String text = <span class="string">"Base64 finally in Java 8!"</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">final</span> String encoded = Base64</div><div class="line">            .getEncoder()</div><div class="line">            .encodeToString( text.getBytes( StandardCharsets.UTF_8 ) );</div><div class="line">        System.out.println( encoded );</div><div class="line">        </div><div class="line">        <span class="keyword">final</span> String decoded = <span class="keyword">new</span> String( </div><div class="line">            Base64.getDecoder().decode( encoded ),</div><div class="line">            StandardCharsets.UTF_8 );</div><div class="line">        System.out.println( decoded );</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//QmFzZTY0IGZpbmFsbHkgaW4gSmF2YSA4IQ==</span></div><div class="line"><span class="comment">//Base64 finally in Java 8!</span></div></pre></td></tr></table></figure></p>
-<h3>并行(parallel)数组</h3>
-<p>Java 8增加了大量的新方法来对数组进行并行处理。可以说，最重要的是parallelSort()方法，因为它可以在多核机器上极大提高数组排序的速度。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.javacodegeeks.java8.parallel.arrays;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.Arrays;</div><div class="line"><span class="keyword">import</span> java.util.concurrent.ThreadLocalRandom;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParallelArrays</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( String[] args )</span> </span>&#123;</div><div class="line">        <span class="keyword">long</span>[] arrayOfLong = <span class="keyword">new</span> <span class="keyword">long</span> [ <span class="number">20000</span> ];        </div><div class="line">        </div><div class="line">        Arrays.parallelSetAll( arrayOfLong, </div><div class="line">            index -&gt; ThreadLocalRandom.current().nextInt( <span class="number">1000000</span> ) );</div><div class="line">        Arrays.stream( arrayOfLong ).limit( <span class="number">10</span> ).forEach( </div><div class="line">            i -&gt; System.out.print( i + <span class="string">" "</span> ) );</div><div class="line">        System.out.println();</div><div class="line">        </div><div class="line">        Arrays.parallelSort( arrayOfLong );     </div><div class="line">        Arrays.stream( arrayOfLong ).limit( <span class="number">10</span> ).forEach( </div><div class="line">            i -&gt; System.out.print( i + <span class="string">" "</span> ) );</div><div class="line">        System.out.println();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//850472 159091 790811 602830 730454 845568 489915 193547 477322 65829 </span></div><div class="line"><span class="comment">//25 133 166 191 275 310 384 396 448 454</span></div></pre></td></tr></table></figure></p>
-<h2>新的命令行工具</h2>
-<h3>Nashorm引擎:jjs</h3>
-<p>jjs是个基于Nashorn引擎的命令行工具。它接受一些JavaScript源代码为参数，并且执行这些源代码。</p>
-<h3>类依赖分析器jdeps</h3>
-<p>jdeps是一个很有用的命令行工具。它可以显示Java类的包级别或类级别的依赖。它接受一个.class文件，一个目录，或者一个jar文件作为输入。jdeps默认把结果输出到系统输出（控制台）上。</p>
-<h2>参考链接:</h2>
-<p><a href="http://www.open-open.com/lib/view/open1403232177575.html" target="_blank" rel="external">Java8新特性</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/14/Java 8新特性/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -519,9 +451,9 @@ ZoneDateTime持有ISO-8601格式具具有时区信息的日期与时间
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-10T11:10:06+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-10T11:10:06+08:00">
                 2017-03-10
               </time>
             
@@ -540,7 +472,7 @@ ZoneDateTime持有ISO-8601格式具具有时区信息的日期与时间
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -580,83 +512,19 @@ ZoneDateTime持有ISO-8601格式具具有时区信息的日期与时间
 
       
         
-          
-            <h1>WebService学习</h1>
-<p>WebService(jax-ws)三要素</p>
+          <h1 id="WebService学习"><a href="#WebService学习" class="headerlink" title="WebService学习"></a>WebService学习</h1><p>WebService(jax-ws)三要素</p>
 <ul>
 <li>SOAP: 基于HTTP协议，采用XML格式，用来传递信息的格式。</li>
 <li>WSDL: 用来描述如何访问具体的服务。</li>
 <li>UDDI: 用户自己可以按UDDI标准搭建UDDI服务器，用来管理，分发，查询WebService 。其他用户可以自己注册发布WebService调用。</li>
 </ul>
-<p>&lt;!-- more --&gt;</p>
-<h2>SOAP(通讯协议)</h2>
-<p>Simple Object Accrss Protocol，简单对象访问协议是在分散或分布式的环境中交换信息的简单的协议，是一个基于XML的协议，它包括四个部分:
-1 SOAP封装(envelop)，封装定义了一个描述消息中的内容是什么，是谁发送的，谁应当接受并处理它，以及如何处理它们的框架;
-2 SOAP编码规则，用于表示应用程序需要使用的数据类型的实例。
-3 SOAP RPC 表示远程过程调用和应答的协定。
-4 SOAP绑定(binding)，使用底层协议交换信息。</p>
-<h3>请求的协议体</h3>
-<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">POST /weather HTTP/1.1</div><div class="line">Accept: text/xml, multipart/related</div><div class="line">Content-Type: text/xml; charset=utf-8</div><div class="line">SOAPAction: "http://weather.itheima.com/WeatherInterface/getWeatherByCityNameRequest"</div><div class="line">User-Agent: JAX-WS RI 2.2.4-b01</div><div class="line">Host: 127.0.0.1:54321</div><div class="line">Connection: keep-alive</div><div class="line">Content-Length: 235</div><div class="line">&lt;?xml version="1.0" ?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">S:Envelope</span> <span class="attr">xmlns:S</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">S:Body</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">ns2:getWeatherByCityName</span> <span class="attr">xmlns:ns2</span>=<span class="string">"http://weather.itheima.com"</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">cityName</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">cityName</span>&gt;</span></div><div class="line">             <span class="tag">&lt;/<span class="name">ns2:getWeatherByCityName</span>&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">S:Body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">S:Envelope</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<h3>响应的协议体</h3>
-<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Transfer-encoding: chunked</div><div class="line">Content-type: text/xml; charset=utf-8</div><div class="line">Date: Fri, 09 Oct 2015 07:23:29 GMT</div><div class="line">&lt;?xml version="1.0" ?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">S:Envelope</span> <span class="attr">xmlns:S</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">S:Body</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">ns2:getWeatherByCityNameResponse</span> <span class="attr">xmlns:ns2</span>=<span class="string">"http://weather.itheima.com"</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">WeatherInfo</span>&gt;</span>今天风很大<span class="tag">&lt;/<span class="name">WeatherInfo</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">ns2:getWeatherByCityNameResponse</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">S:Body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">S:Envelope</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<h2>WSDL</h2>
-<p>WSDL(Web Service Description Language)，是一个用来描述Web服务（Web Service）和说明如何与Web服务通信的XML语言。因为是基于XML的，所以WSDL既是机器可阅读的，又是人可阅读的，这将是一个很大的好处。</p>
-<p><img src="resources/images/WSDL%E6%A0%87%E7%AD%BE.png" alt="WebService学习"></p>
-<h3>WSDL阅读方法</h3>
-<p>是从下往上读。
-每个wsdl有且只有一个Service节点。
-1、先找Service节点
-2、Service节点中找port节点。每个port对应一个PortType。
-3、Port节点对应一binding节点。每个binding节点对应一个PortType
-4、PortType中有operation 节点就是服务的方法。
-5、operation 中有Input（参数）和output（返回值）
-6、Input（参数）和output（返回值）对应message节点
-7、Message对应element节点(定义在XSD中)。Element节点对应complexType节点描述了参数及返回值的数据类型。</p>
-<h3>使用注解规范</h3>
-<p>@WebService: 定义服务，在public class上边。
-targetNamespace:指定命名空间。
-name:portType的名称。
-portName:port的名称。
-serviceName:服务名称。
-@WebResult:定义返回值。
-name:返回结果值的名称。
-@WebParam:定义参数。
-name:指定参数的名称。
-@WebMethod
-exclude:排除指定的方法。</p>
-<h3>XSD</h3>
-<p>XML解决了数据表示的问题，但它没有定义一套标准的数据类型，更没有说怎么去扩展这套数据类型。例如，整形数到底代表什么？16位，32位，还是64位？这些细节对实现互操作性都是很重要的。W3C制定的XML Schema(XSD)就是专门解决这个问题的一套标准。它定义了一套标准的数据类型，并给出了一种语言来扩展这套数据类型。Web service平台就是用XSD来作为其数据类型系统的。</p>
-<h2>UUDI</h2>
-<p>UDDI 是一种目录服务，通过它，企业可注册并搜索 Web services。企业将自己提供的Web Service注册在UDDI，也可以使用别的企业在UDDI注册的web service服务，从而达到资源共享。</p>
-<p>UDDI旨在将全球的webservcie资源进行共享，促进全球经济合作。</p>
-<p>但是使用webservice并不是必须使用UDDI，因为用户通过WSDL知道了web service的地址，可以直接通过WSDL调用webservice。</p>
-<h2>使用实例</h2>
-<p>服务端:
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WeatherInterface</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getWeatherByCity</span><span class="params">(String city)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@WebService</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherInterfaceImpl</span> <span class="keyword">implements</span> <span class="title">WeatherInterface</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getWeatherByCity</span><span class="params">(String city)</span> </span>&#123;</div><div class="line">    String result = <span class="string">",天气寒冷"</span>;</div><div class="line">    <span class="keyword">return</span> city + result;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherServer</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">    Endpoint.publish(<span class="string">"http://localhost:12345/weather"</span>, <span class="keyword">new</span> WeatherInterfaceImpl());</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>服务端启动后进入客户端工程相应的目录下使用<code>wsimport -s . http://localhost:12345/weather?wsdl</code>生成代码
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherClient</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">    WeatherInterfaceImplService service = <span class="keyword">new</span> WeatherInterfaceImplService();</div><div class="line">    WeatherInterfaceImpl portType = service.getWeatherInterfaceImplPort();</div><div class="line">    String result = portType.getWeatherByCity(<span class="string">"北京"</span>);</div><div class="line">    System.out.println(result);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2>Apache CXF</h2>
-<p>Apache CXF是一个开源的Web Services框架:</p>
-<ul>
-<li>支持多种协议:SOAP1.1,1,2 XML/HTTP、RESTful 或者CORBA</li>
-<li>部署灵活:可以运行在Tomcat,Jboss,Jetty(内置),weblogic上面。</li>
-<li>可嵌入的Web服务组件：例如可以嵌入到Spring Framework和Geronimo中。</li>
-<li>高性能,最小的计算开销。</li>
-</ul>
-<h3>服务器端</h3>
-<p>实体类:
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Weather</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">int</span> minTemp;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">int</span> maxTemp;</div><div class="line">  <span class="keyword">private</span> String info;</div><div class="line">  <span class="keyword">private</span> Date date;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>服务接口与实现:
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@WebService</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WeatherInterface</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> List&lt;Weather&gt; <span class="title">getWeatherByCity</span><span class="params">(String city)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherInterfaceImpl</span> <span class="keyword">implements</span> <span class="title">WeatherInterface</span></span>&#123;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> List&lt;Weather&gt; <span class="title">getWeatherByCity</span><span class="params">(String city)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> getWeatherInfo(city);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">private</span> List&lt;Weather&gt; <span class="title">getWeatherInfo</span><span class="params">(String city)</span></span>&#123;</div><div class="line">    List&lt;Weather&gt; weathers = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    Calendar c = Calendar.getInstance();</div><div class="line">    Date d1 = c.getTime();</div><div class="line">    c.set(Calendar.DATE, c.get(Calendar.DATE) + <span class="number">1</span>);</div><div class="line">    Date d2 = c.getTime();</div><div class="line">    c.set(Calendar.DATE, c.get(Calendar.DATE) + <span class="number">2</span>);</div><div class="line">    Date d3 = c.getTime();</div><div class="line">    c.set(Calendar.DATE, c.get(Calendar.DATE) + <span class="number">3</span>);</div><div class="line">    </div><div class="line">    weathers.add(<span class="keyword">new</span> Weather(<span class="number">30</span>,<span class="number">20</span>,city+<span class="string">":今天很热"</span>,d1));</div><div class="line">    weathers.add(<span class="keyword">new</span> Weather(<span class="number">31</span>,<span class="number">21</span>,city+<span class="string">":今天很热"</span>,d2));</div><div class="line">    weathers.add(<span class="keyword">new</span> Weather(<span class="number">32</span>,<span class="number">22</span>,city+<span class="string">":今天很热"</span>,d3));</div><div class="line">    <span class="keyword">return</span> weathers;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>服务启动:
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeatherService</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">    <span class="comment">//创建JaxWsClientFactoryBean</span></div><div class="line">    JaxWsServerFactoryBean factoryBean = <span class="keyword">new</span> JaxWsServerFactoryBean();</div><div class="line">    <span class="comment">//设置SEI接口</span></div><div class="line">    factoryBean.setServiceClass(WeatherInterface.class);</div><div class="line">    <span class="comment">//设置SEI实现类对象</span></div><div class="line">    factoryBean.setServiceBean(<span class="keyword">new</span> WeatherInterfaceImpl());</div><div class="line">    <span class="comment">//设置服务发布地址</span></div><div class="line">    factoryBean.setAddress(<span class="string">"http://localhost:12345/weather"</span>);</div><div class="line">    <span class="comment">//发布服务</span></div><div class="line">    factoryBean.create();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3>客户端</h3>
-<p>先使用Apache CXF的<code>wsdl2java -d . http://localhost:12345/weather?wsdl</code>生成客户端代码:
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CXFClient</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">    <span class="comment">//创建一个JaxWsProxyFactoryBean</span></div><div class="line">    JaxWsProxyFactoryBean factoryBean = <span class="keyword">new</span> JaxWsProxyFactoryBean();</div><div class="line">    <span class="comment">//设置portType的class</span></div><div class="line">    factoryBean.setServiceClass(WeatherInterface.class);</div><div class="line">    <span class="comment">//设置地址</span></div><div class="line">    factoryBean.setAddress(<span class="string">"http://localhost:12345/weather?wsdl"</span>);</div><div class="line">    <span class="comment">//调用create方法生成portType对象</span></div><div class="line">    WeatherInterface portType = (WeatherInterface) factoryBean.create();</div><div class="line">    <span class="comment">//调用服务端方法</span></div><div class="line">    List&lt;Weather&gt; weathers = portType.getWeatherByCity(<span class="string">"北京"</span>);</div><div class="line">    <span class="keyword">for</span>(Weather w:weathers)&#123;</div><div class="line">      System.out.println(w);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2>参考链接</h2>
-<p><a href="http://www.cnblogs.com/yangang2013/p/5708917.html" target="_blank" rel="external">WebService基础学习</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/10/WebService学习/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -735,9 +603,9 @@ exclude:排除指定的方法。</p>
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-08T13:57:21+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T13:57:21+08:00">
                 2017-03-08
               </time>
             
@@ -756,7 +624,7 @@ exclude:排除指定的方法。</p>
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -796,9 +664,7 @@ exclude:排除指定的方法。</p>
 
       
         
-          
-            <h1>dojo DOM学习</h1>
-<p>dojo致力于提供简单、高效、跨浏览器的DOM操作。</p>
+          <h1 id="dojo-DOM学习"><a href="#dojo-DOM学习" class="headerlink" title="dojo DOM学习"></a>dojo DOM学习</h1><p>dojo致力于提供简单、高效、跨浏览器的DOM操作。</p>
 <ul>
 <li>dojo/dom 简单的id检索，判断是否为子元素</li>
 <li>dom-construct 创建、删除、移动节点</li>
@@ -809,29 +675,13 @@ exclude:排除指定的方法。</p>
 <li>dom-prop 元素属性相关操作</li>
 <li>dom-geometry 元素位置、大小信息等。</li>
 </ul>
-<p>&lt;!-- more --&gt;</p>
-<h2>dojo/dom</h2>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取Id为one的元素，不存在则返回空。</span></div><div class="line">dom.byId(<span class="string">"one"</span>);</div><div class="line"><span class="comment">//isDescendant(node,ancestor)判断是否为后代元素</span></div><div class="line"><span class="keyword">if</span>(dom.isDescendant(<span class="string">"bar"</span>, <span class="string">"foo"</span>))&#123; ... &#125;</div></pre></td></tr></table></figure></p>
-<h2>dojo/dom-construct</h2>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//refNode参考节点,pos:位置信息(after,before,last,first,only,replace)</span></div><div class="line">create(tag,attrs,refNode,pos)</div><div class="line"><span class="comment">//Example:</span></div><div class="line">domConstruct.create(<span class="string">"li"</span>, &#123;</div><div class="line">    <span class="attr">innerHTML</span>: <span class="string">"Seven"</span>,</div><div class="line">    <span class="attr">className</span>: <span class="string">"seven"</span>,</div><div class="line">    <span class="attr">style</span>: &#123;</div><div class="line">        <span class="attr">fontWeight</span>: <span class="string">"bold"</span></div><div class="line">    &#125;</div><div class="line">&#125;, three, <span class="string">"after"</span>);</div><div class="line"></div><div class="line"><span class="comment">//删除节点通过ID</span></div><div class="line">destroy(node)</div><div class="line"><span class="comment">//删除所有子节点通过ID</span></div><div class="line">empty(node)</div><div class="line"><span class="comment">//放置节点，通过ID或者新建节点</span></div><div class="line">place(node,refNode,position)</div><div class="line"><span class="comment">//Example:</span></div><div class="line">domConstruct.place(<span class="string">"&lt;li&gt;&lt;/li&gt;"</span>, <span class="string">"someUl"</span>, <span class="string">"first"</span>);</div><div class="line"></div><div class="line"><span class="comment">//实例化一个html片段，返回相应的DOM</span></div><div class="line">toDom(frag,doc)</div></pre></td></tr></table></figure></p>
-<h2>dojo/dom-attr</h2>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过节点ID或节点,获取属性</span></div><div class="line">get(node,name)</div><div class="line"><span class="comment">//从元素属性或者节点属性中获取值</span></div><div class="line">getNodeProp(node,name)</div><div class="line"><span class="comment">//判断元素是否有属性</span></div><div class="line">has(node,name)</div><div class="line"><span class="comment">//移除某个节点属性</span></div><div class="line">remove(node,name) </div><div class="line"><span class="comment">//设置一个属性到html元素中</span></div><div class="line">set(node,name,value)</div></pre></td></tr></table></figure></p>
-<h2>dojo/dom-class</h2>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加类名</span></div><div class="line">add(node,classStr)</div><div class="line"><span class="comment">//是否包含类名</span></div><div class="line">contains(node,classStr)</div><div class="line"><span class="comment">//移除类名</span></div><div class="line">remove(node,classStr) </div><div class="line"><span class="comment">//移除和替换类</span></div><div class="line">replace(node,addClassStr,removeClassStr) </div><div class="line"><span class="comment">//切换类,condition:true添加,false删除</span></div><div class="line">toggle(node,classStr,condition)</div></pre></td></tr></table></figure></p>
-<h2>dojo/dom-form</h2>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//序列化表单字段为一个js对象(一般的表单为字符串，多选框为列表)</span></div><div class="line">fieldToObject(inputNode)</div><div class="line"><span class="comment">//序列化为json字符串</span></div><div class="line">toJson(formNode,prettypPrint)</div><div class="line"><span class="comment">//序列化表单为一个对象</span></div><div class="line">toObject(formNode)</div><div class="line"><span class="comment">//返回用于查询的字符串</span></div><div class="line">toQuery(formNode)</div></pre></td></tr></table></figure></p>
-<h2>dojo/dom-prop</h2>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取html元素属性</span></div><div class="line">get(node,name)</div><div class="line"><span class="comment">//设置html元素属性</span></div><div class="line">set(node,name,value)</div></pre></td></tr></table></figure></p>
-<h2>dojo/dom-style</h2>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取样式值</span></div><div class="line">get(node,name)</div><div class="line"><span class="comment">//获取计算后的样式值</span></div><div class="line">getComputedStyle(node)</div><div class="line"><span class="comment">//设置样式值</span></div><div class="line">set(node,name,value) </div><div class="line"><span class="comment">//将样式值转换为像素值（IE中），其他返回一个数值。</span></div><div class="line">toPixelValue(node,value)</div></pre></td></tr></table></figure></p>
-<h2>dojo/dom-geometry</h2>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回&#123;x,y&#125;对象x,y是坐标</span></div><div class="line">docScroll(doc) </div><div class="line"><span class="comment">//返回&#123;w,h,x,y&#125;等信息</span></div><div class="line">position(node,includeScroll)</div><div class="line"><span class="comment">//修复左滚动值为负值(IE为正值)</span></div><div class="line">fixIeBiDiScrollLeft(scrollLeft,doc)</div><div class="line"><span class="comment">//判断当前语言环境是否左到右</span></div><div class="line">isBodyLtr(doc)</div></pre></td></tr></table></figure></p>
-<h2>dojo/domReady</h2>
-<p>延迟require()/define()回调直到完成DOM解析。</p>
-<p><a href="https://dojotoolkit.org/documentation/tutorials/1.10/dom_functions/index.html" target="_blank" rel="external">Dom函数</a>
-<a href="https://dojotoolkit.org/api/#1_10dojo_dom-geometry_boxModel" target="_blank" rel="external">DOM API</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/08/dojoDom学习/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -910,9 +760,9 @@ exclude:排除指定的方法。</p>
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-07T11:52:03+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-07T11:52:03+08:00">
                 2017-03-07
               </time>
             
@@ -931,7 +781,7 @@ exclude:排除指定的方法。</p>
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -971,54 +821,14 @@ exclude:排除指定的方法。</p>
 
       
         
-          
-            <h1>dojo起步</h1>
-<h2>简介</h2>
-<p>dojo是前端js的一个框架,支持js异步加载机制,对js的语句进行了优化，还提供打包工具可以优化JS代码，还提供了所有的UI组件，支持IE6以上的浏览器。dojo解决了企业级开发中大量加载JS导致的浏览器崩溃问题。
-&lt;!-- more --&gt;</p>
-<h2>Getting Started</h2>
-<h3>Hello Dojo</h3>
-<h4>模块的使用</h4>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Tutorial: Hello Dojo!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"greeting"</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- load Dojo --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 此处只是加载dojo的异步加载模块,包括require,define两个全局函数 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"</span></span></div><div class="line">            <span class="attr">data-dojo-config</span>=<span class="string">"async: true"</span>&gt;<span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="built_in">require</span>([</div><div class="line">            <span class="xml"><span class="comment">&lt;!-- dom操作相关的模块 --&gt;</span></span></div><div class="line">            'dojo/dom',</div><div class="line">            'dojo/dom-construct'</div><div class="line">            <span class="comment">&lt;!-- 异步加载模块，使用回调函数的机制 --&gt;</span></div><div class="line">        ], function (dom, domConstruct) &#123;</div><div class="line">            var greetingNode = dom.byId('greeting');</div><div class="line">            domConstruct.place('<span class="tag">&lt;<span class="name">em</span>&gt;</span> Dojo!<span class="tag">&lt;/<span class="name">em</span>&gt;</span>', greetingNode);</div><div class="line">        &#125;);</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<h4>模块的定义(参考路径是dojo的根目录)</h4>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">define([</div><div class="line">    <span class="string">'dojo/dom'</span></div><div class="line">], <span class="function"><span class="keyword">function</span>(<span class="params">dom</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> oldText = &#123;&#125;;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">setText</span>: <span class="function"><span class="keyword">function</span> (<span class="params">id, text</span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> node = dom.byId(id);</div><div class="line">            oldText[id] = node.innerHTML;</div><div class="line">            node.innerHTML = text;</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">        <span class="attr">restoreText</span>: <span class="function"><span class="keyword">function</span> (<span class="params">id</span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> node = dom.byId(id);</div><div class="line">            node.innerHTML = oldText[id];</div><div class="line">            <span class="keyword">delete</span> oldText[id];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h4>组合使用CDN模块与自定义模块</h4>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Tutorial: Hello Dojo!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"greeting"</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- configure Dojo --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="keyword">var</span> dojoConfig = &#123;</div><div class="line">            <span class="attr">async</span>: <span class="literal">true</span>,</div><div class="line">            <span class="comment">//配置自定义的路径</span></div><div class="line">            packages: [&#123;</div><div class="line">                <span class="attr">name</span>: <span class="string">"demo"</span>,</div><div class="line">                <span class="attr">location</span>: location.pathname.replace(<span class="regexp">/\/[^/]*$/</span>, <span class="string">''</span>) + <span class="string">'/demo'</span></div><div class="line">            &#125;]</div><div class="line">        &#125;;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- load Dojo --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="built_in">require</span>([</div><div class="line">            <span class="string">'demo/myModule'</span></div><div class="line">        ], <span class="function"><span class="keyword">function</span> (<span class="params">myModule</span>) </span>&#123;</div><div class="line">            myModule.setText(<span class="string">'greeting'</span>, <span class="string">'Hello Dojo!'</span>);</div><div class="line"></div><div class="line">            setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                myModule.restoreText(<span class="string">'greeting'</span>);</div><div class="line">            &#125;, <span class="number">3000</span>);</div><div class="line">        &#125;);</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<h4>等待DOM加载</h4>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([</div><div class="line">    <span class="string">'dojo/dom'</span>,</div><div class="line">    <span class="comment">//domReady为插件,通过模块标识符后带"!"来激活，</span></div><div class="line">    <span class="comment">//dom加载完毕才执行回调。</span></div><div class="line">    <span class="string">'dojo/domReady!'</span></div><div class="line">], <span class="function"><span class="keyword">function</span> (<span class="params">dom</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> greeting = dom.byId(<span class="string">'greeting'</span>);</div><div class="line">    greeting.innerHTML += <span class="string">' from Dojo!'</span>;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h3>使用dojoConfig配置dojo</h3>
-<p>dojoConfig相当于将配置发送到服务器上，服务器接收参数后定制模块。配置参数是在dojo/_base/config下。dojoConfig必须写在require前。
-dojoConfig两种配置方式:</p>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 一:使用全局变量dojoConfig --&gt;</span></div><div class="line"><span class="comment">&lt;!-- set Dojo configuration, load Dojo --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    dojoConfig= &#123;</div><div class="line">        <span class="attr">has</span>: &#123;</div><div class="line">            <span class="string">"dojo-firebug"</span>: <span class="literal">true</span></div><div class="line">        &#125;,</div><div class="line">        <span class="attr">parseOnLoad</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">foo</span>: <span class="string">"bar"</span>,</div><div class="line">        <span class="attr">async</span>: <span class="literal">true</span></div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="comment">// Require the registry, parser, Dialog, and wait for domReady</span></div><div class="line"><span class="built_in">require</span>([<span class="string">"dijit/registry"</span>, <span class="string">"dojo/parser"</span>, <span class="string">"dojo/json"</span>, <span class="string">"dojo/_base/config"</span>, <span class="string">"dijit/Dialog"</span>, <span class="string">"dojo/domReady!"</span>]</div><div class="line">, <span class="function"><span class="keyword">function</span>(<span class="params">registry, parser, JSON, config</span>) </span>&#123;</div><div class="line">    <span class="comment">// Explicitly parse the page</span></div><div class="line">    parser.parse();</div><div class="line">    <span class="comment">// Find the dialog</span></div><div class="line">    <span class="keyword">var</span> dialog = registry.byId(<span class="string">"dialog"</span>);</div><div class="line">    <span class="comment">// Set the content equal to what dojo.config is</span></div><div class="line">    dialog.set(<span class="string">"content"</span>, <span class="string">"&lt;pre&gt;"</span> + <span class="built_in">JSON</span>.stringify(config, <span class="literal">null</span>, <span class="string">"\t"</span>) + <span class="string">"```"</span>);</div><div class="line">    <span class="comment">// Show the dialog</span></div><div class="line">    dialog.show();</div><div class="line">&#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- and later in the page --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"dialog"</span> <span class="attr">data-dojo-type</span>=<span class="string">"dijit/Dialog"</span> <span class="attr">data-dojo-props</span>=<span class="string">"title: 'dojoConfig / dojo/_base/config'"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 二:写在script标签中 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"</span></span></div><div class="line">        <span class="attr">data-dojo-config</span>=<span class="string">"has:&#123;'dojo-firebug': true&#125;, parseOnLoad: false, foo: 'bar', async: 1"</span>&gt;<span class="undefined"></span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<h4>使用has()配置特性</h4>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"> has: &#123;</div><div class="line">            <span class="comment">//启用firebug lite,chrome中的firebug调试插件</span></div><div class="line">            <span class="string">"dojo-firebug"</span>: <span class="literal">true</span>,</div><div class="line">            <span class="string">"dojo-debug-messages"</span>: <span class="literal">true</span>,</div><div class="line">            <span class="string">"dojo-amd-factory-scan"</span>: <span class="literal">false</span></div><div class="line">        &#125;</div><div class="line"><span class="string">``</span><span class="string">` </span></div><div class="line"></div><div class="line">#### 加载配置</div><div class="line">`<span class="string">``</span>json</div><div class="line"><span class="comment">//配置异步加载的基本url</span></div><div class="line">baseUrl: <span class="string">"/js"</span>,</div><div class="line"><span class="comment">//配置包名和位置</span></div><div class="line">packages: [&#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">"myapp"</span>,</div><div class="line">        <span class="attr">location</span>: <span class="string">"/js/myapp"</span></div><div class="line">    &#125;],</div><div class="line"><span class="comment">//使用dojo代表dojo16</span></div><div class="line">map: &#123;</div><div class="line">        <span class="attr">dijit16</span>: &#123;</div><div class="line">            <span class="attr">dojo</span>: <span class="string">"dojo16"</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line"></div><div class="line"><span class="comment">//定制模块到不同的路径</span></div><div class="line">packages: [</div><div class="line">        <span class="string">"package1"</span>,</div><div class="line">        <span class="string">"package2"</span></div><div class="line">    ],</div><div class="line">    <span class="attr">paths</span>: &#123;</div><div class="line">        <span class="attr">package1</span>: <span class="string">"../lib/package1"</span>,</div><div class="line">        <span class="attr">package2</span>: <span class="string">"/js/package2"</span></div><div class="line">    &#125;</div><div class="line"><span class="comment">//等价于</span></div><div class="line"> packages: [</div><div class="line">        &#123; <span class="attr">name</span>: <span class="string">"package1"</span>, <span class="attr">location</span>: <span class="string">"../lib/package1"</span> &#125;,</div><div class="line">        &#123; <span class="attr">name</span>: <span class="string">"package2"</span>, <span class="attr">location</span>: <span class="string">"/js/package2"</span> &#125;</div><div class="line">    ],</div><div class="line"><span class="comment">//是否异步加载</span></div><div class="line"><span class="keyword">async</span>: <span class="literal">true</span>,</div><div class="line"><span class="comment">//dojo加载完毕就开始加载</span></div><div class="line">deps: [<span class="string">"dojo/parser"</span>],</div><div class="line"><span class="comment">//当文档和deps加载完毕后，使用dojo/parser模块进行解析</span></div><div class="line">parseOnLoad: <span class="literal">true</span>,</div><div class="line"><span class="comment">//deps中的加载完毕后执行</span></div><div class="line">callback: <span class="function"><span class="keyword">function</span>(<span class="params">parser</span>) </span>&#123;</div><div class="line">        <span class="comment">// Use the resources provided here</span></div><div class="line">    &#125;,</div><div class="line"><span class="comment">//发出模块请求后的等待时间</span></div><div class="line">waitSeconds: <span class="number">5</span>,</div><div class="line"><span class="comment">//不使用缓存策略</span></div><div class="line">cacheBust: <span class="literal">true</span></div></pre></td></tr></table></figure></p>
-<h4>其他的配置对象</h4>
-<p>其他模块中使用的配置对象,主要是dojox,dijit。</p>
-<ul>
-<li>Dijit Editor
-allowXdRichTextSave</li>
-<li>dojox GFX
-dojoxGfxSvgProxyFrameUrl, forceGfxRenderer, gfxRenderer</li>
-<li>dojox.html metrics
-fontSizeWatch</li>
-<li>dojox.io transports and plugins
-xipClientUrl, dojoCallbackUrl</li>
-<li>dojox.image
-preloadImages</li>
-<li>dojox.analytics plugins
-sendInterval, inTransitRetry, analyticsUrl, sendMethod, maxRequestSize, idleTime, watchMouseOver, sampleDelay, targetProps, windowConnects, urchin</li>
-<li>dojox.cometd
-cometdRoot</li>
-<li>dojox.form.FileUploader
-uploaderPath</li>
-<li>dojox.mobile
-mblApplyPageStyles, mblHideAddressBar, mblAlwaysHideAddressBar, mobileAnim, mblLoadCompatCssFiles</li>
-</ul>
-<h2>参考链接:</h2>
-<p><a href="https://dojotoolkit.org/documentation/tutorials/1.10/hello_dojo/index.html" target="_blank" rel="external">Hello Dojo!</a>
-<a href="https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/index.html" target="_blank" rel="external">Configuring Dojo</a></p>
-
-          
+          <h1 id="dojo起步"><a href="#dojo起步" class="headerlink" title="dojo起步"></a>dojo起步</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>dojo是前端js的一个框架,支持js异步加载机制,对js的语句进行了优化，还提供打包工具可以优化JS代码，还提供了所有的UI组件，支持IE6以上的浏览器。dojo解决了企业级开发中大量加载JS导致的浏览器崩溃问题。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/07/dojo起步/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1097,9 +907,9 @@ mblApplyPageStyles, mblHideAddressBar, mblAlwaysHideAddressBar, mobileAnim, mblL
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-25T22:24:53+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-25T22:24:53+08:00">
                 2017-02-25
               </time>
             
@@ -1118,7 +928,7 @@ mblApplyPageStyles, mblHideAddressBar, mblAlwaysHideAddressBar, mobileAnim, mblL
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1158,9 +968,7 @@ mblApplyPageStyles, mblHideAddressBar, mblAlwaysHideAddressBar, mobileAnim, mblL
 
       
         
-          
-            <h1>汽渡船舶防碰撞预警系统平台</h1>
-<p>汽渡船舶防碰撞预警系统平台功能:</p>
+          <h1 id="汽渡船舶防碰撞预警系统平台"><a href="#汽渡船舶防碰撞预警系统平台" class="headerlink" title="汽渡船舶防碰撞预警系统平台"></a>汽渡船舶防碰撞预警系统平台</h1><p>汽渡船舶防碰撞预警系统平台功能:</p>
 <ol>
 <li>页面动态显示船舶（包括在地图上显示船舶的位置，船舶的航行速度,点击定位能定位到船舶）</li>
 <li>提示碰撞警告（查表当将会出现的碰撞时间大于当前时间则生成提示信息，有的船能生成碰撞信息保存到数据库）</li>
@@ -1171,72 +979,14 @@ mblApplyPageStyles, mblHideAddressBar, mblAlwaysHideAddressBar, mobileAnim, mblL
 <li>具有用户操作日志，记录用户的每一个操作。</li>
 <li>具有权限管理，给不同的用户设置不同的权限。(也是通过用户关联爹角色形式。)</li>
 <li>能够扩展基本数据，便于系统的灵活扩展。</li>
-<li>对于地图的操作有:放大、缩小、测量、显示不同的底图（包括矢量图、影像图、黑暗图）
-使用到的框架和库:
-后台框架:Spring、Spring MVC、MyBatis
-前台框架:jQuery、Easy UI、arcgis for js 3.20、jWebAudio（音频库）、Cocurrent.Thread.js
-jQuery插件:ZeroModal(jQuery弹出层插件)、uploadPreview、ajaxFileUpload、jQuery.cookie
-数据库:Oracle
-&lt;!-- more --&gt;</li>
-</ol>
-<h2>值得注意的地方</h2>
-<h3>ArcGIS API for JS</h3>
-<p>ArcGIS中，地图由图层组成。GraphicLayer用于创建几何图形层，自定义的图形、绘制的图形都放置其上。ArcGISDynamicMapServiceLayer用于创建ArcGIS服务中得到的图层(背景图)。放置在GraphicLayer上的图形(Graphic)有两种元素构成，记号(Symbol),几何(Geometry)组成。
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 用到的ArcGIS API for JS</div><div class="line"> * ?:代表可选参数</div><div class="line"> */</div><div class="line"><span class="comment">/*map及其相关API*/</span></div><div class="line"><span class="comment">//"esri/map"</span></div><div class="line"><span class="keyword">var</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>(divId, options?);<span class="comment">//新建一个Map,divId为使用的html标签</span></div><div class="line">myMap.addLayer(layer,index?)<span class="comment">//添加图层</span></div><div class="line">myMap.setExtent(extent, fit?)<span class="comment">//设置地图的范围,定位也是通过这个API实现的</span></div><div class="line"><span class="comment">//"esri/SpatialReference"</span></div><div class="line"><span class="keyword">new</span> SpatialReference(wkid)<span class="comment">//定义一个空间参考,wkid是数字</span></div><div class="line"><span class="comment">//"esri/geometry/Extent"</span></div><div class="line"><span class="keyword">new</span> Extent(xmin, ymin, xmax, ymax, spatialReference)<span class="comment">//右上角与左下角的坐标,</span></div><div class="line"></div><div class="line"><span class="comment">/*layer及其相关API*/</span></div><div class="line"><span class="comment">//"esri/layers/GraphicsLayer"</span></div><div class="line"><span class="keyword">var</span> gLayer = <span class="keyword">new</span> GraphicsLayer(options?)<span class="comment">//新建图层,建立的是可在上面添加东西的图层</span></div><div class="line">gLayer.add(graphic)<span class="comment">//添加图形</span></div><div class="line">gLayer.remove(graphic)<span class="comment">//移除图形</span></div><div class="line"><span class="comment">//"esri/layers/ArcGISDynamicMapServiceLayer"</span></div><div class="line"><span class="keyword">new</span> ArcGISDynamicMapServiceLayer(url, options?)<span class="comment">//使用发布arcgis服务作为图层</span></div><div class="line"><span class="comment">//"esri/InfoTemplate"</span></div><div class="line"><span class="keyword">new</span> InfoTemplate(title, content)<span class="comment">//创建信息模板</span></div><div class="line"><span class="comment">//"esri/graphic"</span></div><div class="line"><span class="keyword">var</span> graphic = <span class="keyword">new</span> Graphic(geometry?, symbol?, attributes?, infoTemplate?)<span class="comment">//创建一个图形</span></div><div class="line">graphic.setInfoTemplate(infoTemplate);<span class="comment">//设置图形的信息模板</span></div><div class="line"><span class="comment">//"esri/symbols/SimpleLineSymbol"</span></div><div class="line"> <span class="comment">//创建一个记号</span></div><div class="line"> <span class="comment">//style，例esri.symbol.SimpleLineSymbol.STYLE_SOLID</span></div><div class="line"> <span class="comment">//color,例esri.Color("#00f2fa")</span></div><div class="line"><span class="keyword">var</span> sys = <span class="keyword">new</span> SimpleLineSymbol(style, color, width)</div><div class="line"><span class="comment">//创建一个多边形</span></div><div class="line"><span class="keyword">var</span> polylineJson = &#123;</div><div class="line">    <span class="string">"paths"</span> : [ [ [ obj.LON, obj.LAT ],</div><div class="line">            [ nextObj.LON, nextObj.LAT ] ] ],</div><div class="line">    <span class="string">"spatialReference"</span> : &#123;</div><div class="line">        <span class="string">"wkid"</span> : <span class="number">4326</span></div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//"esri/geometry/Polyline","esri/graphic"</span></div><div class="line"><span class="keyword">var</span> gLine = <span class="keyword">new</span> esri.Graphic(<span class="keyword">new</span> esri.geometry.Polyline(</div><div class="line">        polylineJson), sls);</div><div class="line"><span class="comment">//"esri/symbols/PictureMarkerSymbol"</span></div><div class="line"><span class="keyword">new</span> PictureMarkerSymbol(url, width, height)<span class="comment">//创建一个图片记号</span></div><div class="line"><span class="comment">//"esri/symbols/SimpleMarkerSymbol"</span></div><div class="line"><span class="keyword">new</span> SimpleMarkerSymbol(style, size, outline, color)<span class="comment">//简单标志记号</span></div><div class="line"></div><div class="line"><span class="comment">/*操作Map相关工具的API*/</span></div><div class="line"><span class="comment">//"esri/toolbars/draw"</span></div><div class="line"><span class="keyword">var</span> drawpoint = <span class="keyword">new</span> Draw(map, options?)<span class="comment">//生成一个用于画点的对象</span></div><div class="line">drawpoint.deactivate();<span class="comment">//使工具栏无效，并且重新激活导航栏。</span></div><div class="line">drawpoint.on(<span class="string">"draw-end"</span>, addToMapC);<span class="comment">//画图结束触发事件</span></div><div class="line"><span class="comment">//"esri/toolbars/navigation"</span></div><div class="line">navigationToolbar = <span class="keyword">new</span> Navigation(myMap);<span class="comment">//创建地图工具对象</span></div><div class="line">navigationToolbar.activate(Navigation.ZOOM_IN);<span class="comment">//放大</span></div><div class="line">navigationToolbar.activate(Navigation.ZOOM_OUT);<span class="comment">//缩小</span></div></pre></td></tr></table></figure></p>
-<h3>保存用户名和密码</h3>
-<p>使用前台jQuery.cookie读取cookie，后台添加cookie
-jQuery.cookie相关API</p>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//读取cookie,不存在返回null</span></div><div class="line">$.cookie(<span class="string">'the_cookie'</span>); </div><div class="line"><span class="comment">//删除cookie</span></div><div class="line">$.cookie(<span class="string">'the_cookie'</span>, <span class="literal">null</span>); </div><div class="line"><span class="comment">//创建一个cookie并设置 cookie的有效路径(在默认情况下，只有设置 cookie的网页才能读取该 cookie。如果想让一个页面读取另一个页面设 )： </span></div><div class="line">$.cookie(<span class="string">'the_cookie'</span>, <span class="string">'the_value'</span>, &#123; <span class="attr">expires</span>: <span class="number">7</span>, <span class="attr">path</span>: <span class="string">'/'</span> &#125;);</div></pre></td></tr></table></figure></p>
-<p>后台添加cookie</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加cookie</span></div><div class="line">response.addCookie(setCookies(<span class="string">"pwd"</span>, user.getUserpwd()));</div><div class="line"><span class="comment">//清除Cookie</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cleanCookie</span><span class="params">(HttpServletRequest req,HttpServletResponse res)</span></span>&#123;</div><div class="line">    Cookie[] cookies = req.getCookies();</div><div class="line">   </div><div class="line">    EmptyUtil eu = <span class="keyword">new</span> EmptyUtil();</div><div class="line">    <span class="keyword">for</span>(Cookie c : cookies)&#123;</div><div class="line">        <span class="keyword">if</span>((!eu.isFieldEmpty(c.getName())))&#123;</div><div class="line">            <span class="keyword">if</span>(c.getName().equals(<span class="string">"user"</span>)||c.getName().equals(<span class="string">"pwd"</span>)||c.getName().equals(<span class="string">"rememberUser"</span>)||c.getName().equals(<span class="string">"username"</span>))&#123;</div><div class="line">                c.setValue(<span class="keyword">null</span>);</div><div class="line">                c.setMaxAge(<span class="number">0</span>);<span class="comment">// 立即销毁cookie</span></div><div class="line">                c.setPath(<span class="string">"/"</span>);</div><div class="line">                res.addCookie(c);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3>防止用户重新登陆</h3>
-<p>__实现思路:__设置一个sessionMap管理所有的session,当用户登陆时，检测sessionMap中是否存在该session，如果不存在则添加session到sessionMap中。如果存在，则比较两次登陆的IP是否相同，如果相同则只刷新session，如果不同则删去老的session添加新的session。因为用户操作需要权限，权限又跟cookie挂钩，所以去掉了session的用户在下一次操作时就会发现被挤出。</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addSession</span><span class="params">(HttpSession session,String username)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(session!=<span class="keyword">null</span>)&#123;</div><div class="line">            <span class="comment">//防止重复登录，旧登录用户踢出</span></div><div class="line">            <span class="comment">//addSessionMap是保存了所有session的map</span></div><div class="line">            Set&lt;Map.Entry&lt;String, Object&gt;&gt; submap = appSessionMap.entrySet();</div><div class="line">            <span class="keyword">for</span>(Map.Entry&lt;String, Object&gt; emap: submap)&#123;</div><div class="line">                HttpSession subsession = (HttpSession) emap.getValue();</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    String names = subsession.getAttribute(<span class="string">"username"</span>).toString();</div><div class="line">                    <span class="keyword">if</span>(names!=<span class="keyword">null</span>&amp;&amp;names.equals(username))&#123;</div><div class="line">                        ApplicationContext applicationContext = SpringContextLoaderListener.getApplicationContext();</div><div class="line">                        IUserLogServices UserLogServices =  (IUserLogServices) applicationContext.getBean(<span class="string">"UserLogServices"</span>);</div><div class="line">                        sys_userinfo user = (sys_userinfo) session.getAttribute(<span class="string">"user"</span>);</div><div class="line">                        List&lt;sys_userlog&gt; sys_userlog = UserLogServices.getlastuserlog(user.getGuid());</div><div class="line">                        <span class="comment">//从日志中获取用户IP</span></div><div class="line">                        <span class="keyword">if</span>(sys_userlog!=<span class="keyword">null</span>&amp;&amp;sys_userlog.size()&gt;<span class="number">0</span>)&#123;</div><div class="line">                            String newIp = (String) session.getAttribute(<span class="string">"ip"</span>);</div><div class="line">                            String ip = sys_userlog.get(<span class="number">0</span>).getIpaddress();</div><div class="line">                            <span class="keyword">if</span>(!ip.equals(newIp))&#123;</div><div class="line">                                UserLogServices.setuserlog(ip, user,<span class="string">" 该账户在其他ip登录，当前操作用户已登出"</span>);</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                        appSessionMap.remove(emap.getKey());</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    &#125;</div><div class="line">                    </div><div class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">                    appSessionMap.remove(emap.getKey());</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        </div><div class="line">            <span class="comment">//首次登录</span></div><div class="line">            <span class="keyword">if</span>(appSessionMap.get(session.getId())==<span class="keyword">null</span>)&#123;</div><div class="line">                appSessionMap.put(session.getId(), session);</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                <span class="comment">//再次登录更新session</span></div><div class="line">                appSessionMap.remove(session.getId());</div><div class="line">                appSessionMap.put(session.getId(), session);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<h3>在select中使用select子句</h3>
-<p><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> (<span class="keyword">select</span> st1.shipname <span class="keyword">from</span> basic_ferryboatsmsg st1 <span class="keyword">where</span> st1.qdmmsi=t.mmsi) <span class="keyword">as</span> SHIPNAME,t.mmsi,t.lon,t.lat,t.cog,t.sog,t.timestr,</div><div class="line">            (<span class="keyword">select</span> st1.adistance <span class="keyword">from</span> ELEC_SHIPPOSITION st1 <span class="keyword">where</span> t.mmsi=st1.mmsi) <span class="keyword">as</span> ADISTANCE,</div><div class="line">            (<span class="keyword">select</span> st2.bdistance <span class="keyword">from</span> ELEC_SHIPPOSITION st2 <span class="keyword">where</span> t.mmsi=st2.mmsi) <span class="keyword">as</span> BDISTANCE </div><div class="line">            <span class="keyword">from</span> basic_fusionrealtime t <span class="keyword">where</span> t.mmsiorarpaid=mmsiorarpaid <span class="keyword">order</span> <span class="keyword">by</span> t.mmsi</div></pre></td></tr></table></figure></p>
-<h3>case when...then...else</h3>
-<p><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> t.guid,t.shipname,t.mmsi,t.sog,t.cog,t.lon,t.lat,</div><div class="line">            <span class="keyword">case</span> <span class="keyword">when</span> t.datatype=<span class="string">'F'</span> <span class="keyword">then</span> <span class="string">'是'</span></div><div class="line">            <span class="keyword">else</span> <span class="string">'否'</span> <span class="keyword">end</span>  <span class="keyword">as</span> datatype,t.mmsi <span class="keyword">as</span> loca</div><div class="line">        <span class="keyword">from</span> basic_fusionrealtime t <span class="keyword">where</span> t.mmsi <span class="keyword">not</span> <span class="keyword">in</span>(<span class="keyword">select</span> t2.qdmmsi <span class="keyword">from</span> basic_ferryboatsmsg t2) <span class="keyword">and</span> t.inrange=<span class="number">0</span> <span class="keyword">order</span> <span class="keyword">by</span> t.shipname</div></pre></td></tr></table></figure></p>
-<h3>MyBatis中List&lt;Map&lt;String,String&gt;&gt;参数</h3>
-<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"item"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">separator</span>=<span class="string">";"</span>&gt;</span></div><div class="line">    update table set is_ok=#&#123;item.is_ok&#125; where Admin_id=#&#123;item.Admin_id&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<h3>XML CDATA</h3>
-<p><code>&lt;![CDATA[]]&gt;</code>中的文本不会被解析,即可以自由的使用&gt;&lt;等字符。</p>
-<h3>屏蔽鼠标右键</h3>
-<p>通过绑定空事件屏蔽鼠标右键</p>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//屏蔽鼠标右键</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">disableMouseRigth</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    $(<span class="string">"body"</span>).bind(<span class="string">"contextmenu"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;);</div><div class="line">    $(<span class="string">"body"</span>).bind(<span class="string">"selectstart"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3>记录用户操作日志</h3>
-<p>思路:在Filter中根据uri来判断用户进行的操作(查询与uri对应的操作名称的表，可能一个uri对应多个操作)，将用户的的信息(包括用户的ip地址,浏览器类型，操作名，用户名，操作时间记录到日志表中。)</p>
-<p>Filter中可以这样写:
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 记录用户操作，是否有登陆的过滤器。</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request,ServletResponse response, FilterChain fc)</span></span></div><div class="line">            <span class="keyword">throws</span> IOException, ServletException &#123;</div><div class="line">        <span class="keyword">int</span> mark = <span class="number">0</span>;</div><div class="line">        HttpServletRequest req = (HttpServletRequest) request;</div><div class="line">        HttpServletResponse res = (HttpServletResponse)response;</div><div class="line">        HttpSession session = req.getSession();</div><div class="line">        </div><div class="line">        <span class="comment">//从系统session集合中验证是否存在</span></div><div class="line">        SessionMap smap = SessionMap.getMysessionMap();</div><div class="line">        HttpSession nowSession = smap.getSession(session.getId());</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(nowSession==<span class="keyword">null</span>)&#123;</div><div class="line">            mark = <span class="number">1</span>;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">//session中是否有用户</span></div><div class="line">            <span class="keyword">if</span>(session.getAttribute(<span class="string">"user"</span>)==<span class="keyword">null</span>)&#123;</div><div class="line">                mark = <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(mark==<span class="number">0</span>)&#123;</div><div class="line">            sys_userinfo user = (sys_userinfo) session.getAttribute(<span class="string">"user"</span>);</div><div class="line">            String uri = req.getRequestURI();</div><div class="line">            </div><div class="line">            ApplicationContext applicationContext = SpringContextLoaderListener.getApplicationContext();</div><div class="line">            IUserLogServices UserLogServices =  (IUserLogServices) applicationContext.getBean(<span class="string">"UserLogServices"</span>);</div><div class="line">            List&lt;Map&lt;String, Object&gt;&gt; logs = UserLogServices.getlogcontent(uri);</div><div class="line">            <span class="keyword">for</span>(Map&lt;String, Object&gt; log : logs)&#123;</div><div class="line">                String content = (String) log.get(<span class="string">"FUNCTIONLOG"</span>);</div><div class="line">                UserLogServices.setuserlog(req.getRemoteAddr(), user, content);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            fc.doFilter(req, res);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">//没有session中的用户信息跳转回登录页面</span></div><div class="line">            RequestDispatcher rd = request.getRequestDispatcher(<span class="string">"login.do?info=用户名或密码错误！"</span>);</div><div class="line">            rd.forward(request,response);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2>感觉不好的地方</h2>
-<h3>代码组织结构</h3>
-<ol>
-<li>所有js代码都写在jsp中</li>
-<li>script标签放在页面的开头（应该放在body闭合标签前），放在开头影响页面的加载</li>
-<li>内嵌大量css</li>
-</ol>
-<h3>频繁使用js插入元素</h3>
-<p>使用js动态生成元素引发重排重绘，大量使用造成性能严重下降。</p>
-<h3>冗余标签</h3>
-<ol>
-<li>使用表格标签布局造成许多冗余标签，影响文档阅读。</li>
-<li>使用一个表单记录菜单的开启关闭状态，我觉得使用一个类名来表示或者一个全局标志位即可。</li>
-</ol>
-<h3>iframe</h3>
-<ol>
-<li>页面引用别的页面的js使得代码结构变得混乱。</li>
-<li>每个页面都要重新插入库</li>
-</ol>
-<h3>多个定时器</h3>
-<p>使用多个不同时间(setInternal)的定时器，可能造成冲突，我认为应该将所有需要定时的内容写在一个定时器中。</p>
-<h3>命名不规范</h3>
-<ol>
-<li>在设置属性的函数名使用getXXX</li>
-<li>有的类用驼峰命名法，有的使用匈牙利命名法。</li>
-</ol>
-<h3>JS多线程</h3>
-<p>有的使用Concurrent.Thread.js，有的地方使用setTimeout,有的地方使用setInterval来编写js线程代码，使得结构混乱，代码容易发生冲突。</p>
-
-          
+<li>对于地图的操作有:放大、缩小、测量、显示不同的底图（包括矢量图、影像图、黑暗图）<br>使用到的框架和库:<br>后台框架:Spring、Spring MVC、MyBatis<br>前台框架:jQuery、Easy UI、arcgis for js 3.20、jWebAudio（音频库）、Cocurrent.Thread.js<br>jQuery插件:ZeroModal(jQuery弹出层插件)、uploadPreview、ajaxFileUpload、jQuery.cookie<br>数据库:Oracle
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/25/汽渡船舶防碰撞预警系统平台/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1315,9 +1065,9 @@ jQuery.cookie相关API</p>
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-14T16:41:22+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-14T16:41:22+08:00">
                 2017-02-14
               </time>
             
@@ -1336,7 +1086,7 @@ jQuery.cookie相关API</p>
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1376,9 +1126,7 @@ jQuery.cookie相关API</p>
 
       
         
-          
-            <h1>X市数据管理系统分析</h1>
-<p>X市数据管理系统功能:</p>
+          <h1 id="X市数据管理系统分析"><a href="#X市数据管理系统分析" class="headerlink" title="X市数据管理系统分析"></a>X市数据管理系统分析</h1><p>X市数据管理系统功能:</p>
 <ol>
 <li>对数据基本的操作，包括增、删、改、查</li>
 <li>以图表的方式展示数据</li>
@@ -1386,71 +1134,15 @@ jQuery.cookie相关API</p>
 <li>Excel导入导出</li>
 <li>具有地图模块显示二维地图，点击定位，根据导入的坐标定位到地图相应位置并显示与坐标相应的轮廓。</li>
 <li>基础数据管理，可以增加基础数据(比如:工程级别、类型、施工状态等)，便于系统扩展。</li>
-<li>用户权限管理，通过用户关联角色的方式管理用户的权限。
-后台:使用了Spring,Spring MVC框架,
-前台:jQuery,EasyUI,ArcGIS
-数据库:使用的数据库为Oracle,与数据库的交互使用的是Spring JPA的实现和Spring JDBCTemplate,</li>
+<li>用户权限管理，通过用户关联角色的方式管理用户的权限。<br>后台:使用了Spring,Spring MVC框架,<br>前台:jQuery,EasyUI,ArcGIS<br>数据库:使用的数据库为Oracle,与数据库的交互使用的是Spring JPA的实现和Spring JDBCTemplate,</li>
 </ol>
-<p>&lt;!-- more --&gt;</p>
-<h2>值得注意的地方</h2>
-<h3>Session保存常用对象</h3>
-<ul>
-<li>session对象不仅保存了用户对象还直接保存了用户名,用户名很常用,因此这种做法可以节省大量的时间</li>
-</ul>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">session.setAttribute(<span class="string">"user"</span>, user);</div><div class="line">session.setAttribute(<span class="string">"username"</span>, username);</div></pre></td></tr></table></figure></p>
-<h3>自定义标签用于权限控制</h3>
-<h4>最终目标</h4>
-<ul>
-<li>将每个用户划分到不同的角色，每个角色设置不同的权限，用以管理控制每个用户的权限</li>
-<li>角色管理图</li>
-</ul>
-<p><img src="resources/images/%E8%A7%92%E8%89%B2%E7%AE%A1%E7%90%86.png" alt="角色管理"></p>
-<ul>
-<li>用户管理图</li>
-</ul>
-<p><img src="resources/images/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86.png" alt="用户管理"></p>
-<ul>
-<li>不同用户登陆的效果图</li>
-</ul>
-<p><img src="resources/images/%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt="效果图"></p>
-<h4>实现思路</h4>
-<p>建立一个Resource表,表每一项都是用户可以操作的动作每一项都包含一个自定义的权限标签ID。建立一张Role表,Role与Resource是多对多的关系,建立一张User表,User与Role也是
-多对多关系。执行自定义标签，查询用户是否具有该标签的ID,使用JPA能够自动进行关联查询。因为EasyUI在节点关闭且该节点下没有子节点时，在展开时会向后台传递该节点ID以请求节点JSON数据,所以可以通过Resource表自关联实现数据的树形菜单。</p>
-<ul>
-<li>使用自定义标签来进行权限控制,有权限则显示相应标签否则不显示标签</li>
-<li>privilege.xltd</li>
-</ul>
-<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">taglib</span> <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/j2ee"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"</span></div><div class="line">    <span class="attr">version</span>=<span class="string">"2.0"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>privilege<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">display-name</span>&gt;</span>tecoa<span class="tag">&lt;/<span class="name">display-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tlib-version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">tlib-version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">short-name</span>&gt;</span>tecv<span class="tag">&lt;/<span class="name">short-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">uri</span>&gt;</span>dms<span class="tag">&lt;/<span class="name">uri</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tag</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span>如果有权限，则显示相应的标签<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>privilege<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tag-class</span>&gt;</span>TagUtil<span class="tag">&lt;/<span class="name">tag-class</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">body-content</span>&gt;</span>JSP<span class="tag">&lt;/<span class="name">body-content</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">description</span>&gt;</span>所需资源表的id属性值<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>id<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">            <span class="comment">&lt;!-- 属性是否必须，默认为false  --&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">required</span>&gt;</span>true<span class="tag">&lt;/<span class="name">required</span>&gt;</span></div><div class="line">            <span class="comment">&lt;!-- 是否可以在属性中使用表达式 --&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>false<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tag</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">taglib</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<ul>
-<li>标签类</li>
-</ul>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//置于Spring管理下</span></div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TagUtil</span> <span class="keyword">extends</span> <span class="title">TagSupport</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">3739263210672265762L</span>;</div><div class="line">    <span class="keyword">private</span> String id;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> flag = SKIP_BODY;</div><div class="line">    </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">doStartTag</span><span class="params">()</span> <span class="keyword">throws</span> JspException </span>&#123;</div><div class="line">        User user = (User) pageContext.getSession().getAttribute(<span class="string">"user"</span>);</div><div class="line">        <span class="comment">//对于没有登陆的用户或者没有权限的用户</span></div><div class="line">        <span class="keyword">if</span> (EmptyUtil.isObjEmpty(user) || EmptyUtil.isObjEmpty(user.getResourceCodes()) || user.getResourceCodes().isEmpty()) &#123;</div><div class="line">            flag = SKIP_BODY;<span class="comment">//跳过标签体</span></div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"admin"</span>.equals(user.getUsername())) &#123;</div><div class="line">            flag = EVAL_BODY_INCLUDE;<span class="comment">//输出标签体的内容</span></div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">//for(String code : user.getResourceCodes())&#123;</span></div><div class="line">                <span class="keyword">if</span>(user.getResourceCodes().contains(id))&#123;</div><div class="line">                    flag = EVAL_BODY_INCLUDE;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    flag = SKIP_BODY;</div><div class="line">                &#125;</div><div class="line">            <span class="comment">//&#125;</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> flag;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><img src="resources/images/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="自定义标签执行流程图"></p>
-<h3>基础数据类型扩展</h3>
-<p>一些基本的数据类型(比如图片格式、项目完成状态、项目等级)可能会随着用户的使用而修改，为了增加系统的扩展性，加入了基础数据类型管理这个功能。</p>
-<h4>实现思路</h4>
-<p>建立一张基础数据表,用一个字段(flag)标志不同的基础数据类型(海岛等级(island_grade)、图像数据类型(img_dataype)、所属海区(sea_area)),使用一个字段(value)表示显示的名称。对于可扩展的数据类型，从后台根据标志位(flag)查询出值后，放入前台的下拉框(combobox)中。</p>
-<h3>多级下拉框(combobox)</h3>
-<p>省下拉框选择后,市下拉框才有值,市下拉框选择后，县下拉框才有值。</p>
-<h4>实现思路</h4>
-<p>一级下拉框在页面初始化后，将类型传入后台获取该下拉框全部的值。由一级下拉框的选择事件触发ajax与后台交互,将一级下拉框选中的值的ID做为Pid(父类ID)、类型作为参数传入后台获取二级下拉框的所有项,多级下拉框与此同理。</p>
-<h3>一些不错的工具类</h3>
-<ul>
-<li>CreateUserByAndDate根据session中保存的用户名来自动的添加数据库中的创建人、创建时间、更新人、更新时间</li>
-<li>EmptyUtil判断对象是否为空</li>
-</ul>
-<h2>感觉不好的地方</h2>
-<ul>
-<li>混用中英文命名</li>
-<li>一些代码的组织不太好,比如Excel导入</li>
-</ul>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//将所有的导入逻辑都写在一个方法中造成了这个方法代码量巨大(达到了8000多行),造成了维护上的困难。我认为至少应该要将导入的逻辑分成散为其他的函数(即将if,else if 逻辑里面的代码块重构为一个方法)，以便于以后Excel导入的更新</span></div><div class="line"><span class="function"><span class="keyword">public</span> List&lt;Object&gt; <span class="title">excelImport</span><span class="params">(Class&lt;?&gt; clazz, InputStream in, String createBy)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="string">"dms.vo.sea.FunctionDivisions"</span>.equals(clazz.getName()))&#123;</div><div class="line">        <span class="comment">//...</span></div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"dms.vo.sea.OwnerProject"</span>.equals(clazz.getName()))&#123;</div><div class="line">        <span class="comment">//...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>修改官方的jar包。为了使用jotm管理分布式事务，但是spring-tx，4.2版本中已经废弃了jotm库。公司采取了将在jar包中加入jotm的java文件,使得jotm可以使用,这种方法为以后的开发、维护埋下了巨大的隐患。</li>
-<li>用户体验较差,比如:查询、登陆无法回车执行,查看一条记录不能双击执行</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/14/X市数据管理系统/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1529,9 +1221,9 @@ jQuery.cookie相关API</p>
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-31T23:13:31+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-31T23:13:31+08:00">
                 2016-12-31
               </time>
             
@@ -1568,16 +1260,15 @@ jQuery.cookie相关API</p>
 
       
         
-          
-            <h1>2016年终总结与未来展望</h1>
-<p>​	我是一名二本学校电子科学与技术的在校生，目前正在一家公司实习，岗位是Java开发。</p>
-<p>​	今年开学时，我知道大学所剩的时间不多了。我不想考研，因此找一份自己喜欢的工作就成了合理的选择，思来想去觉得自己只有编程还谈得上喜欢。本专业的嵌入式编程还要涉及硬件，对于硬件我实在是不拿手，不仅仅不擅长焊元器件，硬件故障也不知道该怎么判断，再加上国内嵌入式行业发展前景不够好，种种原因让我选择了软件的开发。开始时，我通过慕课网的视频以及一些网站的教程开始学习编程，不得不说通过视频这种被动的学习方式确实让人不会感到枯燥，一天学习七八个小时完全不疲劳。但是这种学习方式也使得我动手能力极度匮乏，而且这样的学习方式也让我养成了依赖和惰性。为了摆脱这种惰性，也为了牢固自己的基础，我开始了看起了书籍，十分感谢《JavaScript DOM编程艺术》、《Head First Servlet &amp; JSP》是这两本书让我知道了专业书籍可以很有趣味、厚的书籍不一定就晦涩难懂。看了一段时间的书籍之后，我觉的我不能在这样下去了，理论是学不完的而编程是一个需要实战的东西，我不能只是写Demo这样的程序，应该要进行些实战。于是我就开始尝试着写一个自己感兴趣的项目。不上手不知道一上手吓一跳，很多东西到实际操作的时候，根本就想不起来，只能再去查、再去看，碰到很多奇奇怪怪的问题，感到自己很无能、怀疑起自己的能力来。但幸运的是最后还是在自己的努力下完成了项目。感觉对这个软件就像自己的孩子一样，一方面对觉得它百般的不好，一方面又不允许别人否认它。</p>
-<p>&lt;!-- more --&gt;</p>
-<p>​	通过一年磕磕绊绊的学习，我发现了我不少的毛病。第一，有严重的拖延症，总是将重要的事情放在最后做。第二，不能很好的控制自己，早睡早起的目标现在都还没实现。第三，死脑筋，代码一出问题就不断的实验尝试，或者不断的去网上找答案，直到耗光自己的精力(我认为应该先分析，尝试自己解决。没成功后再去网上找答案，如果没找到答案，应该先放着去完成其他事，过一段时间后再回来尝试解决)。第四，缺少沟通，就连有名的github也是到最近才会使用。第五，没有正确对待bug，当我发现bug可以被绕过，就采取绕过的办法，没有认真的分析bug产生的原因。</p>
-<p>​	当然一年也有不少成功的事：1.成功的考下了驾照（虽然科二考了三次）。2.通过自己努力的自学成功的被公司录取软件开发实习生（虽然不是什么大公司，而且也是我面试失败八次后才被录取）。3.认识了一些圈内的大牛（虽然是我认识他们，他们不认识我）。4.对软件设计有了更细致的了解（虽然也不知道对不对）。5.了解了不少提高效率的软件，开发工具（工具太多反而用不过来）。6.变的爱看书了（虽然读的还是很慢）。总之，一年的时间我也有了不小的成长，无论是在技能上还是学习能力上。今年流行一句话，不忘初心、方的始终。现在，我的编程之路也算是开始了，我思考了下我的初心是对编程、软件的热爱，我希望我将来一个人能够写出完整的有创意的不那么大的小程序、小软件，对于大的工程上到架构下到细枝末节能够知道、理解。不希望自己成为一个见识短浅、害怕学习、只知道搬砖的程序猿。</p>
-<p>​	对于未来的展望，首先就是能够改变自己的态度、习惯。然后希望能够跟其他的人有更多的交流。对于技能方面，希望自己使用的技术栈能够对底层了解的更加深刻，同时希望自己能够有更广阔的视野。具体一点，阅读30本以上好书。github贡献总计超过200天。</p>
-
-          
+          <h1 id="2016年终总结与未来展望"><a href="#2016年终总结与未来展望" class="headerlink" title="2016年终总结与未来展望"></a>2016年终总结与未来展望</h1><p>​    我是一名二本学校电子科学与技术的在校生，目前正在一家公司实习，岗位是Java开发。</p>
+<p>​    今年开学时，我知道大学所剩的时间不多了。我不想考研，因此找一份自己喜欢的工作就成了合理的选择，思来想去觉得自己只有编程还谈得上喜欢。本专业的嵌入式编程还要涉及硬件，对于硬件我实在是不拿手，不仅仅不擅长焊元器件，硬件故障也不知道该怎么判断，再加上国内嵌入式行业发展前景不够好，种种原因让我选择了软件的开发。开始时，我通过慕课网的视频以及一些网站的教程开始学习编程，不得不说通过视频这种被动的学习方式确实让人不会感到枯燥，一天学习七八个小时完全不疲劳。但是这种学习方式也使得我动手能力极度匮乏，而且这样的学习方式也让我养成了依赖和惰性。为了摆脱这种惰性，也为了牢固自己的基础，我开始了看起了书籍，十分感谢《JavaScript DOM编程艺术》、《Head First Servlet &amp; JSP》是这两本书让我知道了专业书籍可以很有趣味、厚的书籍不一定就晦涩难懂。看了一段时间的书籍之后，我觉的我不能在这样下去了，理论是学不完的而编程是一个需要实战的东西，我不能只是写Demo这样的程序，应该要进行些实战。于是我就开始尝试着写一个自己感兴趣的项目。不上手不知道一上手吓一跳，很多东西到实际操作的时候，根本就想不起来，只能再去查、再去看，碰到很多奇奇怪怪的问题，感到自己很无能、怀疑起自己的能力来。但幸运的是最后还是在自己的努力下完成了项目。感觉对这个软件就像自己的孩子一样，一方面对觉得它百般的不好，一方面又不允许别人否认它。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/12/31/2016年终总结与未来展望/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1656,9 +1347,9 @@ jQuery.cookie相关API</p>
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-31T16:38:27+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-31T16:38:27+08:00">
                 2016-12-31
               </time>
             
@@ -1677,7 +1368,7 @@ jQuery.cookie相关API</p>
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1717,25 +1408,14 @@ jQuery.cookie相关API</p>
 
       
         
-          
-            <h1>未来世界的幸存者</h1>
-<p>这本书是由阮一峰在2016年写的一本开源书籍，不少的篇章都是以前的博文，经过整理、编排后而发布的书。书中有着大量作者对社会、职业和发展方向的思考，以下是对于我来说比较印象深刻、比较有启发的篇章所归纳而成。</p>
-<p>&lt;!-- more --&gt;</p>
-<h2>旧世界的崩塌</h2>
-<p>作者由AlaphaGo打败李世石事情、无人车的发明,引发思考，人工智能已经达到了很高的水准，随着社会进一步的发展，人工智能很可能代替现在的各种岗位，什么样的岗位是安全的、什么样的人是对社会有用的人？并且还看到随着技术的发展，人们能够在虚拟世界获得的满足越来越高，那么奋斗的意义何在？</p>
-<p>作者认为世界上没有安全的职业，作者以两个例子，苹果公司表示不支持flash动画而导致flash工程师这个职位消失。诺基亚的塞班系统败给智能手机导致,塞班系统工程师失业。由此得出世界没有安全的职业。</p>
-<p>作者认为即使终生学习，也不见得可以保证自己的竞争力，因为技术行业技术层出不穷，随着年龄的增长，很难向年轻人一样保持高度的热情与学习能力。等到技术跟不上时代时，就是被行业淘汰的时候了。因此呼吁我们提升:个性服务能力、人格魅力能力、创意能力、决策领导能力，注重底层知识(因为底层知识不容易变更,懂了底层知识更容易学习和使用新技术)。</p>
-<p>作者还提到上班和下班已经过时,根据研究表明不用到公司上班的工作效率，明显高于要到公司上班的工作效率，并且有一些公司开始实行了这种方案，也有一些长期接外包项目的人和公司达成了雇佣关系。之所以无法得到推行，是因为人具有惰性，没有合理的监督手段，员工可能无法按时无法完成工作。</p>
-<h2>人生的B计划</h2>
-<p>人生的B计划中提到人生应该要有应急的B计划。它与现在的工作不同，最好不是同一个行业，它比现在的工作要冒险，但是可以给你带来很高的热情，它应该是你现在就能着手准备的，等到出现突发变故的时候，它能够让你更快的适应这个变故（行业不景气等），重新融入这个社会。</p>
-<h2>Stay hungry, Stay foolish 的原义</h2>
-<p>文中提到乔布斯在斯坦福演将的一句话stay hungry,stay foolish并放上了乔布斯引用这句话的原照片，虽然文中作者没有提到这句话具体的意思，但是看到这张晨光洒在乡间小路上的照片我想我跟乔布斯的心情是一样的，充满着对未知冒险的激动澎湃的心情。</p>
-<p><img src="resources/images/%E7%85%A7%E7%89%87.jpg" alt="照片"></p>
-<h2>新方向</h2>
-<h3>个性也是一种竞争力</h3>
-<p>在这一节中以papi酱获得1200万风投为例子说明了在技术不断发展的当下，技术不断的消除差异，正因此人们也开始越来越重视个性。一个人若能够拥有的粉丝(支持者)数量，表现了他对社会、对市场的影响力，这也同样表现了他的个性受到的认可程度。当一个东西被大量承认价值，并且稀少时，那么自然就珍贵。</p>
-
-          
+          <h1 id="未来世界的幸存者"><a href="#未来世界的幸存者" class="headerlink" title="未来世界的幸存者"></a>未来世界的幸存者</h1><p>这本书是由阮一峰在2016年写的一本开源书籍，不少的篇章都是以前的博文，经过整理、编排后而发布的书。书中有着大量作者对社会、职业和发展方向的思考，以下是对于我来说比较印象深刻、比较有启发的篇章所归纳而成。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/12/31/未来世界的幸存者/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1814,7 +1494,7 @@ jQuery.cookie相关API</p>
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">日志</span>
+                <span class="site-state-item-name">posts</span>
               </a>
             </div>
           
@@ -1825,7 +1505,7 @@ jQuery.cookie相关API</p>
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
                 <span class="site-state-item-count">4</span>
-                <span class="site-state-item-name">分类</span>
+                <span class="site-state-item-name">categories</span>
               </a>
             </div>
           
@@ -1836,7 +1516,7 @@ jQuery.cookie相关API</p>
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
                 <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">标签</span>
+                <span class="site-state-item-name">tags</span>
               </a>
             </div>
           
@@ -1897,11 +1577,11 @@ jQuery.cookie相关API</p>
 
 
 <div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  主题 -
+  Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
