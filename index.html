@@ -257,6 +257,155 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/21/Oracle特殊点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/21/Oracle特殊点/" itemprop="url">
+                  Oracle特殊点总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-21T11:13:45+08:00">
+                2017-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Oracle特殊点"><a href="#Oracle特殊点" class="headerlink" title="Oracle特殊点"></a>Oracle特殊点</h1><h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><p>使用rownum进行分页查询<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 查询某个数量以下时</div><div class="line">select s.uuid,rownum from table_name s where rownum &lt; 22;</div><div class="line"># 分页查询</div><div class="line">select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN &gt; 0 and RN &lt;= 15;</div><div class="line">select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN between 1 and 15;</div><div class="line"># 如果需要配需，应该在嵌套一层排序爹子查询</div><div class="line">select * from</div><div class="line">   (select a.*,rownum row_num from</div><div class="line">      (select * from mytable t order by t.id desc) a</div><div class="line">   ) b </div><div class="line">where b.row_num between 1 and 10</div></pre></td></tr></table></figure></p>
+<h2 id="查询信息"><a href="#查询信息" class="headerlink" title="查询信息"></a>查询信息</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 查询所有表</div><div class="line">select table_name from user_tables;</div><div class="line"># 显示表的字段</div><div class="line">desc table_name;</div><div class="line"># 查看当前用户默认表空间</div><div class="line">select username,default_tablespace from user_users;</div></pre></td></tr></table></figure>
+<h2 id="创建自增序列"><a href="#创建自增序列" class="headerlink" title="创建自增序列"></a>创建自增序列</h2><p>创建一个测试表:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> userlogin</div><div class="line">(</div><div class="line">     <span class="keyword">id</span>   <span class="built_in">number</span>(<span class="number">6</span>) <span class="keyword">not</span> <span class="literal">null</span> primary <span class="keyword">key</span>,</div><div class="line"></div><div class="line">     <span class="keyword">name</span>   varchar2(<span class="number">30</span>)   <span class="keyword">not</span> <span class="literal">null</span>,</div><div class="line"></div><div class="line">);</div></pre></td></tr></table></figure>
+<p>创建一个sequence<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 创建一个sequence</div><div class="line">create sequence userlogin_seq increment by 1 start with 1 minvalue 1 maxvalue 9999999999999 nocache order;</div></pre></td></tr></table></figure></p>
+<p>创建一个触发器，用于在插入时自动追加序号<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">trigger</span> userlogin_trigger </div><div class="line"><span class="keyword">before</span> <span class="keyword">insert</span> <span class="keyword">on</span> userlogin</div><div class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span> </div><div class="line"><span class="keyword">begin</span> </div><div class="line">      <span class="keyword">select</span>   userlogin_seq.nextval   <span class="keyword">into</span>:new.id <span class="keyword">from</span> sys.dual ; </div><div class="line"><span class="keyword">end</span>;</div><div class="line"></div><div class="line">/</div></pre></td></tr></table></figure></p>
+<p>这样在插入时就能自动生成自增的主键</p>
+<h2 id="添加索引"><a href="#添加索引" class="headerlink" title="添加索引"></a>添加索引</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 添加索引，多个字段用,隔开</div><div class="line">CREATE INDEX index_name ON table_name(col1,col2);</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/17/随机抽查管理系统分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -414,163 +563,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/14/Java 8新特性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FWHeart">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avater.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="探险">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/14/Java 8新特性/" itemprop="url">
-                  Java 8新特性
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-14T16:27:44+08:00">
-                2017-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/后端/" itemprop="url" rel="index">
-                    <span itemprop="name">后端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Java-8新特性"><a href="#Java-8新特性" class="headerlink" title="Java 8新特性"></a>Java 8新特性</h1><ul>
-<li>在语言方面:<ol>
-<li>增加了lambda表达式代替以前的内部类</li>
-<li>接口可以有方法的默认实现与静态方法</li>
-<li>特殊的方法引用(Car::new,Car::collide)</li>
-<li>重复注解,扩展注解</li>
-</ol>
-</li>
-<li>编译器:能够使用反射机制获取到类名</li>
-<li>类库:Optional,Stream,Base64,并行(parallel)数组</li>
-<li>新的命令行工具:jjs,jdeps
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/14/Java 8新特性/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/10/WebService学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -678,163 +670,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/03/10/WebService学习/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/08/dojoDom学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FWHeart">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avater.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="探险">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/08/dojoDom学习/" itemprop="url">
-                  dojo DOM学习
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T13:57:21+08:00">
-                2017-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="dojo-DOM学习"><a href="#dojo-DOM学习" class="headerlink" title="dojo DOM学习"></a>dojo DOM学习</h1><p>dojo致力于提供简单、高效、跨浏览器的DOM操作。</p>
-<ul>
-<li>dojo/dom 简单的id检索，判断是否为子元素</li>
-<li>dom-construct 创建、删除、移动节点</li>
-<li>dom-attr 属性相关操作</li>
-<li>dom-class 类相关操作</li>
-<li>dom-form 表单相关操作</li>
-<li>dom-style 样式相关操作</li>
-<li>dom-prop 元素属性相关操作</li>
-<li>dom-geometry 元素位置、大小信息等。</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/08/dojoDom学习/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1650,7 +1485,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1661,7 +1496,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
