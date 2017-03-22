@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="Oracle特殊点分页查询使用rownum进行分页查询1234567891011# 查询某个数量以下时select s.uuid,rownum from table_name s where rownum &amp;lt; 22;# 分页查询select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN &amp;gt; 0 and RN">
+<meta name="description" content="Oracle特殊点记录了Oracle与其他数据库的一些不同之处，包括分页查询、信息查看、创建自增序列、添加索引等。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle特殊点总结">
 <meta property="og:url" content="http://yoursite.com/2017/03/21/Oracle特殊点/index.html">
 <meta property="og:site_name" content="探险">
-<meta property="og:description" content="Oracle特殊点分页查询使用rownum进行分页查询1234567891011# 查询某个数量以下时select s.uuid,rownum from table_name s where rownum &amp;lt; 22;# 分页查询select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN &amp;gt; 0 and RN">
-<meta property="og:updated_time" content="2017-03-21T05:59:12.756Z">
+<meta property="og:description" content="Oracle特殊点记录了Oracle与其他数据库的一些不同之处，包括分页查询、信息查看、创建自增序列、添加索引等。">
+<meta property="og:updated_time" content="2017-03-21T06:59:12.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle特殊点总结">
-<meta name="twitter:description" content="Oracle特殊点分页查询使用rownum进行分页查询1234567891011# 查询某个数量以下时select s.uuid,rownum from table_name s where rownum &amp;lt; 22;# 分页查询select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN &amp;gt; 0 and RN">
+<meta name="twitter:description" content="Oracle特殊点记录了Oracle与其他数据库的一些不同之处，包括分页查询、信息查看、创建自增序列、添加索引等。">
 
 
 
@@ -353,7 +353,8 @@
       
 
       
-        <h1 id="Oracle特殊点"><a href="#Oracle特殊点" class="headerlink" title="Oracle特殊点"></a>Oracle特殊点</h1><h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><p>使用rownum进行分页查询<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 查询某个数量以下时</div><div class="line">select s.uuid,rownum from table_name s where rownum &lt; 22;</div><div class="line"># 分页查询</div><div class="line">select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN &gt; 0 and RN &lt;= 15;</div><div class="line">select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN between 1 and 15;</div><div class="line"># 如果需要配需，应该在嵌套一层排序爹子查询</div><div class="line">select * from</div><div class="line">   (select a.*,rownum row_num from</div><div class="line">      (select * from mytable t order by t.id desc) a</div><div class="line">   ) b </div><div class="line">where b.row_num between 1 and 10</div></pre></td></tr></table></figure></p>
+        <h1 id="Oracle特殊点"><a href="#Oracle特殊点" class="headerlink" title="Oracle特殊点"></a>Oracle特殊点</h1><p>记录了Oracle与其他数据库的一些不同之处，包括分页查询、信息查看、创建自增序列、添加索引等。<br><a id="more"></a></p>
+<h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><p>使用rownum进行分页查询<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 查询某个数量以下时</div><div class="line">select s.uuid,rownum from table_name s where rownum &lt; 22;</div><div class="line"># 分页查询</div><div class="line">select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN &gt; 0 and RN &lt;= 15;</div><div class="line">select * from ( select  t.*, rownum RN from TABLE_NAME  t ) where RN between 1 and 15;</div><div class="line"># 如果需要配需，应该在嵌套一层排序爹子查询</div><div class="line">select * from</div><div class="line">   (select a.*,rownum row_num from</div><div class="line">      (select * from mytable t order by t.id desc) a</div><div class="line">   ) b </div><div class="line">where b.row_num between 1 and 10</div></pre></td></tr></table></figure></p>
 <h2 id="查询信息"><a href="#查询信息" class="headerlink" title="查询信息"></a>查询信息</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 查询所有表</div><div class="line">select table_name from user_tables;</div><div class="line"># 显示表的字段</div><div class="line">desc table_name;</div><div class="line"># 查看当前用户默认表空间</div><div class="line">select username,default_tablespace from user_users;</div></pre></td></tr></table></figure>
 <h2 id="创建自增序列"><a href="#创建自增序列" class="headerlink" title="创建自增序列"></a>创建自增序列</h2><p>创建一个测试表:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> userlogin</div><div class="line">(</div><div class="line">     <span class="keyword">id</span>   <span class="built_in">number</span>(<span class="number">6</span>) <span class="keyword">not</span> <span class="literal">null</span> primary <span class="keyword">key</span>,</div><div class="line"></div><div class="line">     <span class="keyword">name</span>   varchar2(<span class="number">30</span>)   <span class="keyword">not</span> <span class="literal">null</span>,</div><div class="line"></div><div class="line">);</div></pre></td></tr></table></figure>
@@ -411,6 +412,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/21/计算机程序的思维逻辑-基础知识/" rel="prev" title="计算机程序的思维逻辑-基础知识">
+                计算机程序的思维逻辑-基础知识 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -482,7 +487,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -493,7 +498,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -504,7 +509,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
