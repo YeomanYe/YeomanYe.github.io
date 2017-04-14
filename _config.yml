@@ -7,7 +7,7 @@ title: 探险
 subtitle:
 description:
 author: FWHeart
-language: zh-hk
+language: zh-Hans
 timezone:
 
 # URL
@@ -24,7 +24,7 @@ tag_dir: tags
 archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
-i18n_dir: 
+i18n_dir: :lang
 skip_render:
 
 # Writing
