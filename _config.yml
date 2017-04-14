@@ -7,7 +7,7 @@ title: 探险
 subtitle:
 description:
 author: FWHeart
-language:
+language: zh_CN
 timezone:
 
 # URL
@@ -69,5 +69,5 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/YeomanYe/YeomanYe.github.io.git
+  repo: git@github.com:YeomanYe/YeomanYe.github.io.git
   branch: master
