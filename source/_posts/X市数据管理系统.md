@@ -2,6 +2,7 @@ title: X市数据管理系统分析
 tags:
     - 系统分析
 comments: true
+date: 2017-2-27
 brief: X市数据管理系统分析
 categories:
     - 总结

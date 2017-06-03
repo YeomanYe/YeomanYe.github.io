@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------
 
 # Put your favicon.ico into `hexo-site/source/` directory.
-favicon: /favicon.ico
+favicon: /images/favicon.ico
 
 # Set default keywords (Use a comma to separate)
 keywords: "Hexo, NexT"
@@ -298,7 +298,7 @@ mathjax:
 #hypercomments_id:
 
 # Gentie productKey
-#gentie_productKey:
+gentie_productKey: fdc95a19e8304e2bac38ae0787dd4c14
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
@@ -518,7 +518,9 @@ vendors:
   # https://github.com/hustcc/canvas-nest.js
   canvas_nest:
 
-
+reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作！
+wechatpay: /images/wechat-reward-image.png
+alipay: /images/alipay-reward-image.png
 
 # Assets
 css: css
