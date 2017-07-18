@@ -13,7 +13,7 @@ categories:
 推荐些个人使用起来觉得不错的Chrome扩展。
 
 用户体验增强：
-HTML5 Outliner（目录链接）、OneTab（页面管理）、净网大师（广告拦截）、远方（动态主页）、The Great Suspender（中断网页节省内存）、Chromium Wheel Smooth Scroller（滑轮增强）、Chrome Mouse Gesture（鼠标手势）、Vimium（以快捷键操作网页）、chrono 下载管理器（下载增强）、一键管理所有扩展（插件管理增强）、Stylish（页面样式改变）、Imagus（图片预览）、Search All（搜索增强）、
+HTML5 Outliner（目录链接）、OneTab（页面管理）、净网大师（广告拦截）、远方（动态主页）、The Great Suspender（中断网页节省内存）、Chromium Wheel Smooth Scroller（滑轮增强）、Chrome Mouse Gesture（鼠标手势）、Vimium（以快捷键操作网页）、chrono 下载管理器（下载增强）、一键管理（插件管理增强）、Stylish（页面样式改变）、Imagus（图片预览）、Search All（搜索增强）、
 
 网站体验增强：
 Octotree（github浏览repository增强）、Octo Mate（github下载增强）、Awesome Autocomplete for GitHub（增强github搜索）、Avatars for Github（github用户头像显示）、Isometric Contributions（以三维形式显示github贡献度）、Wikiwand（增强wiki体验）、
@@ -29,8 +29,9 @@ IE Tab（内核切换）、Proxy SwitchOmega（代理切换）、划词翻译（
 ![Chrono资源嗅探器](resources/images/Chrono资源嗅探器.png)
 
 
-### [一键管理所有扩展](https://chrome.google.com/webstore/detail/%E4%B8%80%E9%94%AE%E7%AE%A1%E7%90%86%E6%89%80%E6%9C%89%E6%89%A9%E5%B1%95/niemebbfnfbjfojajlmnbiikmcpjkkja)
-方便的启用和禁用扩展。能够禁用所有扩展、恢复原来没有禁用的扩展
+### [一键管理](https://chrome.google.com/webstore/detail/%E4%B8%80%E9%94%AE%E7%AE%A1%E7%90%86/kfjmkgngkgpgjdoealkmmajmmhpnffoj/reviews)
+方便的启用、禁用、删除扩展。能够禁用所有扩展，还原状态，对于应为插件而导致网页出故障时是个比较好的排查手段。
+
 ### [HTML5 Outliner](https://chrome.google.com/webstore/detail/html5-outliner/afoibpobokebhgfnknfndkgemglggomo)
 一个通过提取标题来生成目录的插件
 

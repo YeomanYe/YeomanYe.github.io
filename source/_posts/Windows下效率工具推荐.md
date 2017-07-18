@@ -9,7 +9,7 @@ categories:
     - 软件
 ---
 # Windows下效率工具推荐
-推荐一些Windows下提供效率的工具，主要有cmder、Ditto、Listary、AutoHotkey的一些软件、Clover、有道词典。
+推荐一些Windows下提供效率的工具，主要有cmder（命令行增强）、Ditto（黏贴板增强）、Listary（快速启动）、AutoHotkey（一种脚本语言）的一些软件、Clover（资源管理器增强工具）、有道词典。
 
 <!-- more -->
 ## cmder
@@ -107,9 +107,10 @@ Appifyer也是一个快速启动的工具，不过它是通过给每个文件配
 
 它有一个超赞的小工具，屏幕取色Colorette。它使用一个十字架作为光标、使用一个小方块来显示当前的颜色，右击取色，颜色值使用6个十六进制放入剪贴板中。
 
-![官网](http://www.appifyer.com/)
+[官网](http://www.appifyer.com/)
 
 更多有意思的脚本:
+
 http://ahkcn.github.io/docs/scripts/index.htm
 http://www.donationcoder.com/Software/Skrommel/
 http://www.donationcoder.com/forum/index.php?topic=3461
