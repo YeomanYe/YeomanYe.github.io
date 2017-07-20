@@ -32,7 +32,7 @@ var obj = {
 //原型模式
 function Person(){}
 Person.prototype = {
-    constructor:Person,虽然这种方法使得每个实例都拥有独立的属性，但这种方法缺点是没有办法复用父类的方法，因为它虽然调用了父类的构造方法，却没有将SuperType.prototype加入到原型链中。
+    constructor:Person,
     name:”Tom”,
     sayName:function(){
         console.log(this.name);
