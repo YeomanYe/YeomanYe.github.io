@@ -10,7 +10,7 @@ categories:
     - 软件
 ---
 # Chrome扩展开发概述
-chrome扩展是指一种能够增强浏览器功能的小程序，它由html、css、js和一个描述文件manifest.json组成。浏览器的地址栏边上显示扩展图标。
+chrome扩展是指一种能够增强浏览器功能的小程序，它由html、css、js和一个描述文件manifest.json组成，在浏览器的地址栏边上显示扩展图标。本文主要简述扩展的组成部分、某些部分的细节、调试方法等
 
 <!-- more -->
 
