@@ -485,6 +485,7 @@ a::sayName();//def
 ```
 
 ## 对象的扩展
+### 简写
 ES6允许直接写入变量和函数，作为对象的属性和方法
 
 ```js
@@ -524,13 +525,7 @@ var obj = {
 };
 ```
 
-属性名可以采用表达式进行计算
-
-```js
-// 方法二
-obj['a' + 'bc'] = 123;
-```
-
+### 新增扩展
 Object.is(arg1,arg2) 比较两个数，一 +0不等于-0，二 NaN等于自身
 Object.assign(target,...sources) 将原对象的可枚举属性复制到目标对象
 Object.getOwnPropertyDescriptor(object,string)用于获取对象该属性的描述对象
@@ -579,17 +574,24 @@ Object.getOwnPropertyDescriptors(obj)
 //      configurable: true } }
 ```
 
-
 ### 扩展运算符
+用于解构赋值时，能够将对象的所有属性合并赋予最后的对象
+用于赋值时，会运算对象取出其中的值
+```js
+//用于解构赋值
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+x // 1
+y // 2
+z // { a: 3, b: 4 }
 
 
-归纳下会忽略enumerable为false的操作：
-- for…in循环：只遍历对象自身的和继承的可枚举的属性
-- Object.keys()：返回对象自身的所有可枚举的属性的键名
-- JSON.stringify()：只串行化对象自身的可枚举的属性
-- Object.assign():对象合并
-
-不忽略的操作:
-- Object.getOwnPropertyNames(obj)
-- Object.getOwnPropertySymbols(obj)
-- Reflect.ownKeys(obj)
+// 用于赋值，会抛出错误，因为x属性被执行了
+let runtimeError = {
+  ...a,
+  ...{
+    get x() {
+      throws new Error('thrown now');
+    }
+  }
+};
+```
