@@ -485,3 +485,111 @@ a::sayName();//def
 ```
 
 ## 对象的扩展
+ES6允许直接写入变量和函数，作为对象的属性和方法
+
+```js
+var foo = 'bar';
+var baz = {foo};
+baz // {foo: "bar"}
+
+// 等同于
+var baz = {foo: foo};
+```
+
+方法简写
+
+```js
+var o = {
+  method() {
+    return "Hello!";
+  }
+};
+
+// 等同于
+
+var o = {
+  method: function() {
+    return "Hello!";
+  }
+};
+```
+
+Generator方法简写
+
+```js
+var obj = {
+  * m(){
+    yield 'hello world';
+  }
+};
+```
+
+属性名可以采用表达式进行计算
+
+```js
+// 方法二
+obj['a' + 'bc'] = 123;
+```
+
+Object.is(arg1,arg2) 比较两个数，一 +0不等于-0，二 NaN等于自身
+Object.assign(target,...sources) 将原对象的可枚举属性复制到目标对象
+Object.getOwnPropertyDescriptor(object,string)用于获取对象该属性的描述对象
+
+```js
+let obj = { foo: 123 };
+Object.getOwnPropertyDescriptor(obj, 'foo')
+//  {
+//    value: 123,
+//    writable: true,
+//    enumerable: true,
+//    configurable: true
+//  }
+```
+
+__proto__属性（前后各两个下划线），用来读取或设置当前对象的prototype对象
+
+Object.setPrototypeOf()用来设置一个对象的prototype对象
+```js
+// 格式
+Object.setPrototypeOf(object, prototype)
+```
+
+Object.getPrototypeOf()用于读取一个对象的原型对象。
+```js
+Object.getPrototypeOf(obj);
+```
+
+Object.getOwnPropertyDescriptors()ES2017 引入方法，返回指定对象所有自身属性描述对象
+```js
+const obj = {
+  foo: 123,
+  get bar() { return 'abc' }
+};
+
+Object.getOwnPropertyDescriptors(obj)
+// { foo:
+//    { value: 123,
+//      writable: true,
+//      enumerable: true,
+//      configurable: true },
+//   bar:
+//    { get: [Function: bar],
+//      set: undefined,
+//      enumerable: true,
+//      configurable: true } }
+```
+
+
+### 扩展运算符
+
+
+归纳下会忽略enumerable为false的操作：
+- for…in循环：只遍历对象自身的和继承的可枚举的属性
+- Object.keys()：返回对象自身的所有可枚举的属性的键名
+- JSON.stringify()：只串行化对象自身的可枚举的属性
+- Object.assign():对象合并
+
+不忽略的操作:
+- Object.getOwnPropertyNames(obj)
+- Object.getOwnPropertySymbols(obj)
+- Reflect.ownKeys(obj)
