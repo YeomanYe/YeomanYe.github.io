@@ -473,3 +473,229 @@ Promise特点:
 1. 对象的状态不受外界影响。Promise对象代表一个异步操作，有三种状态：Pending（进行中）、Resolved（已完成，又称 Fulfilled）和Rejected（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态
 2. 一旦状态改变，就不会再变，任何时候都可以得到这个结果。
 
+用法
+```js
+//两个函数resolve和reject由JS引擎提供不用自己部署。
+var promise = new Promise(function(resolve, reject) {
+  // ... some code
+
+  if (/* 异步操作成功 */){
+    resolve(value);
+  } else {
+    reject(error);
+  }
+});
+
+//可以用then方法分别指定Resolved状态和Reject状态的回调函数。
+promise.then(function(value) {
+  // success
+}, function(error) {
+  // failure
+});
+```
+
+Promise.all方法用于将多个Promise实例，包装成一个新的Promise实例。
+```js
+var p = Promise.all([p1, p2, p3]);
+```
+
+Promise.race只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。
+```js
+var p = Promise.race([p1, p2, p3]);
+```
+
+Promise.resolve将现有对象转为Promise对象，Promise.resolve方法就起到这个作用。
+```js
+Promise.resolve('foo')
+// 等价于
+new Promise(resolve => resolve('foo'))
+```
+
+### 两个有用的方法
+
+done()Promise对象的回调链，不管以then方法或catch方法结尾，要是最后一个方法抛出错误，都有可能无法捕捉到（因为Promise内部的错误不会冒泡到全局）。因此，我们可以提供一个done方法，总是处于回调链的尾端，保证抛出任何可能出现的错误。
+```js
+Promise.prototype.done = function (onFulfilled, onRejected) {
+  this.then(onFulfilled, onRejected)
+    .catch(function (reason) {
+      // 抛出一个全局错误
+      setTimeout(() => { throw reason }, 0);
+    });
+};
+```
+
+finally方法用于指定不管Promise对象最后状态如何，都会执行的操作。它与done方法的最大区别，它接受一个普通的回调函数作为参数，该函数不管怎样都必须执行。
+```js
+Promise.prototype.finally = function (callback) {
+  let P = this.constructor;
+  return this.then(
+    value  => P.resolve(callback()).then(() => value),
+    reason => P.resolve(callback()).then(() => { throw reason })
+  );
+};
+```
+
+## Generator函数
+Generator 函数是一个状态机，封装了多个内部状态。执行 Generator 函数会返回一个遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
+
+### 基本使用
+每次执行函数，会从yield返回对应的值
+
+```js
+function* f() {
+  for(var i = 0; true; i++) {
+    var reset = yield i;
+    if(reset) { i = -1; }
+  }
+}
+
+var g = f();
+
+g.next() // { value: 0, done: false }
+g.next() // { value: 1, done: false }
+//next如果带参数，则yield会返回相应的参数
+g.next(true) // { value: 0, done: false }
+```
+
+### Generator.prototype.throw()
+Generator函数返回的遍历器对象，都有一个throw方法，可以在函数体外抛出错误，然后在Generator函数体内捕获。捕获后会顺带执行下一条yield，即执行一次next方法
+
+```js
+var g = function* () {
+  try {
+    yield;
+  } catch (e) {
+    console.log('内部捕获', e);
+  }
+};
+
+var i = g();
+i.next();
+
+try {
+  i.throw('a');
+  i.throw('b');
+} catch (e) {
+  console.log('外部捕获', e);
+}
+// 内部捕获 a
+// 外部捕获 b
+```
+
+一旦Generator执行过程中抛出错误，且没有被内部捕获，就不会再执行下去了。
+
+### Generator.prototype.return()
+return方法，可以返回给定的值，并且终结遍历Generator函数。如果Generator函数内部有try…finally代码块，那么return方法会推迟到finally代码块执行完再执行。
+
+```js
+function* numbers () {
+  yield 1;
+  try {
+    yield 2;
+    yield 3;
+  } finally {
+    yield 4;
+    yield 5;
+  }
+  yield 6;
+}
+var g = numbers()
+g.next() // { done: false, value: 1 }
+g.next() // { done: false, value: 2 }
+g.return(7) // { done: false, value: 4 }
+g.next() // { done: false, value: 5 }
+g.next() // { done: true, value: 7 }
+```
+
+### yield* 语句
+yield*语句，用来在一个 Generator 函数里面执行另一个 Generator 函数。yield后面的Generator函数（没有return语句时），不过是for…of的一种简写形式，完全可以用后者替代前者。
+
+
+```js
+function* foo() {
+  yield 'a';
+  yield 'b';
+}
+
+function* bar() {
+  yield 'x';
+  yield* foo();
+  yield 'y';
+}
+
+// 等同于
+function* bar() {
+  yield 'x';
+  for (let v of foo()) {
+    yield v;
+  }
+  yield 'y';
+}
+```
+
+任何数据结构只要有Iterator接口，就可以被yield*遍历。
+
+### 注意点
+Generator函数总是返回一个遍历器，ES6规定这个遍历器是Generator函数的实例，也继承了Generator函数的prototype对象上的方法。
+
+作为对象属性时generator的写法
+```js
+let obj = {
+  * myGeneratorMethod() {
+    ···
+  }
+};
+//等价于
+let obj = {
+  myGeneratorMethod: function* () {
+    // ···
+  }
+};
+```
+
+使得Generator能够使用this:
+```js
+function* F() {
+  this.a = 1;
+  yield this.b = 2;
+  yield this.c = 3;
+}
+var f = F.call(F.prototype);
+
+f.next();  // Object {value: 2, done: false}
+f.next();  // Object {value: 3, done: false}
+f.next();  // Object {value: undefined, done: true}
+
+f.a // 1
+f.b // 2
+f.c // 3
+```
+
+使得Generator能够使用new:
+```js
+function* gen() {
+  this.a = 1;
+  yield this.b = 2;
+  yield this.c = 3;
+}
+
+function F() {
+  return gen.call(gen.prototype);
+}
+
+var f = new F();
+
+f.next();  // Object {value: 2, done: false}
+f.next();  // Object {value: 3, done: false}
+f.next();  // Object {value: undefined, done: true}
+
+f.a // 1
+f.b // 2
+f.c // 3
+```
+
+Generator函数被称为“半协程”（semi-coroutine），意思是只有Generator函数的调用者，才能将程序的执行权还给Generator函数。
+
+除了for…of循环以外，扩展运算符（…）、解构赋值和Array.from方法内部调用的，都是遍历器接口。
+
+## async
