@@ -9,12 +9,16 @@ categories:
     - 前端
 ---
 # ES6特性归纳
-ES的全称是ECMAScript，它是JavaScript的规格，JS是ES的一种实现。ES还有JScript(IE中实际使用的是这种脚本语言)，ActionScript(Flash中使用的脚本语言)等实现形式。这篇文章主要是针对JS对ES的实现。
+ES的全称是ECMAScript，它是JavaScript的规格，JS是ES的一种实现。ES还有JScript(IE中实际使用的是这种脚本语言)，ActionScript(Flash中使用的脚本语言)等实现形式。本篇文章是对阮一峰-《ECMAScript 6入门》中JS新增特性的归纳。
 
 <!-- more -->
 
 ## let和const
 let只在块级作用域内有效，const声明的变量的值不能被改变
+
+for循环还有一个特别之处，就是循环语句部分是一个父作用域，而循环体内部是一个单独的子作用域。let在父作用域和子作用域互不影响。
+
+let与const都不允许重复声明。
 
 
 ## 变量的解构赋值
@@ -84,22 +88,6 @@ let obj = { first: 'hello', last: 'world' };
 let { first: f, last: l } = obj;
 f // 'hello'
 l // 'world'
-```
-
-对于let和const来说，变量不能重新声明，所以一旦赋值的变量以前声明过，就会报错。var可以
-
-```js
-let foo;
-let {foo} = {foo: 1}; // SyntaxError: Duplicate declaration "foo"
-
-let baz;
-let {bar: baz} = {bar: 1}; // SyntaxError: Duplicate declaration "baz"
-
-let foo;
-({foo} = {foo: 1}); // 成功
-
-let baz;
-({bar: baz} = {bar: 1}); // 成功
 ```
 
 嵌套解构的对象解构赋值
@@ -213,6 +201,8 @@ var a = {};
 Object.defineProperty(a, mySymbol, { value: 'Hello!' });
 ```
 
+### 获取Symbol属性
+
 通过Object.getOwnPropertySymbols方法获取指定对象的所有Symbol属性名。
 ```js
 var obj = {};
@@ -288,14 +278,6 @@ set.size//4
 ```
 
 Set中NaN可以等于自身
-```js
-let set = new Set();
-let a = NaN;
-let b = NaN;
-set.add(a);
-set.add(b);
-set // Set {NaN}
-```
 
 求交、并和差集
 ```js
@@ -363,14 +345,6 @@ var ws = new WeakSet(b);
 WeakSet不能遍历，是因为成员都是弱引用，随时可能消失，遍历机制无法保证成员的存在，很可能刚刚遍历结束，成员就取不到了。WeakSet的一个用处，是储存DOM节点，而不用担心这些节点从文档移除时，会引发内存泄漏。
 
 ### Map
-### 实例属性和方法
-size属性
-set(key,value)
-get(key)
-has(key)
-delete(key)
-clear() 清楚所有成员
-
 ### map与数组
 数组
 ```js
@@ -699,3 +673,295 @@ Generator函数被称为“半协程”（semi-coroutine），意思是只有Gen
 除了for…of循环以外，扩展运算符（…）、解构赋值和Array.from方法内部调用的，都是遍历器接口。
 
 ## async
+async 函数就是 Generator 函数的语法糖。async函数就是将 Generator 函数的星号（*）替换成async，将yield替换成await，仅此而已。
+
+```js
+//使用Generator函数实现异步
+var fs = require('fs');
+
+var readFile = function (fileName) {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(fileName, function(error, data) {
+      if (error) reject(error);
+      resolve(data);
+    });
+  });
+};
+
+var gen = function* () {
+  var f1 = yield readFile('/etc/fstab');
+  var f2 = yield readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
+};
+
+//使用async实现异步
+var asyncReadFile = async function () {
+  var f1 = await readFile('/etc/fstab');
+  var f2 = await readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
+};
+```
+
+async函数对 Generator 函数的改进，体现在以下四点。
+（1）内置执行器。
+（2）更好的语义。
+（3）更广的适用性。
+（4）返回值是 Promise。
+
+### 异步遍历的接口
+异步遍历器的最大的语法特点，就是调用遍历器的next方法，返回的是一个 Promise 对象。
+
+```js
+const asyncIterable = createAsyncIterable(['a', 'b']);
+const asyncIterator = asyncIterable[Symbol.asyncIterator]();
+
+asyncIterator
+.next()
+.then(iterResult1 => {
+  console.log(iterResult1); // { value: 'a', done: false }
+  return asyncIterator.next();
+})
+.then(iterResult2 => {
+  console.log(iterResult2); // { value: 'b', done: false }
+  return asyncIterator.next();
+})
+.then(iterResult3 => {
+  console.log(iterResult3); // { value: undefined, done: true }
+});
+```
+
+### for await…of
+for…of循环用于遍历同步的 Iterator 接口。新引入的for await…of循环，则是用于遍历异步的 Iterator 接口。
+
+```js
+async function f() {
+    //createAsyncIterable返回一个异步遍历器
+  for await (const x of createAsyncIterable(['a', 'b'])) {
+    console.log(x);
+  }
+}
+// a
+// b
+
+```
+
+## Class
+### 基本语法
+```js
+let methodName = "getArea";
+//定义类
+class Point {
+    //constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象。
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+//定义在类的prototype上
+  toString() {
+    return '(' + this.x + ', ' + this.y + ')';
+  }
+  //可以使用表达式
+  [methodName]() {
+    // ...
+  }
+  //定义在构造器上的方法
+  static myMethod(msg) {
+    console.log('static', msg);
+  }
+   //在实例属性前加上static关键字
+  static myStaticProp = 42;
+  //getter、setter方法
+  get prop() {
+    return 'getter';
+  }
+  set prop(value) {
+    console.log('setter: '+value);
+  }
+}
+```
+
+class定义的类不存在变量提升
+类和模块的内部，默认就是严格模式
+
+new.target返回new命令作用于的那个构造函数。如果构造函数不是通过new命令调用的，new.target会返回undefined
+
+### Class的继承
+子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。
+
+super虽然代表了父类的构造函数，但是返回的是子类的实例，即super内部的this指的是ColorPoint，因此super()在这里相当于Point.prototype.constructor.call(this)
+
+```js
+class ColorPoint extends Point {
+  constructor(x, y, color) {
+    super(x, y); // 调用父类的constructor(x, y)
+    this.color = color;
+  }
+
+  toString() {
+    return this.color + ' ' + super.toString(); // 调用父类的toString()
+  }
+}
+```
+
+### prototype和`__proto__`
+对象具有`__proto__`，函数同时拥有prototype和`__proto__`
+
+```js
+class A {
+}
+
+class B extends A {
+}
+
+B.__proto__ === A // true
+B.prototype.__proto__ === A.prototype // true
+```
+
+## 修饰器
+修饰器（Decorator）是一个函数，用来修改类的行为。这是ES7的一个提案，目前Babel转码器已经支持。
+
+修饰器本质就是编译时执行的函数。
+
+```js
+function testable(isTestable) {
+    //target指代目标类
+  return function(target) {
+    target.isTestable = isTestable;
+  }
+}
+
+@testable(true)
+class MyTestableClass {}
+MyTestableClass.isTestable // true
+
+@testable(false)
+class MyClass {}
+MyClass.isTestable // false
+```
+
+除了修饰类还能修饰类的成员，修饰函数时，参数为target：对象原型、name：类的某个成员名、descriptor：该成员的描述符。返回的描述符成为成员的修饰符。
+
+由于存在函数提升，使得修饰器不能用于函数。而类不会提升
+
+## Module语法
+### export
+ES6 模块不是对象，而是通过export命令显式指定输出的代码，再通过import命令输入。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载。
+
+ES6 的模块自动采用严格模式，不管你有没有在模块头部加上”use strict”。
+
+ES6 模块之中，顶层的this指向undefined，即不应该在顶层代码使用this。
+
+export
+```js
+// profile.js
+export var firstName = 'Michael';
+export var lastName = 'Jackson';
+export var year = 1958;
+
+//也可以写为
+var firstName = 'Michael';
+var lastName = 'Jackson';
+var year = 1958;
+
+export {firstName, lastName, year};
+
+export {
+  firstName as fN,
+  lastName as lN, 
+  year};
+
+export default function () {
+  console.log('foo');
+}
+
+// 错误
+export default var a = 1;
+// 正确
+export default 42;
+```
+
+export语句输出的接口，与其对应的值是动态绑定关系，即通过该接口，可以取到模块内部实时的值。
+
+### import
+```js
+//导入接口
+import {firstName, lastName, year} from './profile';
+//设置别名
+import { lastName as surname } from './profile';
+//需要有配置文件，告诉JS引擎该模块的位置
+import {myMethod} from 'util';
+//不导入任何值，只执行lodash模块代码
+import 'lodash';
+```
+
+import命令具有提升效果，会提升到整个模块的头部，首先执行。
+
+有一个提案，建议引入import()函数，完成动态加载。
+```js
+const main = document.querySelector('main');
+
+import(`./section-modules/${someVariable}.js`)
+  .then(module => {
+    module.loadPageInto(main);
+  })
+```
+
+### export与import混合写法
+```js
+export { foo, bar } from 'my_module';
+
+// 等同于
+import { foo, bar } from 'my_module';
+export { foo, bar };
+```
+
+## Module加载实现
+浏览器加载 ES6 模块，也使用`<script>`标签，但是要加入type=”module”属性。
+
+同一个模块如果加载多次，将只执行一次。
+
+
+## CommonJS 加载机制
+CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+CommonJS加载模块是阻塞式加载会暂停执行直到获取模块的值,循环引用时a调用b模块处在阻塞状态，b调用a模块只能返回其阻塞前的export值
+由于 ES6 输入的模块变量，只是一个“符号连接”，所以这个变量是只读的，对它进行重新赋值会报错。
+
+CommonJS 模块的输出缓存机制，在 ES6 加载方式下依然有效。
+```js
+// foo.js
+module.exports = 123;
+//导入的module.exports将一直是123，而不会变成null。
+setTimeout(_ => module.exports = null)
+```
+
+### ES6模块转码
+目前浏览器并不直接支持模块，可以使用ES6 module transpiler转为ES5代码，或者使用SystemJS调用模块
+
+ES6 module transpiler
+```shell
+# 首先，安装这个转码器。
+
+$ npm install -g es6-module-transpiler
+# 然后，使用compile-modules convert命令，将 ES6 模块文件转码。
+
+$ compile-modules convert file1.js file2.js
+# -o参数可以指定转码后的文件名。
+
+$ compile-modules convert -o out.js file1.js
+```
+
+SystemJS
+```html
+<script src="system.js"></script>
+<script>
+System.import('app/es6-file').then(function(m) {
+  console.log(new m.q().es6); // hello
+});
+</script>
+```
+
+参考文献：
+[ECMAScript 6 入门](http://es6.ruanyifeng.com/)
