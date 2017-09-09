@@ -61,7 +61,7 @@ getAvatarsForUsers = function( callback ) {
 unique = function( array ) {
     var temp = {};
     for( var i in array ) {
-        temp[ array[i] ] = {};
+        temp[ array[i] ] = null;
     }
     return Object.keys( temp );
 }
