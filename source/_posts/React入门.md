@@ -4,7 +4,7 @@ tags:
     - 前端框架
 comments: true
 brief: React入门概览
-date: 2017-06-24
+date: 2017-06-30
 categories:
     - 前端框架
 ---
@@ -146,7 +146,7 @@ const element = <Welcome name="Sara" />;
 
 组件之间可以像普通标签一样嵌套组合成新元素、新组件。
 
-style属性的设置不能写成:style="opacity:{this.state.opacity};",而要写成style={{opacity: this.state.opacity}}。因为React组件样式是一个对象，所以第一重大括号表示这是JS语法，第二重大括号表示样式对象。
+style属性的设置不能写成:style="opacity:&#123;this.state.opacity&#125;;",而要写成style=&#123;&#123;opacity: this.state.opacity&#125;&#125;。因为React组件样式是一个对象，所以第一重大括号表示这是JS语法，第二重大括号表示样式对象。
 
 ### props
 
