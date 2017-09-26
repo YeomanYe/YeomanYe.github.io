@@ -233,8 +233,8 @@ post_meta:
 # Dependencies: https://github.com/willin/hexo-wordcount
 post_wordcount:
   item_text: true
-  wordcount: false
-  min2read: false
+  wordcount: true
+  min2read: true
 
 # Wechat Subscriber
 #wechat_subscriber:
@@ -298,15 +298,15 @@ mathjax:
 #hypercomments_id:
 
 # Gentie productKey
-gentie_productKey: fdc95a19e8304e2bac38ae0787dd4c14
+# gentie_productKey: fdc95a19e8304e2bac38ae0787dd4c14
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
-#youyan_uid: your uid
+youyan_uid: 2145309
 
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-livere_uid: MTAyMC8zMTAwOC83NTU3
+# livere_uid: MTAyMC8zMTAwOC83NTU3
 
 # Baidu Share
 # Available value:
@@ -382,9 +382,9 @@ vkontakte_api:
 # Show number of visitors to each article.
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
-  enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  enable: true
+  app_id: kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz
+  app_key: VyTG1aT3BiWNfzrdaidJw6YY
 
 # Show PV/UV of the website/page with busuanzi.
 # Get more information on http://ibruce.info/2015/04/04/busuanzi/
@@ -434,13 +434,13 @@ calendar:
 
 # Algolia Search
 algolia_search:
-  enable: false
+  enable: true
   hits:
     per_page: 10
   labels:
-    input_placeholder: Search for Posts
-    hits_empty: "We didn't find any results for the search: ${query}"
-    hits_stats: "${hits} results found in ${time} ms"
+    input_placeholder: 请输入关键词
+    hits_empty: 找不到包含 ${query} 的文章"
+    hits_stats: "花了 ${time} ms，共找到 ${hits} 篇文章"
 
 
 # Local search
@@ -465,7 +465,7 @@ use_motion: true
 fancybox: true
 
 # Canvas-nest
-canvas_nest: false
+canvas_nest: true
 
 # Script Vendors.
 # Set a CDN address for the vendor you want to customize.

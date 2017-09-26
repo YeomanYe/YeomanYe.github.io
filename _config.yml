@@ -60,6 +60,20 @@ time_format: HH:mm:ss
 per_page: 10
 pagination_dir: page
 
+algolia:
+  applicationID: "K3DXI1HKAL"
+  apiKey: "fcb6de21639aafce41d1b38f76b8d2d2"
+  adminApiKey: "b5f3069f99e3cbb433985af1a657e5b4"
+  indexName: "YeomanYe_Blog"
+  chunkSize: 5000
+
+feed:
+  type: rss
+  path: rss.xml
+  limit: 5
+  hub:
+  content: 'true'
+
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/

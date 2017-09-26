@@ -9,9 +9,33 @@ categories:
     - 前端框架
 ---
 # Vue2入门
-本文介绍Vue的相关概念，使用方式。目的是使读者对React有一个大致的了解，以便于能够更加深入的学习、快速上手Vue。学习Vue应该掌握好几个概念，Vue实例(响应式数据、计算属性、方法)、数据绑定的几种方式(绑定到属性(class与style绑定、表单输入绑定、事件绑定(修饰符))、绑定到内容、双向绑定)、模板语法(插值、指令(条件渲染、列表渲染))、组件(组件注册、组件通信、动态组件、分发内容)
+本文介绍Vue的相关概念，使用方式。目的是使读者对React有一个大致的了解，以便于能够更加深入的学习、快速上手Vue。学习Vue应该掌握好几个概念，Vue实例、数据绑定、模板语法、组件。
 
 <!-- more -->
+
+- Vue实例
+    - 响应式数据
+    - 计算属性
+    - 方法
+    - 生命周期
+- 数据绑定
+    - 绑定到属性
+        - class与style绑定
+        - 表单输入绑定
+        - 事件绑定
+    - 绑定到内容
+    - 双向绑定
+- 模板语法
+    - 插值
+    - 指令
+        - 缩写
+        - 条件渲染
+        - 列表渲染
+- 组件
+    - 组件注册
+    - 组件通信
+    - 动态组件
+    - 分发内容
 
 ## Vue实例
 每个 Vue 应用都是通过 Vue 函数创建一个新的 Vue 实例开始的
@@ -38,6 +62,8 @@ vm.$watch('a', function (newValue, oldValue) {
 
 不要在选项属性或回调上使用箭头函数，比如 created: () => console.log(this.a) 或 vm.$watch('a', newValue => this.myMethod())。因为箭头函数是和父级上下文绑定在一起的，this 不会是如你做预期的 Vue 实例，且 this.a 或 this.myMethod 也会是未定义的。
 
+### 响应式数据
+
 响应式属性添加
 ```js
 var vm = new Vue({
@@ -59,7 +85,265 @@ this.userProfile = Object.assign({}, this.userProfile, {
 
 ```
 
+#### 被观察属性
+使用watch当属性变动时，进行更新
+
+```html
+<div id="demo">{{ fullName }}</div>
+```
+
+```js
+// 每当firstName和lastName发生变化就进行更新
+var vm = new Vue({
+  el: '#demo',
+  data: {
+    firstName: 'Foo',
+    lastName: 'Bar',
+    fullName: 'Foo Bar'
+  },
+  watch: {
+    firstName: function (val) {
+      this.fullName = val + ' ' + this.lastName
+    },
+    lastName: function (val) {
+      this.fullName = this.firstName + ' ' + val
+    }
+  }
+})
+```
+
+
+### 计算属性
+当计算属性依赖的属性发生改变时才会自动更新，基于依赖进行缓存。
+
+```html
+<div id="example">
+  <p>Original message: "{{ message }}"</p>
+  <p>Computed reversed message: "{{ reversedMessage }}"</p>
+</div>
+```
+
+```js
+var vm = new Vue({
+  el: '#example',
+  data: {
+    message: 'Hello'
+  },
+  computed: {
+    // 计算属性默认只有getter方法
+    reversedMessage: function () {
+      // `this` points to the vm instance
+      return this.message.split('').reverse().join('')
+    },
+    fullName: {
+        // getter
+        get: function () {
+          return this.firstName + ' ' + this.lastName
+        },
+        // setter
+        set: function (newValue) {
+          var names = newValue.split(' ')
+          this.firstName = names[0]
+          this.lastName = names[names.length - 1]
+        }
+    }
+  }
+})
+```
+
+### 方法
+方法没有缓存，每次访问都进行计算
+```html
+<p>Reversed message: "{{ reversedMessage() }}"</p>
+```
+
+```js
+// in component
+methods: {
+  reversedMessage: function () {
+    return this.message.split('').reverse().join('')
+  }
+}
+```
+
+### 生命周期
+生命周期图示
+
 ![生命周期](lifecycle.png)
+
+## 数据绑定
+### 绑定到属性
+#### Class与Style绑定
+##### 对象绑定class
+active、'text-danger':hasError表示当hasError为真时则启用对应名称的class
+```html
+<div class="static"
+     v-bind:class="{ active: isActive, 'text-danger': hasError }">
+</div>
+```
+
+```js
+data: {
+  isActive: true,
+  hasError: false
+}
+```
+
+使用对象进行绑定
+```html
+<div v-bind:class="classObject"></div>
+```
+
+```js
+data: {
+  classObject: {
+    active: true,
+    'text-danger': false
+  }
+}
+```
+
+##### 数组绑定class
+```html
+<div v-bind:class="[activeClass, errorClass,{ active: isActive }]"></div>
+```
+
+```js
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+```
+
+class绑定用在组件上，则是与html的class相互叠加的方式。
+
+##### 对象绑定style
+使用data中的属性
+```html
+<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+```
+
+```js
+data: {
+  activeColor: 'red',
+  fontSize: 30
+}
+```
+
+直接绑定一个对象
+```html
+<div v-bind:style="styleObject"></div>
+```
+
+```js
+data: {
+  styleObject: {
+    color: 'red',
+    fontSize: '13px'
+  }
+}
+```
+
+##### 数组绑定style
+```html
+<div v-bind:style="[baseStyles, overridingStyles]"></div>
+```
+
+#### 事件绑定
+##### 监听事件
+绑定方式
+```html
+<div id="example-1">
+    <!-- 字面量方式（此处使用了修饰符，修饰符可串联） -->
+  <button v-on:click.stop.prevent="counter += 1">增加 1</button>
+  <!-- 方法方式 -->
+  <button v-on:click="greet">问候</button>
+  <!-- 内联处理器,$event传入事件到方法 -->
+  <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+  <p>这个按钮被点击了 {{ counter }} 次。</p>
+</div>
+```
+
+```js
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    counter: 0
+  },
+  methods:{
+    greet:function(event){
+         // `this` 在方法里指当前 Vue 实例
+      alert('Hello ' + this.name + '!')
+      // `event` 是原生 DOM 事件
+      if (event) {
+        alert(event.target.tagName)
+      }
+    },
+    warn: function (message, event) {
+        // 现在我们可以访问原生事件对象
+        if (event) event.preventDefault()
+        alert(message)
+    }
+  }
+})
+```
+
+##### 修饰符
+- 事件修饰符：.stop(阻止冒泡)，.prevent(阻止默认事件)，.capture(监听器加在捕获模式上)，.self(只有事件在该元素本身时触发回调)，.once(只触发一次事件)
+- 键值修饰符：.enter，.tab，.delete (捕获“删除”和“退格”键)，.esc，.space，.up，.down，.left，.right；.ctrl，.alt，.shift，.meta
+- 鼠标按钮修饰符：.left，.right，.middle
+
+自定义键值修饰符别名：
+```js
+// 可以使用 v-on:keyup.f1
+Vue.config.keyCodes.f1 = 112
+```
+
+#### 表单输入绑定
+使用v-model对表单进行双向绑定，绑定的数据为表单的值value,复选框和多选列表可以绑定到数组上。
+
+```html
+<!-- 当选中时，`picked` 为字符串 "a" -->
+<input type="radio" v-model="picked" value="a">
+<!-- `toggle` 为 true 或 false -->
+<input type="checkbox" v-model="toggle">
+<!-- 当选中时，`selected` 为字符串 "abc" -->
+<select v-model="selected">
+  <option value="abc">ABC</option>
+</select>
+```
+
+修改绑定的值到响应元素上
+```html
+<input
+  type="checkbox"
+  v-model="toggle"
+  v-bind:true-value="a"
+  v-bind:false-value="b"
+>
+```
+
+```js
+// 当选中时
+vm.toggle === vm.a
+// 当没有选中时
+vm.toggle === vm.b
+```
+
+修饰符：.lazy（同步事件由input改为change），.number（将用户的输入结果转换为number类型，转换结果为NaN则返回原值），.trim(自动过滤用户输入首位空格)
+
+### 绑定到内容
+使用模板的插值语法进行数据的绑定
+
+```html
+<!-- 数据绑定 -->
+<span>Message: {{ msg }}</span>
+<!-- 数据不绑定 -->
+<span v-once>这个将不会改变: {{ msg }}</span>
+```
+
+### 双向绑定
+使用v-model在表单元素上进行双向绑定。
 
 ## 模板语法
 ### 插值
@@ -98,7 +382,7 @@ this.userProfile = Object.assign({}, this.userProfile, {
 <form v-on:submit.prevent="onSubmit"></form>
 ```
 
-### 缩写
+#### 缩写
 v-bind缩写
 
 ```html
@@ -116,163 +400,7 @@ v-on缩写
 <a @click="doSomething"></a>
 ```
 
-## 计算属性
-当计算属性依赖的属性发生改变时才会自动更新，基于依赖进行缓存。
-
-```html
-<div id="example">
-  <p>Original message: "{{ message }}"</p>
-  <p>Computed reversed message: "{{ reversedMessage }}"</p>
-</div>
-```
-
-```js
-var vm = new Vue({
-  el: '#example',
-  data: {
-    message: 'Hello'
-  },
-  computed: {
-    // 计算属性默认只有getter方法
-    reversedMessage: function () {
-      // `this` points to the vm instance
-      return this.message.split('').reverse().join('')
-    },
-    fullName: {
-        // getter
-        get: function () {
-          return this.firstName + ' ' + this.lastName
-        },
-        // setter
-        set: function (newValue) {
-          var names = newValue.split(' ')
-          this.firstName = names[0]
-          this.lastName = names[names.length - 1]
-        }
-    }
-  }
-})
-```
-
-## 方法
-方法没有缓存，每次访问都进行计算
-```html
-<p>Reversed message: "{{ reversedMessage() }}"</p>
-```
-
-```js
-// in component
-methods: {
-  reversedMessage: function () {
-    return this.message.split('').reverse().join('')
-  }
-}
-```
-
-## 被观察属性
-使用watch当属性变动时，进行更新
-
-```html
-<div id="demo">{{ fullName }}</div>
-```
-
-```js
-// 每当firstName和lastName发生变化就进行更新
-var vm = new Vue({
-  el: '#demo',
-  data: {
-    firstName: 'Foo',
-    lastName: 'Bar',
-    fullName: 'Foo Bar'
-  },
-  watch: {
-    firstName: function (val) {
-      this.fullName = val + ' ' + this.lastName
-    },
-    lastName: function (val) {
-      this.fullName = this.firstName + ' ' + val
-    }
-  }
-})
-```
-
-## Class与Style绑定
-### 对象绑定class
-active、'text-danger':hasError表示当hasError为真时则启用对应名称的class
-```html
-<div class="static"
-     v-bind:class="{ active: isActive, 'text-danger': hasError }">
-</div>
-```
-
-```js
-data: {
-  isActive: true,
-  hasError: false
-}
-```
-
-使用对象进行绑定
-```html
-<div v-bind:class="classObject"></div>
-```
-
-```js
-data: {
-  classObject: {
-    active: true,
-    'text-danger': false
-  }
-}
-```
-
-### 数组绑定class
-```html
-<div v-bind:class="[activeClass, errorClass,{ active: isActive }]"></div>
-```
-
-```js
-data: {
-  activeClass: 'active',
-  errorClass: 'text-danger'
-}
-```
-
-class绑定用在组件上，则是与html的class相互叠加的方式。
-
-### 对象绑定style
-使用data中的属性
-```html
-<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
-```
-
-```js
-data: {
-  activeColor: 'red',
-  fontSize: 30
-}
-```
-
-直接绑定一个对象
-```html
-<div v-bind:style="styleObject"></div>
-```
-
-```js
-data: {
-  styleObject: {
-    color: 'red',
-    fontSize: '13px'
-  }
-}
-```
-
-### 数组绑定style
-```html
-<div v-bind:style="[baseStyles, overridingStyles]"></div>
-```
-
-## 条件渲染
+#### 条件渲染
 条件渲染的使用形式如下:
 ```html
 <div v-if="type === 'A'">
@@ -302,8 +430,8 @@ v-if用于切换显示单个元素时，加在元素上就好了，切换多个�
 
 v-show不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换。
 
-## 列表渲染
-### 使用数组
+#### 列表渲染
+##### 使用数组
 使用v-for将数组对应为一组元素，可以使用of代替in
 
 ```html
@@ -326,7 +454,7 @@ var example1 = new Vue({
 })
 ```
 
-### 使用对象
+##### 使用对象
 
 ```html
 <ul id="v-for-object" class="demo">
@@ -349,7 +477,7 @@ new Vue({
 })
 ```
 
-### template
+##### template
 类似于 v-if，你也可以利用带有 v-for 的 `<template> `渲染多个元素。
 ```html
 <ul>
@@ -360,7 +488,7 @@ new Vue({
 </ul>
 ```
 
-### key值
+##### key值
 为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key 属性。理想的 key 值是每项都有的且唯一的 id。你需要用 v-bind 来绑定动态值
 
 ```html
@@ -369,96 +497,13 @@ new Vue({
 </div>
 ```
 
-### 更新检测
+##### 更新检测
 当数组结构发生改变时，就会自动更新。（如:unshift、push()、pop()、shift()、unshift()、splice()、sort()、reverse()）
 
 以下两种方法不会触发自动更新：
 - vm.items[indexOfItem] = newValue（触发更新Vue.set(example1.items, indexOfItem, newValue)、example1.items.splice(indexOfItem, 1, newValue)）
 - vm.items.length = newLength （触发更新example1.items.splice(newLength)
 ）
-
-## 事件处理
-### 监听事件
-绑定方式
-```html
-<div id="example-1">
-    <!-- 字面量方式（此处使用了修饰符，修饰符可串联） -->
-  <button v-on:click.stop.prevent="counter += 1">增加 1</button>
-  <!-- 方法方式 -->
-  <button v-on:click="greet">问候</button>
-  <!-- 内联处理器,$event传入事件到方法 -->
-  <button v-on:click="warn('Form cannot be submitted yet.', $event)">
-  <p>这个按钮被点击了 {{ counter }} 次。</p>
-</div>
-```
-
-```js
-var example1 = new Vue({
-  el: '#example-1',
-  data: {
-    counter: 0
-  },
-  methods:{
-    greet:function(event){
-         // `this` 在方法里指当前 Vue 实例
-      alert('Hello ' + this.name + '!')
-      // `event` 是原生 DOM 事件
-      if (event) {
-        alert(event.target.tagName)
-      }
-    },
-    warn: function (message, event) {
-        // 现在我们可以访问原生事件对象
-        if (event) event.preventDefault()
-        alert(message)
-    }
-  }
-})
-```
-
-### 修饰符
-- 事件修饰符：.stop(阻止冒泡)，.prevent(阻止默认事件)，.capture(监听器加在捕获模式上)，.self(只有事件在该元素本身时触发回调)，.once(只触发一次事件)
-- 键值修饰符：.enter，.tab，.delete (捕获“删除”和“退格”键)，.esc，.space，.up，.down，.left，.right；.ctrl，.alt，.shift，.meta
-- 鼠标按钮修饰符：.left，.right，.middle
-
-自定义键值修饰符别名：
-```js
-// 可以使用 v-on:keyup.f1
-Vue.config.keyCodes.f1 = 112
-```
-
-## 表单输入绑定
-使用v-model对表单进行双向绑定，绑定的数据为表单的值value,复选框和多选列表可以绑定到数组上。
-
-```html
-<!-- 当选中时，`picked` 为字符串 "a" -->
-<input type="radio" v-model="picked" value="a">
-<!-- `toggle` 为 true 或 false -->
-<input type="checkbox" v-model="toggle">
-<!-- 当选中时，`selected` 为字符串 "abc" -->
-<select v-model="selected">
-  <option value="abc">ABC</option>
-</select>
-```
-
-修改绑定的值到响应元素上
-```html
-<input
-  type="checkbox"
-  v-model="toggle"
-  v-bind:true-value="a"
-  v-bind:false-value="b"
->
-```
-
-```js
-// 当选中时
-vm.toggle === vm.a
-// 当没有选中时
-vm.toggle === vm.b
-```
-
-修饰符：.lazy（同步事件由input改为change），.number（将用户的输入结果转换为number类型，转换结果为NaN则返回原值），.trim(自动过滤用户输入首位空格)
 
 ## 组件
 组件可以扩展 HTML 元素，封装可重用的代码。
@@ -479,7 +524,7 @@ new Vue({
 })
 ```
 
-### 使用DOM模板
+#### 使用DOM模板
 由于浏览器的解析机制，使用DOM作为模板时，添加自定义属性应该使用is属性
 
 ```html
@@ -491,7 +536,7 @@ new Vue({
 
 组件间的class与style使用并集的方式获取。
 
-### 组件data为函数
+#### 组件data为函数
 所有组件共用一个data
 
 ```js
