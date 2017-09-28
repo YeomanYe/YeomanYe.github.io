@@ -15,9 +15,11 @@ categories:
 
 <!-- more -->
 
-## 进程和线程
-### 多进程
-- Unix/Linux操作系统提供了一个fork()系统调用，它非常特殊。普通的函数调用，调用一次，返回一次，但是fork()调用一次，返回两次，因为操作系统自动把当前进程（称为父进程）复制了一份（称为子进程），然后，分别在父进程和子进程内返回。
+## 进程
+多进程的创建方式os模块的fork、multiprocessing模块的Process、Pool
+
+### fork
+Unix/Linux操作系统提供了一个fork()系统调用，它非常特殊。普通的函数调用，调用一次，返回一次，但是fork()调用一次，返回两次，因为操作系统自动把当前进程（称为父进程）复制了一份（称为子进程），然后，分别在父进程和子进程内返回。
 
 ```py
 # 使用fork创建多进程只能在Linux/Unix下
@@ -32,7 +34,8 @@ else:
     print('I (%s) just created a child process (%s).' % (os.getpid(), pid))
 ```
 
-- 使用multiprocessing创建多进程
+### multiprocessing
+使用multiprocessing模块的Process类创建多进程
 
 ```py
 from multiprocessing import Process
@@ -51,7 +54,7 @@ if __name__=='__main__':
     print('Child process end.')
 ```
 
-- 使用进程池Pool
+使用multiprocessing模块的Pool类创建线程池
 
 ```py
 from multiprocessing import Pool
@@ -75,25 +78,12 @@ if __name__=='__main__':
     print('All subprocesses done.')
 ```
 
-- 对Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前必须先调用close()，调用close()之后就不能继续添加新的Process了。
-- Pool的默认大小是CPU的核数
+对Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前必须先调用close()，调用close()之后就不能继续添加新的Process了。
 
-- 调用外部子进程
+Pool的默认大小是CPU的核数
 
-```py
-#subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。
-import subprocess
-
-print('$ nslookup')
-p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#增加子进程的输入
-output, err = p.communicate(b'set q=mx\npython.org\nexit\n')
-print(output.decode('utf-8'))
-print('Exit code:', p.returncode)
-```
-
-- 进程间通信
-- 操作系统提供了很多机制来实现进程间的通信。Python的multiprocessing模块包装了底层的机制，提供了Queue、Pipes等多种方式来交换数据。
+#### 进程间通信
+操作系统提供了很多机制来实现进程间的通信。Python的multiprocessing模块包装了底层的机制，提供了Queue、Pipes等多种方式来交换数据。
 
 ```py
 from multiprocessing import Process, Queue
@@ -131,10 +121,27 @@ if __name__=='__main__':
 
 - Tips:在Unix/Linux下，multiprocessing模块封装了fork()调用，使我们不需要关注fork()的细节。由于Windows没有fork调用，因此，multiprocessing需要“模拟”出fork的效果，父进程所有Python对象都必须通过pickle序列化再传到子进程去，所有，如果multiprocessing在Windows下调用失败了，要先考虑是不是pickle失败了
 
-### 多线程
-- 进程是由若干线程组成的,一个进程至少有一个线程。
-- 使用threading创建多线程,把函数传入并创建Thread
-- 主线程名字为MainThread
+### 调用外部子进程
+使用subprocess模块可以调用外部子进程
+
+```py
+#subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。
+import subprocess
+
+print('$ nslookup')
+p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#增加子进程的输入
+output, err = p.communicate(b'set q=mx\npython.org\nexit\n')
+print(output.decode('utf-8'))
+print('Exit code:', p.returncode)
+```
+
+## 线程
+进程是由若干线程组成的,一个进程至少有一个线程。
+
+使用threading创建多线程,把函数传入并创建Thread
+
+主线程名字为MainThread
 
 ```py
 import time, threading
@@ -158,7 +165,7 @@ t.join()
 print('thread %s ended.' % threading.current_thread().name)
 ```
 
-- 线程锁Lock
+### 线程锁Lock
 
 ```py
 balance = 0
@@ -176,8 +183,9 @@ def run_thread(n):
             lock.release()
 ```
 
-- Python线程虽然是真正的线程，但解释器执行代码时，有一个GIL锁:Global Interpreter Lock,任何Python线程执行前,必须先获得GIL锁,然后，每执行100条字节码，解释器就自动释放GIL锁，让别的线程有机会执行。这个GIL全局锁实际上把所有线程的执行代码都给上了锁，所以，多线程在Python中只能交替执行。
-- Python有效利用多核的方式是多进程而不是多线程。
+Python线程虽然是真正的线程，但解释器执行代码时，有一个GIL锁:Global Interpreter Lock,任何Python线程执行前,必须先获得GIL锁,然后，每执行100条字节码，解释器就自动释放GIL锁，让别的线程有机会执行。这个GIL全局锁实际上把所有线程的执行代码都给上了锁，所以，多线程在Python中只能交替执行。
+
+Python有效利用多核的方式是多进程而不是多线程。
 
 ### ThreadLocal
 
@@ -206,60 +214,12 @@ t1.join()
 t2.join()
 ```
 
-- 全局变量local_school就是一个ThreadLocal对象,每个Thread对它都可以读写student属性,但互不影响。可以把local_school看成全局变量,但每个属性如local_school.student都是线程的局部变量,可以任意读写而互不干扰,也不用管理锁的问题,ThreadLocal内部会处理。
+全局变量local_school就是一个ThreadLocal对象,每个Thread对它都可以读写student属性,但互不影响。可以把local_school看成全局变量,但每个属性如local_school.student都是线程的局部变量,可以任意读写而互不干扰,也不用管理锁的问题,ThreadLocal内部会处理。
 
-### 进程vs线程
-- 多进程模式的缺点是创建进程的代价大，在Unix/Linux系统下，用fork调用还行，在Windows下创建进程开销巨大。另外，操作系统能同时运行的进程数也是有限的，在内存和CPU的限制下，如果有几千个进程同时运行，操作系统连调度都会成问题。
-- 计算密集型任务的特点是要进行大量的计算，消耗CPU资源，比如计算圆周率、对视频进行高清解码等等，全靠CPU的运算能力。这种计算密集型任务虽然也可以用多任务完成，但是任务越多，花在任务切换的时间就越多，CPU执行任务的效率就越低，所以，要最高效地利用CPU，计算密集型任务同时进行的数量应当等于CPU的核心数。
-- IO密集型，涉及到网络、磁盘IO的任务都是IO密集型任务，这类任务的特点是CPU消耗很少，任务的大部分时间都在等待IO操作完成（因为IO的速度远远低于CPU和内存的速度）。对于IO密集型任务，任务越多，CPU效率越高，但也有一个限度。
-- 如果充分利用操作系统提供的异步IO支持，就可以用单进程单线程模型来执行多任务，这种全新的模型称为事件驱动模型。对应到Python语言，单进程的异步编程模型称为协程，有了协程的支持，就可以基于事件驱动编写高效的多任务程序。
+## 协程
+协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行。
 
-### 分布式进程
-- Process比起Thread更稳定,而且Process可以分不到多台机器上,而Thread最多只能分布到一台机器的多个CPU上。
-- Python的multiprocessing模块不但支持多进程，其中managers子模块还支持把多进程分布到多台机器上。一个服务进程可以作为调度者，将任务分布到其他多个进程中，依靠网络通信。由于managers模块封装很好，不必了解网络通信的细节，就可以很容易地编写分布式多进程程序。
-
-## 枚举类
-- 枚举常量
-
-```py
-from enum import Enum
-
-Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
-
-for name, member in Month.__members__.items():
-    #value属性则是自动赋给成员的int常量，默认从1开始计数
-    print(name, '=>', member, ',', member.value)
-#Jan => Month.Jan , 1
-#Feb => Month.Feb , 2
-#...
-```
-
-- 派生枚举类
-
-```py
-from enum import Enum, unique
-#@unique装饰器可以帮助我们检查没有重复的值
-@unique
-class Weekday(Enum):
-    Sun = 0 # Sun的value被设定为0
-    Mon = 1
-    Tue = 2
-    Wed = 3
-    Thu = 4
-    Fri = 5
-    Sat = 6
-#访问枚举类型的方法
-day1 = Weekday.Mon
-day2 = Weekday['Mon']
-day7 = Weekday(7)
-print(day1)#Weekday.Mon
-print(day1 == Weekday.Mon)#True
-```
-
-## 异步IO
-### 协程
-- 协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行。
-- Python对协程的支持是通过generator实现的。在generator中，我们不但可以通过for循环来迭代，还可以不断调用next()函数获取由yield语句返回的下一个值。但是Python的yield不但可以返回一个值，它还可以接收调用者发出的参数。
+Python对协程的支持是通过generator实现的。在generator中，我们不但可以通过for循环来迭代，还可以不断调用next()函数获取由yield语句返回的下一个值。但是Python的yield不但可以返回一个值，它还可以接收调用者发出的参数。
 
 ```py
 #协程生产者消费者模式
@@ -287,7 +247,7 @@ produce(c)
 ```
 
 ### asyncio
-- 使用asyncio实现协程，协程内部使用yield from实现异步IO
+使用asyncio实现协程，协程内部使用yield from实现异步IO
 
 ```py
 import threading
@@ -305,7 +265,7 @@ loop.run_until_complete(asyncio.wait(tasks))
 loop.close()
 ```
 
-- 实例
+实例，异步协程的方式读取网页数据
 
 ```py
 import asyncio
@@ -333,13 +293,14 @@ loop.close()
 ```
 
 ### async/await
-- Python 3.5开始引入了新的语法async和await，可以让coroutine的代码更简洁易读。
+Python 3.5开始引入了新的语法async和await，可以让coroutine的代码更简洁易读。
     1. 把@asyncio.coroutine替换为async；
     2. 把yield from替换为await。
 
 ### aiohttp
-- 把asyncio用在服务器端，例如Web服务器，由于HTTP连接就是IO操作，因此可以用单线程+coroutine实现多用户的高并发支持。
-- asyncio实现了TCP、UDP、SSL等协议，aiohttp则是基于asyncio实现的HTTP框架。
+把asyncio用在服务器端，例如Web服务器，由于HTTP连接就是IO操作，因此可以用单线程+coroutine实现多用户的高并发支持。
+
+asyncio实现了TCP、UDP、SSL等协议，aiohttp则是基于asyncio实现的HTTP框架。
 
 ```py
 #/ - 首页返回b'<h1>Index</h1>'；
@@ -369,3 +330,54 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(init(loop))
 loop.run_forever()
 ```
+
+## 进程vs线程
+多进程模式的缺点是创建进程的代价大，在Unix/Linux系统下，用fork调用还行，在Windows下创建进程开销巨大。另外，操作系统能同时运行的进程数也是有限的，在内存和CPU的限制下，如果有几千个进程同时运行，操作系统连调度都会成问题。
+
+计算密集型任务的特点是要进行大量的计算，消耗CPU资源，比如计算圆周率、对视频进行高清解码等等，全靠CPU的运算能力。这种计算密集型任务虽然也可以用多任务完成，但是任务越多，花在任务切换的时间就越多，CPU执行任务的效率就越低，所以，要最高效地利用CPU，计算密集型任务同时进行的数量应当等于CPU的核心数。
+
+IO密集型，涉及到网络、磁盘IO的任务都是IO密集型任务，这类任务的特点是CPU消耗很少，任务的大部分时间都在等待IO操作完成（因为IO的速度远远低于CPU和内存的速度）。对于IO密集型任务，任务越多，CPU效率越高，但也有一个限度。
+
+如果充分利用操作系统提供的异步IO支持，就可以用单进程单线程模型来执行多任务，这种全新的模型称为事件驱动模型。对应到Python语言，单进程的异步编程模型称为协程，有了协程的支持，就可以基于事件驱动编写高效的多任务程序。
+
+Python的multiprocessing模块不但支持多进程，其中managers子模块还支持把多进程分布到多台机器上。一个服务进程可以作为调度者，将任务分布到其他多个进程中，依靠网络通信。而Thread最多只能分布到一台机器的多个CPU上。
+
+
+## 枚举类
+枚举常量
+
+```py
+from enum import Enum
+
+Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
+
+for name, member in Month.__members__.items():
+    #value属性则是自动赋给成员的int常量，默认从1开始计数
+    print(name, '=>', member, ',', member.value)
+#Jan => Month.Jan , 1
+#Feb => Month.Feb , 2
+#...
+```
+
+派生枚举类
+
+```py
+from enum import Enum, unique
+#@unique装饰器可以帮助我们检查没有重复的值
+@unique
+class Weekday(Enum):
+    Sun = 0 # Sun的value被设定为0
+    Mon = 1
+    Tue = 2
+    Wed = 3
+    Thu = 4
+    Fri = 5
+    Sat = 6
+#访问枚举类型的方法
+day1 = Weekday.Mon
+day2 = Weekday['Mon']
+day7 = Weekday(7)
+print(day1)#Weekday.Mon
+print(day1 == Weekday.Mon)#True
+```
+

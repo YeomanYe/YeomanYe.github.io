@@ -16,8 +16,7 @@ categories:
 <!-- more -->
 
 ## 正则表达式
-- 正则表达式,使用r前缀:r'ABC|-001'
-- 使用re模块
+通过re模块来使用正则表达式,正则表达式的匹配字符串需要以r作为前缀:r'ABC|-001'
 
 ```py
 import re
@@ -26,14 +25,14 @@ print(re.match(r'^\d{3}\-\d{3,8}$', '010-12345'))
 print(re.match(r'^\d{3}\-\d{3,8}$', '010 12345'))
 ```
 
-- 切分字符串
+切分字符串
 
 ```py
 re.split(r'[\s\,\;]+', 'a,b;; c  d')
 #['a','b','c','d']
 ```
 
-- 分组
+分组
 
 ```py
 m =  re.match(r'^(\d{3})-(\d{3,8})$', '010-12345')
@@ -53,7 +52,7 @@ re.match(r'^(\d+?)(0*)$', '102300').groups()
 #('1023', '00')
 ```
 
-- 预编译
+预编译
 
 ```py
 #预编译的正则表达式在使用时就不需要再行编译
@@ -62,7 +61,7 @@ re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
 
 ## 常用模块
 ### datetime
-- 使用示例:
+datetime模块包装了时间转换、时间计算处理等方便的类库。
 
 ```py
 #获取当前时间
@@ -110,10 +109,10 @@ utc_dt = datetime.utcnow().replace(tzinfo=timezone.utc)
 bj_dt = utc_dt.astimezone(timezone(timedelta(hours=8)))
 ```
 
-- timestamp的值与时区毫无关系，因为timestamp一旦确定，其UTC时间就确定了，转换到任意时区的时间也是完全确定的
+timestamp的值与时区毫无关系，因为timestamp一旦确定，其UTC时间就确定了，转换到任意时区的时间也是完全确定的
 
 ### collections
-- namedtuple是一个函数，它用来创建一个自定义的tuple对象，并且规定了tuple元素的个数，并可以用属性而不是索引来引用tuple的某个元素。
+namedtuple是一个函数，它用来创建一个自定义的tuple对象，并且规定了tuple元素的个数，并可以用属性而不是索引来引用tuple的某个元素。
 
 ```py
 from collections import namedtuple
@@ -123,7 +122,7 @@ p = Point(1, 2)
 print(p.x)
 ```
 
-- deque高效实现插入和删除的双向列表
+deque高效实现插入和删除的双向列表
 
 ```py
 from collections import deque
@@ -135,7 +134,7 @@ q.popleft()
 print(q)
 ```
 
-- defaultdict对于不存在的key返回一个默认值
+defaultdict对于不存在的key返回一个默认值
 
 ```py
 from collections import defaultdict
@@ -147,7 +146,7 @@ dd['key2'] # key2不存在，返回默认值
 #'N/A'
 ```
 
-- OrderedDict保持Key的顺序
+OrderedDict保持Key的顺序
 
 ```py
 from collections import OrderedDict
@@ -165,7 +164,7 @@ list(od.keys()) # 按照插入的Key的顺序返回
 #['z', 'y', 'x']
 ```
 
-- Counter是一个简单的计数器也是dict的一个子类，例如，统计字符出现的个数：
+Counter是一个简单的计数器也是dict的一个子类，例如，统计字符出现的个数：
 
 ```py
 from collections import Counter
@@ -177,9 +176,11 @@ c
 ```
 
 ### base64
-- 将3个8bit的字节，变换为4个6bit的数,好处是将二进制中一些无法显示的字符变的能够显示
-- 最后剩下一个或两个字节,Base64用\x00字节在末尾补足,再在编码的末尾加上1个或2个=号,表示补了多少个字节
-- Base64字符集:['A', 'B', 'C', ... 'a', 'b', 'c', ... '0', '1', ... '+', '/']
+将3个8bit的字节，变换为4个6bit的数,好处是将二进制中一些无法显示的字符变的能够显示
+
+最后剩下一个或两个字节,Base64用\x00字节在末尾补足,再在编码的末尾加上1个或2个=号,表示补了多少个字节
+
+Base64字符集:['A', 'B', 'C', ... 'a', 'b', 'c', ... '0', '1', ... '+', '/']
 
 ```py
 import base64
@@ -194,7 +195,7 @@ base64.urlsafe_b64encode(b'i\xb7\x1d\xfb\xef\xff')
 ```
 
 ### struct
-- struct解决bytes和其他二进制数据类型的转换。
+struct解决bytes和其他二进制数据类型的转换。
 
 ```py
 import struct
@@ -208,8 +209,9 @@ struct.unpack('>IH', b'\xf0\xf0\xf0\xf0\x80\x80')
 ```
 
 ### hashlib
-- 名词解释:摘要算法又称哈希算法、散列算法。它通过一个函数，把任意长度的数据转换为一个长度固定的数据串（通常用16进制的字符串表示）。
-- 常见的哈希算法有MD5,SHA1
+名词解释:摘要算法又称哈希算法、散列算法。它通过一个函数，把任意长度的数据转换为一个长度固定的数据串（通常用16进制的字符串表示）。
+
+常见的哈希算法有MD5,SHA1
 
 ```py
 #MD5
@@ -230,8 +232,9 @@ print(sha1.hexdigest())
 ```
 
 ### itertools
-- itertools提供了非常有用的用于操作迭代对象的函数
-- itertools模块提供的全部是处理迭代功能的函数，它们的返回值不是list，而是Iterator，只有用for循环迭代的时候才真正计算。
+itertools提供了非常有用的用于操作迭代对象的函数
+
+itertools模块提供的全部是处理迭代功能的函数，它们的返回值不是list，而是Iterator，只有用for循环迭代的时候才真正计算。
 
 ```py
 import itertools
@@ -251,7 +254,7 @@ for key, group in itertools.groupby('AaaBBbcCAAa', lambda c: c.upper()):
 ```
 
 ### contextlib
-- 任何对象只要实现了上下文管理就能使用with语句
+任何对象只要实现了上下文管理就能使用with语句
 
 ```py
 with open('path/to/file','r') as f:
@@ -307,7 +310,7 @@ with create_query('Bob') as q:
     q.query()
 ```
 
-- 使用closing()把一个对象变成为上下文对象
+使用closing()把一个对象变成为上下文对象
 
 ```py
 from contextlib import closing
@@ -318,7 +321,7 @@ with closing(urlopen('https://www.python.org')) as page:
         print(line)
 ```
 
-- closing也是一个经过@contextmanager装饰的generator，这个generator编写起来其实非常简单
+closing也是一个经过@contextmanager装饰的generator，这个generator编写起来其实非常简单
 
 ```py
 @contextmanager
@@ -330,7 +333,7 @@ def closing(thing):
 ```
 
 ### XML
-- SAX解析XML
+SAX解析XML
 
 ```py
 from xml.parsers.expat import ParserCreate
@@ -360,7 +363,7 @@ parser.CharacterDataHandler = handler.char_data
 parser.Parse(xml)
 ```
 
-- 生成XML(通过返回字符串)
+生成XML(通过返回字符串)
 
 ```py
 L = []
@@ -372,7 +375,7 @@ return ''.join(L)
 ```
 
 ### HTMLParser
-- 解析HTML
+解析HTML
 
 ```py
 from html.parser import HTMLParser
@@ -412,7 +415,7 @@ parser.feed('''<html>
 ```
 
 ### urllib
-- GET
+#### GET
 
 ```py
 from urllib import request
@@ -429,7 +432,8 @@ req.add_header('User-Agent', 'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS
 request.urlopen(req)
 ```
 
-- POST
+#### POST
+只需要将参数以data的形式传入即可以POST形式发送请求。
 
 ```py
 login_data = parse.urlencode([
@@ -450,8 +454,8 @@ with request.urlopen(req, data=login_data.encode('utf-8')) as f:
     print('Data:', f.read().decode('utf-8'))
 ```
 
-- Handler
-- 通过一个Proxy访问网站，我们需要利用ProxyHandler来处理
+#### 代理
+通过一个Proxy访问网站，我们需要利用ProxyHandler来处理
 
 ```py
 proxy_handler = urllib.request.ProxyHandler({'http': 'http://www.example.com:3128/'})
@@ -464,8 +468,9 @@ with opener.open('http://www.example.com/login.html') as f:
 
 ## 常用第三方模块
 ### PIL
-- pillow兼容PIL,且是最新版,PIL未更新好久
-- 生成验证码
+PIL是图片处理的模块，使用它可以生成验证码、模糊图片、缩放图片
+
+生成验证码
 
 ```py
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
@@ -504,7 +509,7 @@ image = image.filter(ImageFilter.BLUR)
 image.save('code.jpg', 'jpeg')
 ```
 
-- 模糊图片
+模糊图片
 
 ```py
 from PIL import Image, ImageFilter
@@ -516,7 +521,7 @@ im2 = im.filter(ImageFilter.BLUR)
 im2.save('Cover - 2.jpg', 'jpeg')
 ```
 
-- 缩放图片
+缩放图片
 
 ```py
 from PIL import Image
@@ -533,10 +538,14 @@ print('Resize image to: %sx%s' % (w//2, h//2))
 im.save('thumbnail.jpg', 'jpeg')
 ```
 
+Tips:pillow兼容PIL,且是最新版,PIL未更新好久
+
 ## 图形界面
-- Python支持多种图形界面的第三方库,包括:Tk、wxWidgets、Qt、GTK等
-- Python自带的库是支持Tk的Tkinter,使用Tkinter,无需安装任何包，就可以直接使用。
-- Tkinter分专管访问Tk的接口,Tk是一个图形库,支持多个操作系统。Tk会调用操作系统提供的本地GUI接口，完成最终的GUI。
+Python支持多种图形界面的第三方库,包括:Tk、wxWidgets、Qt、GTK等
+
+Python自带的库是支持Tk的Tkinter,使用Tkinter,无需安装任何包，就可以直接使用。
+
+Tkinter分专管访问Tk的接口,Tk是一个图形库,支持多个操作系统。Tk会调用操作系统提供的本地GUI接口，完成最终的GUI。
 
 ```py
 from tkinter import *
@@ -568,8 +577,10 @@ app.mainloop()
 ```
 
 ## 网络编程
+使用socket进行tcp、udp客户端和服务端的编程。
+
 ### TCP编程
-- 客户端
+客户端
 
 ```py
 # 导入socket库:
@@ -603,7 +614,7 @@ with open('sina.html', 'wb') as f:
     f.write(html)
 ```
 
-- 服务器
+服务器
 
 ```py
 # 导入socket库:
@@ -640,7 +651,7 @@ while True:
     t.start()
 ```
 
-- 用于测试的客户端程序
+用于测试的客户端程序
 
 ```py
 # 导入socket库:
@@ -659,7 +670,7 @@ s.close()
 ```
 
 ### UDP编程
-- 服务端
+服务端
 
 ```py
 import socket
@@ -675,7 +686,7 @@ while True:
     s.sendto(b'Hello, %s!' % data, addr)
 ```
 
-- 客户端
+客户端
 
 ```py
 import socket
@@ -689,8 +700,8 @@ s.close()
 ```
 
 ## 访问数据库
-### 使用MySQL
-- 使用mysql.connector驱动连接数据库
+### MySQL
+使用mysql.connector驱动连接数据库
 
 ```py
 #到如MySQL驱动
@@ -714,6 +725,8 @@ conn.close()
 ```
 
 ## virtualenv
-- virtualenv就是用来为一个应用创建一套“隔离”的Python运行环境,以防使用的包的版本冲突
-- 使用命令:virtualenv --no-site-packages env_dir创建一个独立的环境,--no-site-packages意味着不复制第三方的包到环境中
-- windows系统进入虚拟环境env_dir\Scripts\activate
+virtualenv是用来为一个应用创建一套“隔离”的Python运行环境,以防使用的包的版本冲突
+
+使用命令:virtualenv --no-site-packages env_dir创建一个独立的环境,--no-site-packages意味着不复制第三方的包到环境中
+
+windows系统进入虚拟环境env_dir\Scripts\activate
