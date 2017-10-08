@@ -1,12 +1,11 @@
 title: ES6特性归纳
 tags:
     - JavaScript
-    - 前端
 comments: true
 date: 2017-08-08
 brief: ES6特性归纳
 categories:
-    - 前端
+    - JavaScript
 ---
 # ES6特性归纳
 ES的全称是ECMAScript，它是JavaScript的规格，JS是ES的一种实现。ES还有JScript(IE中实际使用的是这种脚本语言)，ActionScript(Flash中使用的脚本语言)等实现形式。本篇文章是对阮一峰-《ECMAScript 6入门》中JS新增特性的归纳。

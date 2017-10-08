@@ -2,13 +2,12 @@ title: 响应式Web设计
 tags:
     - 书评
     - HTML
-    - 前端
     - CSS
 comments: true
 date: 2017-08-01
 brief: 响应式Web设计
 categories:
-    - 前端
+    - 书评
 ---
 《响应式Web设计:HTML5和CSS3实战》讲述了大部分HTML5和CSS3的特性，并且代领读者使用HTML5和CSS3等现代技术实现一个响应式的网站。
 

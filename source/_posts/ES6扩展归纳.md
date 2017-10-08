@@ -1,12 +1,11 @@
 title: ES6扩展归纳
 tags:
     - JavaScript
-    - 前端
 comments: true
 date: 2017-08-16
 brief: ES6扩展归纳
 categories:
-    - 前端
+    - JavaScript
 ---
 # ES6扩展归纳
 介绍ES6相比与ES5在原有对象上的扩展，包括字符串、正则、数值、函数、数组、对象等扩展，本文是阮一峰《ECMAScript 6入门》相关章节内容的总结
