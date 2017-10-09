@@ -1,0 +1,1 @@
+hexo algolia && hexo clean && hexo d
