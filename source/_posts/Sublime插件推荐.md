@@ -149,6 +149,18 @@ js:SublimeLinter-jshint、SublimeLinter-contrib-eslint 分别对应：jshint、e
 css:SublimeLinter-csslint 对应 csslint 模块
 html:SublimeLinter-htmlhint   对应 htmlhint 模块
 
+## Python
+### [Anaconda](https://github.com/DamnWidget/anaconda)
+提供高效的开发环境，只此一个插件就能将sublime打造为python IDE。该插件提供了自动完成，API说明，重构，McCode代码复杂性检测，lint，自动格式化等功能。
+
+### [SublimeLinter-pep8](https://github.com/SublimeLinter/SublimeLinter-pep8)
+python语法检测插件配合sublimelinter使用，同时还需要使用pip安装pep8
+
+`[sudo] pip-3.x install pep8`
+
+### [Python Pep8 AutoFormat](https://github.com/Stibbons/pythonpep8autoformat)
+根据pep8编码规范，自动格式化。除了使用快捷键方式格式化外，还可以设置为保存的时候自动格式化。
+
 <!-- ## 主题皮肤
 ### [Agila](https://github.com/arvi/Agila-Theme)
 ![Agila](Agila.png)
