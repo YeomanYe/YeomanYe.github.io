@@ -11,7 +11,7 @@ categories:
 # Angular2入门
 Angular 是一个用 HTML 和 JavaScript 或者一个可以编译成 JavaScript 的语言（例如 Dart 或者 TypeScript ），来构建客户端应用的框架。
 
-本文介绍React的相关概念，使用方式。目的是使读者对React有一个大致的了解，以便能够快速上手Angular。
+本文介绍Angular的相关概念，使用方式。使读者对Angular有一个大致的了解，以便能够快速上手Angular。
 
 <!-- more -->
 
