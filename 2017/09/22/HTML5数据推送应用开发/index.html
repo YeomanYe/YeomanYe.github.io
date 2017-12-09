@@ -1,0 +1,948 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,HTML," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="[评]HTML5数据推送应用开发《HTML5数据推送应用开发》不仅介绍了HTML5的服务器端推送接口SSE,还介绍了向后兼容方案，服务器端代码实现，性能优化最终打造一个产品级品质的产品。">
+<meta name="keywords" content="JavaScript,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML5数据推送应用开发">
+<meta property="og:url" content="http://yeomanye.github.io/2017/09/22/HTML5数据推送应用开发/index.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="[评]HTML5数据推送应用开发《HTML5数据推送应用开发》不仅介绍了HTML5的服务器端推送接口SSE,还介绍了向后兼容方案，服务器端代码实现，性能优化最终打造一个产品级品质的产品。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yeomanye.github.io/2017/09/22/HTML5数据推送应用开发/HTML5数据推送应用开发.jpg">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML5数据推送应用开发">
+<meta name="twitter:description" content="[评]HTML5数据推送应用开发《HTML5数据推送应用开发》不仅介绍了HTML5的服务器端推送接口SSE,还介绍了向后兼容方案，服务器端代码实现，性能优化最终打造一个产品级品质的产品。">
+<meta name="twitter:image" content="http://yeomanye.github.io/2017/09/22/HTML5数据推送应用开发/HTML5数据推送应用开发.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/2017/09/22/HTML5数据推送应用开发/"/>
+
+
+
+
+
+  <title> HTML5数据推送应用开发 | 探险 </title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/09/22/HTML5数据推送应用开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTML5数据推送应用开发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-22T00:00:00+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/书评/" itemprop="url" rel="index">
+                    <span itemprop="name">书评</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/22/HTML5数据推送应用开发/" class="leancloud_visitors" data-flag-title="HTML5数据推送应用开发">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  2,329
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="评-HTML5数据推送应用开发"><a href="#评-HTML5数据推送应用开发" class="headerlink" title="[评]HTML5数据推送应用开发"></a>[评]HTML5数据推送应用开发</h1><p>《HTML5数据推送应用开发》不仅介绍了HTML5的服务器端推送接口SSE,还介绍了向后兼容方案，服务器端代码实现，性能优化最终打造一个产品级品质的产品。</p>
+<a id="more"></a>
+<p><img src="HTML5数据推送应用开发.jpg" alt="HTML5数据推送应用开发"></p>
+<p>该书最适合有PHP基础，想要打造产品级品质的服务器端推送应用。第二适合，想要打造产品级品质的产品的人。如果只是想要学习服务器端推送的话，还是建议直接去看API。美中不足之处是后端使用了PHP语言，如果能用nodejs就好了。</p>
+<h2 id="精彩部分"><a href="#精彩部分" class="headerlink" title="精彩部分"></a>精彩部分</h2><p><code>$( function(){ setTimeout( connect, 100); });</code> 我们用了一个 0.1 秒的延时因为有些版本的浏览器需要这样。比如，Safari的某些版本，如果不用延时，你可能会看到“加载菊花”一直在转呀转，我讨厌 100 毫秒这个“魔法数字”，但它确实有用。</p>
+<p>一种数据存储的优化方案是用 setInterval 每隔 30 秒保存一次数据，而不是每次获得数据的时候。这显著地降低了CPU的使用。需要注意的事是，关闭浏览器时，在上一次保存之后传过来的数据会丢失。</p>
+<p>产品级品质要求当出现错误时系统能自动修复，能适应现实世界的各种限制</p>
+<p>只写一句 var d = JSON.parse( s); 是不够的，达到产品级品质要这样写：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123; <span class="keyword">var</span> d = <span class="built_in">JSON</span>.parse( s); &#125; </span><br><span class="line"><span class="keyword">catch</span> (e) &#123; <span class="built_in">console</span>.log(<span class="string">" BAD JSON:"</span> + s + <span class="string">"\ n"</span> + e); <span class="keyword">return</span>; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>能够准确的报告错误。</p>
+<p>长连接可以简单地通过发送 SSE 注释行来维持。</p>
+<p>发送 SSE 注释行和发送 SSE 数据行的区别在于后者触发了 EventObject 的消息事件处理程序，而前者没有触发。</p>
+<p>没有使用SSE自带的重连机制有两个原因：第一个原因是只有套接字死得优雅干脆利落时浏览器才会重连；第二个原因很合理而且简单，代码要适用于向后兼容方案，这也是为什么长连接消息要像普通消息一样能用 JavaScript处理。</p>
+<p>重连函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> keepaliveSecs = <span class="number">20</span>,</span><br><span class="line">    keepaliveTimer = <span class="literal">null</span>;</span><br><span class="line"><span class="comment">// 重连函数，将该函数放入数据处理和连接函数中，20秒没有收到消息，自动重连。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gotActivity</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(keepaliveTimer != <span class="literal">null</span>) clearTimeout(keepaliveTimer);</span><br><span class="line">    keepaliveTimer = setTimeout(connect,keepaliveSecs * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 数据处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">processOneLine</span>(<span class="params">s</span>)</span>&#123;</span><br><span class="line">    gotActivity();</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 连接函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    gotActivity();</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.EventSource)startEventSource();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>服务器关闭了套接字，浏览器会执行如下几步。</p>
+<ul>
+<li>设置 readyState （EventSource对象的一个属性）值为 EventSource.CONNECTING 。</li>
+<li>调用 error 事件处理程序。</li>
+<li>等待 retry 延时时间，然后重新连接。</li>
+</ul>
+<p>如果把发送长连接消息的时间间隔设置太长，浏览器（或者中转媒介）会认为出错了，并关闭套接字，尝试重连，这样整体上会造成更多负载。所以只能在 15 ~ 40 秒这个范围内调整重连时间</p>
+<p>以通过在SSE消息中添加这一行来修改默认的内置重连时间：retry:10000</p>
+<p>防止瞬间并发量过大的情况,将客户端的连接尝试随机地均摊在约定连接时间的前 60 内<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">temporarilyDisconnect</span>(<span class="params">secs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> millisecs = secs * <span class="number">1000</span>;</span><br><span class="line">    millisecs -= <span class="built_in">Math</span>.random() * <span class="number">60000</span>;</span><br><span class="line">    <span class="keyword">if</span> (millisecs &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (keepaliveTimer) &#123;</span><br><span class="line">        clearTimeout(keepaliveTimer);</span><br><span class="line">        keepaliveTimer = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (es) &#123;</span><br><span class="line">        es.close();</span><br><span class="line">        es = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    setTimeout(connect, millisecs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在id:字段使用JSON对象，有一件事需要注意：如果达到 100 多字节，就不能用GET请求了，需要用 Cookie。如果达到了几千字节，通过 HTTP 请求头发送时会有问题（记住是 SSE 发送这个请求头，我们不能控制它）。特别是当请求头的总大小（请求行，所有的请求头，包括user agent 和所有的 Cookie）超过 8 KB时，大部分网络服务软件会报错（返回 413 状态码）。</p>
+<p>向后兼容方法长轮询的优化方案：</p>
+<ul>
+<li>让客户端慢一点，给长轮询设置时间间隔。</li>
+<li>在服务器端为长轮询的客户端缓冲数据，以不超过一秒一次的频率给客户端发送数据。</li>
+</ul>
+<p>在服务器端为长轮询的客户端缓冲数据具体做法：<br>以不超过1秒1次的频率给客户端发送数据。这怎么工作？首先，记录下连接的时间（比如，18:30:00.000）。然后，假设在18:30:00.150时有数据要发送，这时先不发，设置一个850毫秒的延时，但在计时器触发之前（比如，在18:30:00.900时），又有要发给客户端的数据。继续等待，再等100毫秒，如果这100毫秒内没有新数据，那等100毫秒过后发送数据。这样，客户端会收到两份在一起的数据。<br>另一种情况，如果客户端在18:30:00.000时建立连接，但第一份数据在18:30:01.100（请求开始后1.1秒后）才产生该怎么办呢？这种情况就立即发送数据并且关闭连接。换句话，人为的延时只会在1秒的时间内有多个数据时才会引入，这实际上意味着只会在有大量数据时放慢速度，这正是我们想要的。</p>
+<p>使用meta标签，在页面禁用js时自动连接到新页面<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">noscript</span>&gt;</span> <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span> =<span class="string">"refresh"</span> <span class="attr">content</span> =<span class="string">" 0; URL = longpoll.nojs.php"</span>/&gt;</span><span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- php模板生成的新页面 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 当启用脚本后，会回到具有完整实时更新服务的网站 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"> <span class="built_in">window</span>.location.href = <span class="string">"minimal_longpoll_test.html"</span> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用meta元素每隔一段时间刷新次页面 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">" refresh"</span> <span class="attr">content</span>=<span class="string">" 3"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">" utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span> Update test when JS disabled <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>( Enable JavaScript for better responsiveness.)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>浏览器有并行连接数的限制，一般是 6 个。如果超出了并行连接数新请求会静静的放到一个栈中，并且对那个服务器的所有其他通信（比如，请求新图片）也都会被搁置。</p>
+<p>301 意思是需要使用一个新的 URL。<br>305 意思是应该使用一个代理<br>420 和 429，意味着连接请求太频繁了</p>
+<p>使得IE8及更早的浏览器支持Object.keys<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">Object</span>.keys = <span class="built_in">Object</span>.keys || <span class="function"><span class="keyword">function</span> (<span class="params">o, k, r</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined">        r = [];</span></span><br><span class="line"><span class="javascript">        <span class="keyword">for</span> (k <span class="keyword">in</span> o)<span class="keyword">if</span> (o.hasOwnProperty(k))r.push(k);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> r;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>使得IE7及更早版本支持JSON解析<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if lte IE 7]&gt;</span></span><br><span class="line"><span class="comment">&lt;script src="json2.min.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>向后兼容方案只打开一条连接，然后持续的输出数据。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNewText</span>(<span class="params">s, prevOffset, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!s)<span class="keyword">return</span> prevOffset;</span><br><span class="line">    <span class="keyword">var</span> lastLF = s.lastIndexOf(<span class="string">"\n"</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (lastLF == <span class="number">0</span> || prevOffset == lastLF)<span class="keyword">return</span> prevOffset;</span><br><span class="line">    <span class="keyword">var</span> lines = s.substring(prevOffset, lastLF - <span class="number">1</span>).split(<span class="regexp">/\n/</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> ix <span class="keyword">in</span> lines)callback(lines[ix]);</span><br><span class="line">    <span class="keyword">return</span> lastLF; <span class="comment">//下一次的起始点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为了避免内存溢出，需要监控字符串大小，一旦过大了，就关闭连接重连。该技术不能在IE上实现，因为IE上的xhr.readyState在4之前不会设置xhr.responseText的值。而这个技术的要点在于xhr.readyState永远不会成为4。</p>
+<p>兼容方案iframe将数据加载到一个动态创建的<code>&lt;iframe&gt;</code>，然后去查看这个iframe的源码！<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Simple IFrame-Streaming Test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">getNewText</span>(<span class="params">s, prevOffset, callback</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (!s)<span class="keyword">return</span> prevOffset;</span></span><br><span class="line"><span class="javascript">                 <span class="keyword">var</span> lastLF = s.lastIndexOf(<span class="string">"\n"</span>) + <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (lastLF == <span class="number">0</span> || prevOffset == lastLF)<span class="keyword">return</span> prevOffset;</span></span><br><span class="line"><span class="javascript">                 <span class="keyword">var</span> lines = s.substring(prevOffset, lastLF - <span class="number">1</span>).split(<span class="regexp">/\n/</span>);</span></span><br><span class="line"><span class="javascript">                <span class="keyword">for</span> (<span class="keyword">var</span> ix <span class="keyword">in</span> lines)callback(lines[ix]);</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> lastLF; <span class="comment">//下一次的起始点</span></span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"latest"</span>&gt;</span>Preparing...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pre</span> <span class="attr">id</span>=<span class="string">"x"</span>&gt;</span>Preparing...<span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">connectIframe</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            iframe = <span class="built_in">document</span>.createElement(<span class="string">"iframe"</span>);</span></span><br><span class="line"><span class="javascript">            iframe.setAttribute(<span class="string">"style"</span>, <span class="string">"display: none;"</span>);</span></span><br><span class="line"><span class="javascript">            iframe.setAttribute(<span class="string">"src"</span>, <span class="string">"abc_stream.php"</span>);</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.body.appendChild(iframe);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> prevOffset = <span class="number">0</span>;</span></span><br><span class="line"><span class="javascript">            setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> s = iframe.contentWindow.document.body.innerHTML;</span></span><br><span class="line"><span class="javascript">                prevOffset = getNewText(s, prevOffset, <span class="function"><span class="keyword">function</span> (<span class="params">line</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.getElementById(<span class="string">"latest"</span>).innerHTML = line;</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="javascript">                <span class="built_in">document</span>.getElementById(<span class="string">"x"</span>).innerHTML = s;</span></span><br><span class="line"><span class="undefined">            &#125;, 500);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (<span class="built_in">window</span>.postMessage) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.getElementById(<span class="string">"x"</span>).innerHTML = <span class="string">"OK"</span>;</span></span><br><span class="line"><span class="undefined">            setTimeout(connectIframe, 100);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.getElementById(<span class="string">"x"</span>).innerHTML = <span class="string">"Sorry!"</span>;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">     </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>使用显式的 xhr 或者 longpoll 有两个小优势。首先它可以出现在服务端日志中，而 HTTP请求头通常不会，这可能有助于故障排查。其次，请求头方案会有一些风险，比如浏览器出 bug 而遗漏发送请求头，或者遗漏了连接符等。而发送 URL 参数完全是无风险的。</p>
+<p>可以像处理其他 URL 一样对 SSE 脚本进行IP限制或密码保护。在Apache服务器下的.htaccess 文件来设置限制，比如:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Files</span> "<span class="attr">log_headers_ip_restrict.php</span>"&gt;</span></span><br><span class="line">    order deny,allow</span><br><span class="line">    deny from all</span><br><span class="line">    allow from 127.0.0.1</span><br><span class="line"><span class="tag">&lt;/<span class="name">Files</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>表示只允许127.0.0.1的IP访问。</p>
+<p>配置输入用户名和密码才能进行访问<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">AuthUserFile /etc/apache2/sse_book_htpasswd</span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName SSEBook</span><br><span class="line"><span class="tag">&lt;<span class="name">Files</span> "<span class="attr">log_headers_basic_auth.php</span>"&gt;</span></span><br><span class="line">  require valid-user</span><br><span class="line"><span class="tag">&lt;/<span class="name">Files</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>/etc/apache2/sse_book_htpasswd文件中包含<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oreilly:AhsbB/t5vHsxA</span><br></pre></td></tr></table></figure></p>
+<p>SSE不允许POST数据到服务端，也不允许指定HTTP请求头。</p>
+<p>鉴权方式</p>
+<ul>
+<li>服务器认证，如Apache的http服务器配置.htaccess文件</li>
+<li>使用Cookie进行认证</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="FWHeart WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.png" alt="FWHeart Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/15/Sublime插件推荐/" rel="next" title="Sublime插件推荐">
+                <i class="fa fa-chevron-left"></i> Sublime插件推荐
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/07/JavaScript设计模式与开发实践/" rel="prev" title="JavaScript设计模式与开发实践">
+                JavaScript设计模式与开发实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <ul class="sidebar-nav motion-element">
+      <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+        Table of Contents
+      </li>
+      <li class="sidebar-nav-overview" data-target="site-overview">
+        Overview
+      </li>
+    </ul>
+    
+    <section class="site-overview sidebar-panel">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+    
+    <!--noindex-->
+    <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+      <div class="post-toc">
+           
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#评-HTML5数据推送应用开发"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x8BC4;-HTML5&#x6570;&#x636E;&#x63A8;&#x9001;&#x5E94;&#x7528;&#x5F00;&#x53D1;" class="headerlink" title="[&#x8BC4;]HTML5&#x6570;&#x636E;&#x63A8;&#x9001;&#x5E94;&#x7528;&#x5F00;&#x53D1;"></a>[&#x8BC4;]HTML5&#x6570;&#x636E;&#x63A8;&#x9001;&#x5E94;&#x7528;&#x5F00;&#x53D1;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#精彩部分"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x7CBE;&#x5F69;&#x90E8;&#x5206;" class="headerlink" title="&#x7CBE;&#x5F69;&#x90E8;&#x5206;"></a>&#x7CBE;&#x5F69;&#x90E8;&#x5206;</span></a></li></ol></li></ol></div>
+          
+      </div>
+    </section>
+    <!--/noindex-->
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+ 
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

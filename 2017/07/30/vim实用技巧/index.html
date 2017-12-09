@@ -1,0 +1,1005 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="书评," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="[评]vim实用技巧《vim实用技巧》就如书名一样讲述了vim许许多多被人所忽视但却灰常实用的技巧，学会了这些使用技巧后，就能更加快捷的操作vim编辑器。">
+<meta name="keywords" content="书评">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim实用技巧">
+<meta property="og:url" content="http://yeomanye.github.io/2017/07/30/vim实用技巧/index.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="[评]vim实用技巧《vim实用技巧》就如书名一样讲述了vim许许多多被人所忽视但却灰常实用的技巧，学会了这些使用技巧后，就能更加快捷的操作vim编辑器。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/30/vim实用技巧/resources/images/封面.jpg">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.474Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim实用技巧">
+<meta name="twitter:description" content="[评]vim实用技巧《vim实用技巧》就如书名一样讲述了vim许许多多被人所忽视但却灰常实用的技巧，学会了这些使用技巧后，就能更加快捷的操作vim编辑器。">
+<meta name="twitter:image" content="http://yeomanye.github.io/2017/07/30/vim实用技巧/resources/images/封面.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/2017/07/30/vim实用技巧/"/>
+
+
+
+
+
+  <title> vim实用技巧 | 探险 </title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/07/30/vim实用技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                vim实用技巧
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-30T00:00:00+08:00">
+                2017-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/书评/" itemprop="url" rel="index">
+                    <span itemprop="name">书评</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/30/vim实用技巧/" class="leancloud_visitors" data-flag-title="vim实用技巧">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  1,678
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="评-vim实用技巧"><a href="#评-vim实用技巧" class="headerlink" title="[评]vim实用技巧"></a>[评]vim实用技巧</h1><p>《vim实用技巧》就如书名一样讲述了vim许许多多被人所忽视但却灰常实用的技巧，学会了这些使用技巧后，就能更加快捷的操作vim编辑器。</p>
+<a id="more"></a>
+<p><img src="resources/images/封面.jpg" alt="封面"><br>《vim实用技巧》这本书很明显适合那些想要学习vim编辑器，加快工作效率的人。</p>
+<p>这本书除了将vim的使用技巧外，还讲了些编码的理念。比如：《vim实用技巧》一书认为最好的操作是一键移动、一键修改，这样的操作命名为点范式；还有它将程序员写代码比喻做画家画画，它认为与画家一样程序员写代码不应该是不断的涂涂改改，而应该像画家一样一气呵成。即使程序中有内容需要修改，应该像画家一样认真观察后，再下笔修改，并用最好最快的方式完成修改。它认为一个程序员如果，大部分的时间都在代码上涂涂改改，那么他写出来的程序绝对不会是什么好程序。</p>
+<p>阅读这本书籍时是想着学会更好的操作这个编辑器以提高开发效率，现在书籍读完了。但是linux系统却崩溃了，windows系统下vim又极难使用(windows很多插件安装麻烦)–!。</p>
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>以下是我学完本书后，觉得对于提高速度非常有帮助的命令和脚本。</p>
+<h3 id="普通模式"><a href="#普通模式" class="headerlink" title="普通模式"></a>普通模式</h3><p>一开始打开文件所在的模式就是普通模式，普通模式，能够快速的移动、定位以及简单的文本处理。</p>
+<ul>
+<li><code>&lt;C-u&gt;/&lt;C-d&gt;</code>上/下移一屏</li>
+<li><code>nG</code> 移动到绝对行,n代表任意整数</li>
+<li><code>==</code> 自动缩进</li>
+<li><code>&lt;C-o&gt;/&lt;C-i&gt;</code> 回上/下一次跳跃</li>
+<li><code>f</code>找到字符,<code>;/,</code>重复往下/上查找</li>
+<li><code>*</code>查找当前单词，<code>n</code>查找下一处</li>
+<li><code>g~</code>大小写改变，<code>gu/gU</code>小写/大写</li>
+<li><code>&lt;C-w&gt;s/&lt;C-w&gt;u</code>水平/垂直切分</li>
+<li><code>&lt;C-w&gt;w/h/j/k/l</code>窗口切换</li>
+<li><code>&lt;C-w&gt;c</code>关闭窗口</li>
+<li><code>&lt;C-w&gt;o</code>只保留单前窗口</li>
+<li><code>&lt;C-w&gt;t</code>把当前窗口移到新标签页</li>
+<li><code>gk/gj</code>上移/下移实际行</li>
+<li><code>e/ge</code>正向/反向移动单词到结尾</li>
+<li><code>w/b</code>正向/反向移动单词到开头</li>
+<li><code>&lt;C-g&gt;</code>显示当前文件名及状态</li>
+<li><code>at</code>一对XML标签内部</li>
+<li><code>it</code>XML标签内部</li>
+<li><code>a/i/t</code>理解为around、inside、to用于文本待决模式(用于接在<code>y/d/c/</code>等命令后)，特别的<code>daw</code>删除一个单词</li>
+<li><code>gt/gT</code>切换到上/下标签</li>
+<li><code>`/m</code>跳转/打标签</li>
+<li><code>`.</code> 上次修改位置</li>
+<li><code>`^</code> 上次插入位置</li>
+<li><code>`[/</code>[ ` 上次修改/复制起始/结束为止</li>
+<li><code>`&lt;/</code>&gt; ` 上次高亮选区起始/结束为止</li>
+<li><code>gf</code> 打开对应路径文件</li>
+<li><code>&quot;{register}</code> 操作用于某个寄存器，特殊的寄存器有无名（”）、复制(0)、剪切(+)、文件名(%)、轮换文件名(#)、上次插入文本(.)</li>
+<li><code>@@</code> 重复调用宏</li>
+<li><code>@:</code> 重复上一个命令</li>
+<li><code>qA</code> 追加命令到宏a</li>
+<li><code>q/</code> 查找历史窗口</li>
+<li><code>q:</code> 命令历史窗口</li>
+</ul>
+<h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3><p>通过在普通模式下按:进入，许多强大的功能都需要通过命令模式来完成</p>
+<ul>
+<li><code>:enew</code> 新文件</li>
+<li><code>:marks</code> 查看所有书签</li>
+<li><code>:jumps</code> 查看所有跳转记录</li>
+<li><code>:ls</code> 显示缓冲区</li>
+<li><code>:buffer N</code> 跳转到某个缓冲区</li>
+<li><code>:bd n1,n2,n3</code>删除缓冲区</li>
+<li><code>:n,m bd</code>删除某个范围的缓冲区</li>
+<li><code>:args **/*.*</code>匹配当前目录及子目录所有文件</li>
+<li><code>:e!</code> 重新读入新文件</li>
+<li><code>:wa!</code>保存所有</li>
+<li><code>:sp/vsp</code>水平/垂直切分</li>
+<li><code>:lcd {path}</code>设置窗口当前目录</li>
+<li><code>:windo lcd {path}</code>给窗口设置工作目录</li>
+<li><code>:tabe {filename}</code> 新标签页编辑文件</li>
+<li><code>:tabc/tabo</code> 关闭/保留一个标签</li>
+<li><code>:pwd</code> 显示当前工作目录</li>
+<li><code>:e %:h&lt;Tab&gt;</code> 单前文件所在路径</li>
+<li><code>:!mkdir -p %:h</code> 当缓冲区不存在路径是保存文件的方法</li>
+<li><code>:w !sudo tee % &gt; /dev/null</code>当没有保存文件权限时的办法</li>
+<li><code>:changes</code>改变列表</li>
+<li><code>:set path=.,/usr/include</code>设置多路径</li>
+<li><code>:&#39;&lt;,&#39;&gt;normal @a</code> 并行执行宏</li>
+<li><code>:argdo normal @a</code> 对所有缓冲区执行录制的宏</li>
+<li><code>:nohlsearch</code>暂时关闭查找高亮</li>
+<li><code>:!{command}</code>在shell中执行命令，%代表文件名</li>
+<li><code>:shell</code> 打开shell交互界面</li>
+<li><code>:read !{command}</code>将命令输出读入到缓冲中</li>
+<li><code>:write !{cmd}</code>将缓冲区作为指定内容标准输入</li>
+<li><code>:n,mp</code>范围内执行p命令，<code>.,$p</code>单前到文档结束行执行p命令,<code>%p</code>整个文档执行p命令</li>
+</ul>
+<h3 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h3><p>通过一般模式下按i/a/o等按键进入，也可以使用s/c/r等</p>
+<ul>
+<li><code>&lt;C-w&gt;</code> 删除一个单词</li>
+<li><code>&lt;C-u&gt;</code> 删除到行首</li>
+<li><code>&lt;C-o&gt;</code> 插入-普通模式</li>
+<li><code>&lt;C-c&gt;</code> 返回到普通模式</li>
+<li><code>&lt;C-r&gt;=</code> 启用表达式</li>
+<li><code>&lt;C-r&gt;(&lt;C-p&gt;){register}</code>黏贴文本</li>
+</ul>
+<h3 id="可视模式"><a href="#可视模式" class="headerlink" title="可视模式"></a>可视模式</h3><p>可视模式通过普通模式按下v/V/gv进入，分别代表一般/行选/块选可视模式</p>
+<ul>
+<li><code>gv</code>重复上次高亮选区</li>
+<li><code>o</code>切换活动端</li>
+</ul>
+<h3 id="查找模式"><a href="#查找模式" class="headerlink" title="查找模式"></a>查找模式</h3><p>查找模式是通过在普通模式下，按/或?进入的</p>
+<ul>
+<li><code>\c/\C</code>忽略/强制大小写敏感</li>
+<li><code>\v</code>所有_、字母、数字外都有特殊含义(very magic启用)</li>
+<li><code>&lt;\w&gt; == \W\zs\w\ze\W</code></li>
+<li><code>&lt;C-r&gt;&lt;C-w&gt;</code>智能补全</li>
+<li><code>//e</code>光标移动到查找的结尾</li>
+</ul>
+<h3 id="替换模式"><a href="#替换模式" class="headerlink" title="替换模式"></a>替换模式</h3><p>替换模式是特殊的命令模式，因为功能强大复杂，所以单独讲解。<br>语法 :[range]s[ubtitute]/{pattern}/{string}/[flags]</p>
+<ul>
+<li>range:% (代表每一行)</li>
+<li>flags:g(全部)、c（交互式替换,y/n/q(退出)/a(替换之后全部))、&amp;重复上一个标志</li>
+<li>pattern:查找需要替换的内容，与查找一样</li>
+<li>string:替换成的内容，可以使用\1,\2,\3代表子串</li>
+</ul>
+<p>实例：<br>多所有文件执行替换：<code>:set hidden</code>,<code>:argdo %s//ABCD/ge</code> e忽略找不到错误</p>
+<p>数字修改<code>:%s//\=submatch(0)-1/g</code></p>
+<p>保留所有匹配行<code>:v/re/d</code>或者<code>:g!/re/d</code></p>
+<p>在文件夹范围执行查找操作<code>:vimgrep // **/*.txt</code></p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&quot; 将工程中查找到包含字符串的文件使用命令Qargs放入到参数列表中</span><br><span class="line">command! -nargs=0 -bar Qargs execute &apos;args&apos; QuickfixFilenames()</span><br><span class="line">function! QuickfixFilenames()</span><br><span class="line">    let buffer_numbers = &#123;&#125;</span><br><span class="line">    for quickfix_item in getqflist()</span><br><span class="line">        let buffer_numbers[quickfix_item[&apos;bufnr&apos;]] = bufname(quickfix_item[&apos;bufnr&apos;])</span><br><span class="line">    endfor</span><br><span class="line">    return join(map(values(buffer_numbers), &apos;fnameescape(v:val)&apos;))</span><br><span class="line">endfunction</span><br><span class="line"></span><br><span class="line">&quot; 使用wildmode补全模式</span><br><span class="line">set wildmenu</span><br><span class="line">set wildmode=full</span><br><span class="line"></span><br><span class="line">&quot; 使用%%代替%:h&lt;Tab&gt;</span><br><span class="line">cnoremap &lt;expr&gt; %% getcmdtype( ) == &apos;:&apos; ? expand(&apos;%:h&apos;).&apos;/&apos; : &apos;%%&apos;</span><br><span class="line"></span><br><span class="line">&quot; 可视化选择内容查找，×正向，#反向</span><br><span class="line">xnoremap * :&lt;C-u&gt;call &lt;SID&gt;VSetSearch()&lt;CR&gt;/&lt;C-R&gt;=@/&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">xnoremap # :&lt;C-u&gt;call &lt;SID&gt;VSetSearch()&lt;CR&gt;?&lt;C-R&gt;=@/&lt;CR&gt;&lt;CR&gt;</span><br><span class="line">function! s:VSetSearch()</span><br><span class="line">    let temp = @s</span><br><span class="line">    norm! gv&quot;sy</span><br><span class="line">    let @/ = &apos;\V&apos; . substitute(escape(@s, &apos;/\&apos;), &apos;\n&apos;, &apos;\\n&apos;, &apos;g&apos;)</span><br><span class="line">    let @s = temp</span><br><span class="line">endfunction</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="FWHeart WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.png" alt="FWHeart Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/书评/" rel="tag"># 书评</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/24/茶花女/" rel="next" title="茶花女">
+                <i class="fa fa-chevron-left"></i> 茶花女
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/01/响应式Web设计/" rel="prev" title="响应式Web设计">
+                响应式Web设计 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <ul class="sidebar-nav motion-element">
+      <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+        Table of Contents
+      </li>
+      <li class="sidebar-nav-overview" data-target="site-overview">
+        Overview
+      </li>
+    </ul>
+    
+    <section class="site-overview sidebar-panel">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+    
+    <!--noindex-->
+    <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+      <div class="post-toc">
+           
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#评-vim实用技巧"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x8BC4;-vim&#x5B9E;&#x7528;&#x6280;&#x5DE7;" class="headerlink" title="[&#x8BC4;]vim&#x5B9E;&#x7528;&#x6280;&#x5DE7;"></a>[&#x8BC4;]vim&#x5B9E;&#x7528;&#x6280;&#x5DE7;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模式"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x6A21;&#x5F0F;" class="headerlink" title="&#x6A21;&#x5F0F;"></a>&#x6A21;&#x5F0F;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通模式"><span class="nav-number">1.1.1.</span> <span class="nav-text"><a href="#&#x666E;&#x901A;&#x6A21;&#x5F0F;" class="headerlink" title="&#x666E;&#x901A;&#x6A21;&#x5F0F;"></a>&#x666E;&#x901A;&#x6A21;&#x5F0F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式"><span class="nav-number">1.1.2.</span> <span class="nav-text"><a href="#&#x547D;&#x4EE4;&#x6A21;&#x5F0F;" class="headerlink" title="&#x547D;&#x4EE4;&#x6A21;&#x5F0F;"></a>&#x547D;&#x4EE4;&#x6A21;&#x5F0F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入模式"><span class="nav-number">1.1.3.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x6A21;&#x5F0F;" class="headerlink" title="&#x63D2;&#x5165;&#x6A21;&#x5F0F;"></a>&#x63D2;&#x5165;&#x6A21;&#x5F0F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视模式"><span class="nav-number">1.1.4.</span> <span class="nav-text"><a href="#&#x53EF;&#x89C6;&#x6A21;&#x5F0F;" class="headerlink" title="&#x53EF;&#x89C6;&#x6A21;&#x5F0F;"></a>&#x53EF;&#x89C6;&#x6A21;&#x5F0F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找模式"><span class="nav-number">1.1.5.</span> <span class="nav-text"><a href="#&#x67E5;&#x627E;&#x6A21;&#x5F0F;" class="headerlink" title="&#x67E5;&#x627E;&#x6A21;&#x5F0F;"></a>&#x67E5;&#x627E;&#x6A21;&#x5F0F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换模式"><span class="nav-number">1.1.6.</span> <span class="nav-text"><a href="#&#x66FF;&#x6362;&#x6A21;&#x5F0F;" class="headerlink" title="&#x66FF;&#x6362;&#x6A21;&#x5F0F;"></a>&#x66FF;&#x6362;&#x6A21;&#x5F0F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x8BBE;&#x7F6E;" class="headerlink" title="&#x8BBE;&#x7F6E;"></a>&#x8BBE;&#x7F6E;</span></a></li></ol></li></ol></div>
+          
+      </div>
+    </section>
+    <!--/noindex-->
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+ 
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

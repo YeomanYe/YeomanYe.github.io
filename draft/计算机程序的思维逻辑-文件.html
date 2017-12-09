@@ -1,0 +1,831 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content=",,," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="[笔记]计算机思维逻辑-文件计算机程序的思维逻辑是“老马”的系列文章，文章通过Java语言来介绍计算机技术的本质。第六章节文件，介绍了文件、编码中的一些重要概念，文件相关的API，包括字节流、字符流、随机读写文件、内存映射文件、序列化等。原文目录(56-64章)">
+<meta name="keywords" content="Java,笔记,基础知识">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计算机程序的思维逻辑-文件">
+<meta property="og:url" content="http://yeomanye.github.io/draft/计算机程序的思维逻辑-文件.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="[笔记]计算机思维逻辑-文件计算机程序的思维逻辑是“老马”的系列文章，文章通过Java语言来介绍计算机技术的本质。第六章节文件，介绍了文件、编码中的一些重要概念，文件相关的API，包括字节流、字符流、随机读写文件、内存映射文件、序列化等。原文目录(56-64章)">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机程序的思维逻辑-文件">
+<meta name="twitter:description" content="[笔记]计算机思维逻辑-文件计算机程序的思维逻辑是“老马”的系列文章，文章通过Java语言来介绍计算机技术的本质。第六章节文件，介绍了文件、编码中的一些重要概念，文件相关的API，包括字节流、字符流、随机读写文件、内存映射文件、序列化等。原文目录(56-64章)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/draft/计算机程序的思维逻辑-文件.html"/>
+
+
+
+
+
+  <title>
+  
+
+  
+    计算机程序的思维逻辑-文件 | 探险
+  
+</title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left  ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+  <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline">计算机程序的思维逻辑-文件</h1>
+
+
+
+</header>
+
+    
+    
+      <h1 id="笔记-计算机思维逻辑-文件"><a href="#笔记-计算机思维逻辑-文件" class="headerlink" title="[笔记]计算机思维逻辑-文件"></a>[笔记]计算机思维逻辑-文件</h1><p>计算机程序的思维逻辑是“老马”的系列文章，文章通过Java语言来介绍计算机技术的本质。第六章节文件，介绍了文件、编码中的一些重要概念，文件相关的API，包括字节流、字符流、随机读写文件、内存映射文件、序列化等。<br><a href="http://www.cnblogs.com/swiftma/p/5631311.html" target="_blank" rel="noopener">原文目录(56-64章)</a></p>
+<a id="more"></a>
+<h2 id="文件注意点"><a href="#文件注意点" class="headerlink" title="文件注意点"></a>文件注意点</h2><p>UTF-8文件可以在头部添加BOM(字节序标记),即三个特殊字节(0XEF 0XBB 0XBF)来表示该文件采用UTF-8编码，带BOM头的文件不是所有应用程序都支持的,PHP就不支持BOM。</p>
+<p>Windows系统中,换行符一般是两个字符”\r\n”,Linux系统中,换行符一般是一个字符”\n”</p>
+<p>读文件，需要先从硬盘拷贝到操作系统内核，再从内核拷贝到应用程序分配的内存中，操作系统运行所在的环境和应用程序是不一样的,操作系统所在的环境是内核态,应用程序的是用户态,应用程序调用操作系统的功能，需要两次的环境切换，先从用户态切到内核态,再从内核态切到用户态。</p>
+<p>操作系统操作文件一般有打开和关闭的概念，打开文件会在操作系统内核建立一个有关该文件的内存结构，这个结构一般通过一个整数索引来引用，这个索引一般称为文件描述符，这个结构是消耗内存的，操作系统能同时打开的文件一般也是有限的，在不用文件的时候，应该记住关闭文件，关闭文件一般会同步缓冲区内容到硬盘，并释放占据的内存结构。</p>
+<p>操作系统一般支持一种称之为内存映射文件的高效的随机读写大文件的方法，将文件直接映射到内存，操作内存就是操作文件，在内存映射文件中，只有访问到的数据才会被实际拷贝到内存，且数据只会拷贝一次，被操作系统以及多个应用程序共享。</p>
+<p>Java使用统一的概念(流)处理所有的IO，包括键盘、显示终端、网络等。</p>
+<h2 id="文件操作相关类"><a href="#文件操作相关类" class="headerlink" title="文件操作相关类"></a>文件操作相关类</h2><p>Java IO的基本类大多位于包java.io中，类InputStream表示输入流，OutputStream表示输出流，而FileInputStream表示文件输入流，FileOutputStream表示文件输出流。</p>
+<p>FilterInputStream和FilterOutputStream的子类</p>
+<ul>
+<li>对流起缓冲装饰的子类是BufferedInputStream和BufferedOutputStream。</li>
+<li>可以按八种基本类型和字符串对流进行读写的子类是DataInputStream和DataOutputStream。</li>
+<li>可以对流进行压缩和解压缩的子类有GZIPInputStream, ZipInputStream, GZIPOutputStream, ZipOutputStream。</li>
+<li>可以将基本类型、对象输出为其字符串表示的子类有PrintStream。</li>
+</ul>
+<p>Reader/Writer的常见子类(字符流)</p>
+<ul>
+<li>读写文件的子类是FileReader和FileWriter。</li>
+<li>起缓冲装饰的子类是BufferedReader和BufferedWriter。</li>
+<li>将字符数组包装为Reader/Writer的子类是CharArrayReader和CharArrayWriter。</li>
+<li>将字符串包装为Reader/Writer的子类是StringReader和StringWriter。</li>
+<li>将InputStream/OutputStream转换为Reader/Writer的子类是InputStreamReader OutputStreamWriter。</li>
+<li>将基本类型、对象输出为其字符串表示的子类PrintWriter。</li>
+</ul>
+<p>File用于文件路径、文件元数据、文件目录、临时文件、访问权限管理等</p>
+<p>Java NIO代表一种不同的看待IO的方式，它们更接近操作系统的概念，某些操作的性能也更高。比如，拷贝文件到网络，通道可以利用操作系统和硬件提供的DMA机制(Direct Memory Access，直接内存存取) ，不用CPU和应用程序参与，直接将数据从硬盘拷贝到网卡。除了看待方式不同，NIO还支持一些比较底层的功能，如内存映射文件、文件加锁、自定义文件系统、非阻塞式IO、异步IO等。</p>
+<h2 id="二进制文件和字节流"><a href="#二进制文件和字节流" class="headerlink" title="二进制文件和字节流"></a>二进制文件和字节流</h2><h3 id="InputStream-OutputStream"><a href="#InputStream-OutputStream" class="headerlink" title="InputStream/OutputStream"></a>InputStream/OutputStream</h3><p>InputStream的主要方法:</p>
+<ul>
+<li>read():从流中读取下一个字节,返回类型int,但取值在0到255之间,返回值为-1,如果流中没有数据,read方法会阻塞直到数据到来、流关闭、或异常出现。</li>
+<li>read(byte b[],int off,int len):一次读入若干个字节</li>
+<li>close():关闭输入流</li>
+<li>skip(long n)跳过输入流中n个字节，因为输入流中剩余的字节个数可能不到n，所以返回值为实际略过的字节个数。</li>
+<li>available()返回下一次不需要阻塞就能读取到的大概字节个数。但在从网络读取数据时，可以根据该方法的返回值在网络有足够数据时才读，以避免阻塞。</li>
+<li>markSupported()判断流是否支持mark/reset</li>
+<li>mark/reset:用于支持从读过的流中重复读取,但并不是可以在任意位置标记,mark有一个readLimit参数,表示设置了标记后,能够继续往后读的最多字节数。</li>
+</ul>
+<p>OutputStream的主要方法:</p>
+<ul>
+<li>write(int b)</li>
+<li>write(byte b[],int off,int len)</li>
+<li>flush()将缓冲区而未实际写的数据进行写入</li>
+<li>close()一般会首先调用flush，然后再释放流占用的系统资源。</li>
+</ul>
+<h3 id="FileInputStream-FileOutputStream"><a href="#FileInputStream-FileOutputStream" class="headerlink" title="FileInputStream/FileOutputStream"></a>FileInputStream/FileOutputStream</h3><p>new一个FileOutputStream对象会实际打开文件，操作系统会分配相关资源。如果当前用户没有写权限,会抛出SecurityException是一种运行时异常,如果指定的文件是目录，或者由于其他原因无法打开文件抛出FileNotFoundException</p>
+<h3 id="ByteArrayInputStream-ByteArrayOutputStream"><a href="#ByteArrayInputStream-ByteArrayOutputStream" class="headerlink" title="ByteArrayInputStream/ByteArrayOutputStream"></a>ByteArrayInputStream/ByteArrayOutputStream</h3><p>ByteArrayOutputStream主要方法:</p>
+<ul>
+<li>toByteArray()</li>
+<li>toString(String charsetName)</li>
+<li>writeTo(OutputStream out)</li>
+<li>reset()</li>
+<li>size():返回写入的字节个数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取所有内容生成一个byte数组</span></span><br><span class="line">InputStream input = <span class="keyword">new</span> FileInputStream(<span class="string">"hello.txt"</span>);</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    ByteArrayOutputStream output = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">    <span class="keyword">byte</span>[] buf = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">int</span> bytesRead = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>((bytesRead = input.read(buf)) != -<span class="number">1</span>)&#123;</span><br><span class="line">        output.write(buf,<span class="number">0</span>,bytesRead);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">byte</span>[] bArr = output.toByteArray();</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    input.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="DataInputStream-DataOutputStream"><a href="#DataInputStream-DataOutputStream" class="headerlink" title="DataInputStream/DataOutputStream"></a>DataInputStream/DataOutputStream</h3><p>实现了DataOutput和DataInput接口可以以各种基本类型和字符串写入数据。</p>
+<p>DataOutputStream方法举例</p>
+<ul>
+<li>writeBoolean: 写入一个字节，如果值为true，则写入1，否则0</li>
+<li>writeInt: 写入四个字节，最高位字节先写入，最低位最后写入</li>
+<li>writeUTF: 将字符串的UTF-8编码字节写入，这个编码格式与标准的UTF-8编码略有不同，不过，我们不用关心这个细节。</li>
+</ul>
+<p>DataInputStream先按字节读进来,然后转换为对应的类型。</p>
+<h3 id="实用方法"><a href="#实用方法" class="headerlink" title="实用方法"></a>实用方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 拷贝</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copy</span><span class="params">(InputStream input,OutputStream output)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    <span class="keyword">byte</span>[] buf = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4096</span>];</span><br><span class="line">    <span class="keyword">int</span> bytesRead = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>((bytesRead = input.read(buf)) != -<span class="number">1</span>)&#123;</span><br><span class="line">        output.write(buf,<span class="number">0</span>,bytesRead);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将文件读入字节数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] readFileToByteArray(String fileName)<span class="keyword">throws</span> IOException&#123;</span><br><span class="line">    InputStream input = <span class="keyword">new</span> FileInputStream(fileName);</span><br><span class="line">    ByteArrayOutputStream output = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        copy(input,output);</span><br><span class="line">        <span class="keyword">return</span> output.toByteArray();</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        input.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将字节数组写入到文件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeByteArrayToFile</span><span class="params">(String fileName,<span class="keyword">byte</span>[] data)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    OutputStream output = <span class="keyword">new</span> FileOutputStream(fileName);</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        output.write(data);</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        output.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="文本文件和字符流"><a href="#文本文件和字符流" class="headerlink" title="文本文件和字符流"></a>文本文件和字符流</h2><p>Java中的字符流是按char(两个字符，表示unicode编码)而不是一个完整字符处理的，意味着增补字符集中的字符需要占用多个char</p>
+<h3 id="Reader-Writer"><a href="#Reader-Writer" class="headerlink" title="Reader/Writer"></a>Reader/Writer</h3><p>Reader方法的名称和含义与InputStream中的对应方法基本类似，但Reader中处理的单位是char，比如read读取的是一个char，取值范围为0到65535。Reader没有available方法，对应的方法是ready()</p>
+<p>Writer与OutputStream的对应方法基本类似,但Writer处理的单位是char，Writer还接受String类型，String的内部就是char数组，处理时，会调用String的getChar方法先获取char数组。</p>
+<h3 id="InputStreamReader-OutputStreamWriter"><a href="#InputStreamReader-OutputStreamWriter" class="headerlink" title="InputStreamReader/OutputStreamWriter"></a>InputStreamReader/OutputStreamWriter</h3><p>用于将InputStream/OutputStream，转换为Reader/Writer并且可以设置编码。</p>
+<h3 id="FileReader-FileWriter"><a href="#FileReader-FileWriter" class="headerlink" title="FileReader/FileWriter"></a>FileReader/FileWriter</h3><p>FileReader/FileWriter不能指定编码类型,只能使用默认编码,如果需要指定编码类型,可以使用InputStreamReader/OutputStreamWriter</p>
+<h3 id="CharArrayReader-CharArrayWriter"><a href="#CharArrayReader-CharArrayWriter" class="headerlink" title="CharArrayReader/CharArrayWriter"></a>CharArrayReader/CharArrayWriter</h3><p>CharArrayWriter与ByteArrayOutputStream类型类似，都是便于将流转化为char或byte</p>
+<ul>
+<li>toCharArray() 将输出流的内容转化为字符数组</li>
+<li>toString() 将输出流的内容转化为字符串</li>
+</ul>
+<h3 id="BufferedReader-BufferedWriter"><a href="#BufferedReader-BufferedWriter" class="headerlink" title="BufferedReader/BufferedWriter"></a>BufferedReader/BufferedWriter</h3><p>提供缓冲读写的功能</p>
+<ul>
+<li>newLine输出特定平台的换行符</li>
+<li>readLine返回一行内容，但不会包含换行符（字符’\r’或’\n’或’\r\n’被视为换行符），当读到流结尾时，返回null。</li>
+</ul>
+<h3 id="PrintWriter"><a href="#PrintWriter" class="headerlink" title="PrintWriter"></a>PrintWriter</h3><p>PrintWriter是一个非常方便的类，可以直接指定文件名作为参数，可以指定编码类型，可以自动缓冲，可以自动将多种类型转换为字符串，在输出到文件时，可以优先选择该类。</p>
+<p>PrintWriter具有许多打印方法,printf()格式化打印、print()普通打印、println()换行打印</p>
+<h3 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h3><p>它是一个简单的文本扫描器，能够分析基本类型和字符串，它需要一个分隔符来将不同数据区分开来，默认是使用空白符，可以通过useDelimiter方法进行指定。Scanner有很多形式的next方法，可以读取下一个基本类型或行,如:nextFloat(),nextLine(),nextInt()<br>使用示例:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Student&gt; <span class="title">readStudents</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    BufferedReader reader = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">        <span class="keyword">new</span> FileReader(<span class="string">"student.txt"</span>));</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        List&lt;Student&gt; students = <span class="keyword">new</span> ArrayList&lt;Student&gt;();</span><br><span class="line">        String line = reader.readLine();</span><br><span class="line">        <span class="keyword">while</span>(line != <span class="keyword">null</span>)&#123;</span><br><span class="line">            Student s = <span class="keyword">new</span> Student();</span><br><span class="line">            Scanner scanner = <span class="keyword">new</span> Scanner(line).useDelimiter(<span class="string">"."</span>);</span><br><span class="line">            s.setName(scanner.next());</span><br><span class="line">            s.setScore(scanner.nextDouble());</span><br><span class="line">            students.add(s);</span><br><span class="line">            line = reader.readLine();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> students;</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        reader.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="标准流"><a href="#标准流" class="headerlink" title="标准流"></a>标准流</h3><p>System.in标准输入是一个InputStream对象,输入源经常是键盘<br>System.out标准输出流是一个PrintStream对象<br>System.err表示标准错误流,一般异常和错误信息输出到这个流,它也是一个PrintStream对象,输出目标默认与System.out一样，一般也是屏幕<br>Java中使用System类的setIn,setOut,setErr进行重定向</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.setIn(<span class="keyword">new</span> ByteArrayInputStream(<span class="string">"helllo"</span>.getBytes(<span class="string">"UTF-8"</span>)))</span><br><span class="line">System.setOut(<span class="keyword">new</span> PrintStream(<span class="string">"out.txt"</span>))</span><br><span class="line">System.setErr(<span class="keyword">new</span> PrintStream(<span class="string">"err.txt"</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="实用方法-1"><a href="#实用方法-1" class="headerlink" title="实用方法"></a>实用方法</h3><p>包括：拷贝文件、将文件全部内容读入到一个字符串、按行将文件内容读到一个列表中、按行将多行数据写到文件、将字符串写到文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Utils</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拷贝</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copy</span><span class="params">(<span class="keyword">final</span> Reader input,<span class="keyword">final</span> Writer output)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] buf = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">4096</span>];</span><br><span class="line">        <span class="keyword">int</span> charsRead = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>((charsRead = input.read(buf)) != -<span class="number">1</span>)&#123;</span><br><span class="line">            output.write(buf,<span class="number">0</span>,charsRead);</span><br><span class="line">        &#125;</span><br><span class="line">        output.flush();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将文件全部内容读入到一个字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">readFileToString</span><span class="params">(<span class="keyword">final</span> String fileName,<span class="keyword">final</span> String encoding)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(<span class="keyword">new</span> FileInputStream(fileName), encoding));</span><br><span class="line">            StringWriter writer = <span class="keyword">new</span> StringWriter();</span><br><span class="line">            copy(reader,writer);</span><br><span class="line">            <span class="keyword">return</span> writer.toString();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(reader != <span class="keyword">null</span>)&#123;</span><br><span class="line">                reader.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将字符串写到文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeStringToFile</span><span class="params">(<span class="keyword">final</span> String fileName,<span class="keyword">final</span> String data,<span class="keyword">final</span> String encoding)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        Writer writer = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            writer = <span class="keyword">new</span> OutputStreamWriter(<span class="keyword">new</span> FileOutputStream(fileName),encoding);</span><br><span class="line">            writer.write(data);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(writer != <span class="keyword">null</span>)&#123;</span><br><span class="line">                writer.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 按行将多行数据写到文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeLines</span><span class="params">(<span class="keyword">final</span> String fileName,<span class="keyword">final</span> String encoding,<span class="keyword">final</span> Collection&lt;?&gt; lines)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        PrintWriter writer = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            writer = <span class="keyword">new</span> PrintWriter(fileName,encoding);</span><br><span class="line">            <span class="keyword">for</span>(Object line:lines)&#123;</span><br><span class="line">                writer.println(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(writer != <span class="keyword">null</span>)&#123;</span><br><span class="line">                writer.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 按行将文件内容读到一个列表中</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">readLines</span><span class="params">(<span class="keyword">final</span> String fileName,<span class="keyword">final</span> String encoding)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(<span class="keyword">new</span> FileInputStream(fileName), encoding));</span><br><span class="line">            List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            String line = reader.readLine();</span><br><span class="line">            <span class="keyword">while</span>(line != <span class="keyword">null</span>)&#123;</span><br><span class="line">                list.add(line);</span><br><span class="line">                line = reader.readLine();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(reader!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                reader.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="文件和目录操作"><a href="#文件和目录操作" class="headerlink" title="文件和目录操作"></a>文件和目录操作</h2><h3 id="文件元数据"><a href="#文件元数据" class="headerlink" title="文件元数据"></a>文件元数据</h3><p>文件名与路径信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">File f = <span class="keyword">new</span> File(<span class="string">"../io/test/students.txt"</span>);</span><br><span class="line">System.out.println(System.getProperty(<span class="string">"user.dir"</span>));</span><br><span class="line">System.out.println(<span class="string">"name:"</span> + f.getName);</span><br><span class="line">System.out.println(<span class="string">"path: "</span> + f.getPath());</span><br><span class="line">System.out.println(<span class="string">"absolutePath: "</span> + f.getAbsolutePath());</span><br><span class="line">System.out.println(<span class="string">"canonicalPath: "</span> + f.getCanonicalPath());</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 输出结果:</span></span><br><span class="line"><span class="comment"> * /Users/majunchang/io</span></span><br><span class="line"><span class="comment"> * name: students.txt</span></span><br><span class="line"><span class="comment"> * path: ../io/test/students.txt</span></span><br><span class="line"><span class="comment"> * absolutePath: /Users/majunchang/io/../io/test/students.txt</span></span><br><span class="line"><span class="comment"> * canonicalPath: /Users/majunchang/io/test/students.txt</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>如果File对象是相对路径,则这些方法可能得不到父目录。可以先获得绝对路径表示的文件对象，在获得父目录。</p>
+<p>Java运行加载class文件时,会从classpath指定的路径中寻找类文件。</p>
+<h3 id="文件基本信息"><a href="#文件基本信息" class="headerlink" title="文件基本信息"></a>文件基本信息</h3><p>没有返回创建时间的方法，因为创建时间不是一个公共概念,Linux/Unix中就没有创建时间的概念。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//文件或目录是否存在</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exists</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//是否为目录</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isDirectory</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"><span class="comment">//是否为文件</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFile</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//文件长度，字节数</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">length</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//最后修改时间，从纪元时开始的毫秒数</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">lastModified</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//设置最后修改时间，设置成功返回true，否则返回false</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setLastModified</span><span class="params">(<span class="keyword">long</span> time)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="安全和权限信息"><a href="#安全和权限信息" class="headerlink" title="安全和权限信息"></a>安全和权限信息</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//是否为隐藏文件</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isHidden</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//是否可执行</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canExecute</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"><span class="comment">//是否可读</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canRead</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//是否可写</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canWrite</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//设置文件为只读文件</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setReadOnly</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//修改文件读权限</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setReadable</span><span class="params">(<span class="keyword">boolean</span> readable, <span class="keyword">boolean</span> ownerOnly)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setReadable</span><span class="params">(<span class="keyword">boolean</span> readable)</span></span></span><br><span class="line"><span class="function"><span class="comment">//修改文件写权限</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setWritable</span><span class="params">(<span class="keyword">boolean</span> writable, <span class="keyword">boolean</span> ownerOnly)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setWritable</span><span class="params">(<span class="keyword">boolean</span> writable)</span></span></span><br><span class="line"><span class="function"><span class="comment">//修改文件可执行权限</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setExecutable</span><span class="params">(<span class="keyword">boolean</span> executable, <span class="keyword">boolean</span> ownerOnly)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setExecutable</span><span class="params">(<span class="keyword">boolean</span> executable)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*创建*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">createNewFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span></span><br><span class="line"><span class="function"><span class="comment">//创建临时文件,prefix是必须的,且至少要三个字符,suffix为null后缀为.tmp</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">createTempFile</span><span class="params">(String prefix, String suffix)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">createTempFile</span><span class="params">(String prefix, String suffix, File directory)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">/*删除*/</span></span></span><br><span class="line"><span class="function"><span class="comment">//删除文件或目录,成功返回true,否则返回false。</span></span></span><br><span class="line"><span class="function"><span class="comment">//删除目录时，目录应为空</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">delete</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//将文件放入待删目录，java虚拟机退出时进行删除。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteOnExit</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">/*重命名*/</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">renameTo</span><span class="params">(File dest)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*创建*/</span></span><br><span class="line"><span class="comment">//不会创建中间目录</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">mkdir</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"><span class="comment">//会创建中间目录</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">mkdirs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">/*遍历*/</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回的是文件名</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String[] <span class="title">list</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String[] <span class="title">list</span><span class="params">(FilenameFilter filter)</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回File对象</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> File[] <span class="title">listFiles</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//FileFilter、FilenameFilter接口的accept函数返回true时才返回文件名或文件对象。</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> File[] <span class="title">listFiles</span><span class="params">(FileFilter filter)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> File[] <span class="title">listFiles</span><span class="params">(FilenameFilter filter)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="随机读写文件及其应用"><a href="#随机读写文件及其应用" class="headerlink" title="随机读写文件及其应用"></a>随机读写文件及其应用</h2><h3 id="RandomAccessFile"><a href="#RandomAccessFile" class="headerlink" title="RandomAccessFile"></a>RandomAccessFile</h3><p>构造方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * mode的取值</span></span><br><span class="line"><span class="comment"> * "r": 只用于读</span></span><br><span class="line"><span class="comment"> * "rw": 用于读和写</span></span><br><span class="line"><span class="comment"> * "rws":和"rw"一样，用于读和写，另外，它要求文件内容和元数据的任何更新都同步到设备上</span></span><br><span class="line"><span class="comment"> * "rwd": 和"rw"一样，用于读和写，另外，它要求文件内容的任何更新都同步到设备上，和"rws"的区别是，元数据的更新不要求同步</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">RandomAccessFile</span><span class="params">(String name,String mode)</span> <span class="keyword">throws</span> FileNotFoundException</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">RandomAccessFile</span><span class="params">(File file,String mode)</span> <span class="keyword">throws</span> FileNotFoundException</span></span><br></pre></td></tr></table></figure></p>
+<p>实现了DataInput/DataOutut接口,实现了许多与流类似的方法,RandomAccessFile有两个额外的read方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 它们确保读够期望的长度,如果到了文件结尾也没读够,它们会抛出EOFException异常。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">readFully</span><span class="params">(<span class="keyword">byte</span> b[])</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">readFully</span><span class="params">(<span class="keyword">byte</span> b[],<span class="keyword">int</span> off,<span class="keyword">int</span> len)</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure></p>
+<p>随机访问<br>RandomAccessFile内部由一个文件指针,指向当前读写文件的位置,各种read/write操作都会自动更新该指针，与流不同的是,RandomAccessFile可以获取该指针，也可以更改该指针,相关方法是:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过本地方法调用操作系统的API实现的</span></span><br><span class="line"><span class="comment">//获取当前文件指针</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">getFilePointer</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="comment">//更改当前文件指针到pos</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">seek</span><span class="params">(<span class="keyword">long</span> pos)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="comment">//获取文件长度</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">length</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="comment">//修改文件长度</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">setLength</span><span class="params">(<span class="keyword">long</span> newLength)</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure>
+<p>需要注意的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这两个方法没有编码的概念,假定一个字节就是一个字符,这对于中文显然不成立,应该避免使用这两个方法。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">writeBytes</span><span class="params">(String s)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">readLine</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure>
+<h3 id="键值数据库BasicDB实现"><a href="#键值数据库BasicDB实现" class="headerlink" title="键值数据库BasicDB实现"></a>键值数据库BasicDB实现</h3><h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><p>利用RandomAccessFile实现一个简单的键值对数据库,BasicDB提供的接口类似于Map接口，可以按键保存、查找、删除，但数据可以持久化保存到文件上。</p>
+<p>此外，不像HashMap/TreeMap，它们将所有数据保存在内存，BasicDB只把元数据如索引信息保存在内存，值的数据保存在文件上。相比HashMap/TreeMap，BasicDB的内存消耗可以大大降低，存储的键值对个数大大提高，尤其当值数据比较大的时候。BasicDB通过索引，以及RandomAccessFile的随机读写功能保证效率。</p>
+<h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BasicDB</span><span class="params">(String path, String name)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="comment">//保存键值对，键为String类型，值为byte数组;简化便于保存所有的数据类型</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(String key, <span class="keyword">byte</span>[] value)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="comment">//根据键获取值，如果键不存在，返回null</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">byte</span>[] <span class="title">get</span><span class="params">(String key)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="comment">//根据键删除</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(String key)</span></span></span><br><span class="line"><span class="function"><span class="comment">//确保将所有数据保存到文件</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flush</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="comment">//关闭数据库</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> score;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> BasicDB db = <span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getScore</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> score;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setScore</span><span class="params">(<span class="keyword">double</span> score)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,<span class="keyword">int</span> age,<span class="keyword">double</span> score)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> BasicDB  <span class="title">getDb</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> == db)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                db = <span class="keyword">new</span> BasicDB(<span class="string">"C:/Users/KINGBOOK/Desktop/"</span>,<span class="string">"students"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> db;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] toBytes(Student student) <span class="keyword">throws</span> IOException&#123;</span><br><span class="line">        ByteArrayOutputStream bout = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        DataOutputStream dout = <span class="keyword">new</span> DataOutputStream(bout);</span><br><span class="line">        dout.writeUTF(student.getName());</span><br><span class="line">        dout.writeInt(student.getAge());</span><br><span class="line">        dout.writeDouble(student.getScore());</span><br><span class="line">        <span class="keyword">return</span> bout.toByteArray();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Student <span class="title">toStudent</span><span class="params">(<span class="keyword">byte</span>[] bArr)</span></span>&#123;</span><br><span class="line">        Student std = <span class="keyword">new</span> Student();</span><br><span class="line">        ByteArrayInputStream bin = <span class="keyword">new</span> ByteArrayInputStream(bArr);</span><br><span class="line">        DataInputStream din = <span class="keyword">new</span> DataInputStream(bin);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            std.setName(din.readUTF());</span><br><span class="line">            std.setAge(din.readInt());</span><br><span class="line">            std.setScore(din.readDouble());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> std;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">saveStudents</span><span class="params">(Map&lt;String, Student&gt; students)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        db = getDb();</span><br><span class="line">        <span class="keyword">for</span>(Map.Entry&lt;String,Student&gt; kv: students.entrySet())&#123;</span><br><span class="line">            db.put(kv.getKey(),toBytes(kv.getValue()));</span><br><span class="line">        &#125;</span><br><span class="line">        db.close();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Student <span class="title">loadStudent</span><span class="params">(String str)</span></span>&#123;</span><br><span class="line">        db = getDb();</span><br><span class="line">        Student std = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">byte</span>[] bArr = db.get(str);</span><br><span class="line">            std = toStudent(bArr);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> std;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Student [name="</span> + name + <span class="string">", age="</span> + age + <span class="string">", score="</span> + score + <span class="string">"]"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h4><ol>
+<li>将键值对分为两部分，值保存在单独的.data文件中，值在.data文件中的位置和键称之为索引，索引保存在.meta文件中。</li>
+<li>在.data文件中，每个值占用的空间固定，固定长度为1024，前4个字节表示实际长度，然后是实际内容，实际长度不够1020的，后面是补白字节0。</li>
+<li>索引信息既保存在.meta文件中，也保存在内存中，在初始化时，全部读入内存，对索引的更新不立即更新文件，调用flush才更新。</li>
+<li>删除键值对不修改.data文件，但会从索引中删除并记录空白空间，下次添加键值对的时候会重用空白空间，所有的空白空间也记录到.meta文件中。</li>
+</ol>
+<p>暂不考虑由于并发访问、异常关闭等引起的一致性问题。</p>
+<h4 id="BasicDB的实现"><a href="#BasicDB的实现" class="headerlink" title="BasicDB的实现"></a>BasicDB的实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BasicDB</span></span>&#123;</span><br><span class="line">    <span class="comment">//最大数据长度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_DATA_LENGTH = <span class="number">1020</span>;</span><br><span class="line">    <span class="comment">//补白字节</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] ZERO_BYTES = <span class="keyword">new</span> <span class="keyword">byte</span>[MAX_DATA_LENGTH];</span><br><span class="line">    <span class="comment">//数据文件后缀</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATA_SUFFIX = <span class="string">".data"</span>;</span><br><span class="line">    <span class="comment">//元数据文件后缀，包括索引和空白空间数据</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String META_SUFFIX = <span class="string">".meta"</span>;</span><br><span class="line">    <span class="comment">//索引信息，键-&gt;值在.data文件中的位置</span></span><br><span class="line">    Map&lt;String, Long&gt; indexMap; </span><br><span class="line">    <span class="comment">//空白空间，值为在.data文件中的位置</span></span><br><span class="line">    Queue&lt;Long&gt; gaps;</span><br><span class="line">    <span class="comment">//值数据文件</span></span><br><span class="line">    RandomAccessFile db;</span><br><span class="line">    <span class="comment">//元数据文件</span></span><br><span class="line">    File metaFile;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BasicDB</span><span class="params">(String path,String name)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        File dataFile = <span class="keyword">new</span> File(path + name + DATA_SUFFIX);</span><br><span class="line">        metaFile = <span class="keyword">new</span> File(path + name + META_SUFFIX);</span><br><span class="line">        db = <span class="keyword">new</span> RandomAccessFile(dataFile,<span class="string">"rw"</span>);</span><br><span class="line">        <span class="keyword">if</span>(metaFile.exists())&#123;</span><br><span class="line">            loadMeta();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            indexMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            gaps = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存键值对</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(String key,<span class="keyword">byte</span>[] value)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        Long index = indexMap.get(key);</span><br><span class="line">        <span class="keyword">if</span>(index==<span class="keyword">null</span>)&#123;</span><br><span class="line">            index = nextAvailablePos();</span><br><span class="line">            indexMap.put(key,index);</span><br><span class="line">        &#125;</span><br><span class="line">        writeData(index,value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">nextAvailablePos</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!gaps.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">return</span> gaps.poll();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> db.length();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeData</span><span class="params">(<span class="keyword">long</span> pos,<span class="keyword">byte</span>[] data)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(data.length &gt; MAX_DATA_LENGTH)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"maximum allowed length is "</span> + MAX_DATA_LENGTH + <span class="string">", data length is"</span> + data.length);</span><br><span class="line">        &#125;</span><br><span class="line">        db.seek(pos);</span><br><span class="line">        db.writeInt(data.length);</span><br><span class="line">        db.write(data);</span><br><span class="line">        db.write(ZERO_BYTES,<span class="number">0</span>,MAX_DATA_LENGTH - data.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据键获取值</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] get(String key) <span class="keyword">throws</span> IOException&#123;</span><br><span class="line">        Long index = indexMap.get(key);</span><br><span class="line">        <span class="keyword">if</span>(index != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> getData(index);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] getData(<span class="keyword">long</span> pos) <span class="keyword">throws</span> IOException&#123;</span><br><span class="line">        db.seek(pos);</span><br><span class="line">        <span class="keyword">int</span> length = db.readInt();</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[length];</span><br><span class="line">        db.readFully(data);</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*删除键值对*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line">        Long index = indexMap.remove(key);</span><br><span class="line">        <span class="keyword">if</span>(index != <span class="keyword">null</span>)&#123;</span><br><span class="line">            gaps.offer(index);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*同步元数据flush*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flush</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        saveMeta();</span><br><span class="line">        db.getFD().sync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">saveMeta</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        DataOutputStream out = <span class="keyword">new</span> DataOutputStream(</span><br><span class="line">            <span class="keyword">new</span> BufferedOutputStream(<span class="keyword">new</span> FileOutputStream(metaFile)));</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            saveIndex(out);</span><br><span class="line">            saveGaps(out);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            out.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">saveIndex</span><span class="params">(DataOutputStream out)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        out.writeInt(indexMap.size());</span><br><span class="line">        <span class="keyword">for</span>(Map.Entry&lt;String,Long&gt; entry:indexMap.entrySet())&#123;</span><br><span class="line">            out.writeUTF(entry.getKey());</span><br><span class="line">            out.writeLong(entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">saveGaps</span><span class="params">(DataOutputStream out)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        out.writeInt(gaps.size());</span><br><span class="line">        <span class="keyword">for</span>(Long pos:gaps)&#123;</span><br><span class="line">            out.writeLong(pos);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*加载元数据*/</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadMeta</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        DataInputStream in = <span class="keyword">new</span> DataInputStream(</span><br><span class="line">            <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(metaFile)));</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            loadIndex(in);</span><br><span class="line">            loadGaps(in);</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            in.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadIndex</span><span class="params">(DataInputStream in)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size = in.readInt();</span><br><span class="line">        indexMap = <span class="keyword">new</span> HashMap&lt;String,Long&gt;((<span class="keyword">int</span>)(size / <span class="number">0.75f</span> + <span class="number">1.075f</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; size;i++)&#123;</span><br><span class="line">            String key = in.readUTF();</span><br><span class="line">            <span class="keyword">long</span> index = in.readLong();</span><br><span class="line">            indexMap.put(key,index);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadGaps</span><span class="params">(DataInputStream in)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size = in.readInt();</span><br><span class="line">        gaps = <span class="keyword">new</span> ArrayDeque&lt;&gt;(size);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; size;i++)&#123;</span><br><span class="line">            <span class="keyword">long</span> index = in.readLong();</span><br><span class="line">            gaps.add(index);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        flush();</span><br><span class="line">        db.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="内存映射文件及其应用"><a href="#内存映射文件及其应用" class="headerlink" title="内存映射文件及其应用"></a>内存映射文件及其应用</h2><p>内存映射文件不是Java引入的概念，而是操作系统提供的一种功能，大部分操作系统都支持。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>所谓内存映射文件，就是将文件映射到内存，文件对应于内存中的一个字节数组，对文件的操作变为对这个字节数组的操作，而字节数组的操作直接映射到文件上。这种映射可以是映射文件全部区域，也可以是只映射一部分区域。但操作系托不是将全部的文件内容都加载到内存中(而是按页加载,页的大小与操作系统和硬件相关),应用程序对文件的操作都改为对字节数组的操作。</p>
+<p>在一般的文件读写中，会有两次数据拷贝，一次是从硬盘拷贝到操作系统内核，另一次是从操作系统内核拷贝到用户态的应用程序。而在内存映射文件中，一般情况下，只有一次拷贝，且内存分配在操作系统内核，应用程序访问的就是操作系统的内核内存空间，这显然要比普通的读写效率更高。</p>
+<p>内存映射文件的另一个重要特点是，它可以被多个不同的应用程序共享，多个程序可以映射同一个文件，映射到同一块内存区域，一个程序对内存的修改，可以让其他程序也看到，这使得它特别适合用于不同应用程序之间的通信。</p>
+<p>操作系统自身在加载可执行文件的时候，一般都利用了内存映射文件，比如：</p>
+<ul>
+<li>按需加载代码，只有当前运行的代码在内存，其他暂时用不到的代码还在硬盘</li>
+<li>同时启动多次同一个可执行文件，文件代码在内存也只有一份</li>
+<li>不同应用程序共享的动态链接库代码在内存也只有一份</li>
+</ul>
+<p>不太适合处理小文件，它是按页分配内存的，对于小文件，会浪费空间，另外，映射文件要消耗一定的操作系统资源，初始化比较慢</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>需要使用FileInputStream/FileOutputStream或RandomAccessFile,它们都有一个方法getChannel()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">RandomAccessFile file = <span class="keyword">new</span> RandomAccessFile(<span class="string">"abc.dat"</span>,<span class="string">"rw"</span>);</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    MapMode.READ_WRITE表示映射模式,受限于文件打开方式、文件权限,0表示起始位置,file.length()表示映射长度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    MappedByteBuffer buf = file.getChannel().map(MapMode.READ_WRITE,<span class="number">0</span>,file.length());</span><br><span class="line">    <span class="comment">//使用buf...</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    file.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ByteBuffer的相关方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取当前读写位置</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">position</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//修改当前读写位置</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">position</span><span class="params">(<span class="keyword">int</span> newPosition)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">/*这些方法读写后自动增加position*/</span></span></span><br><span class="line"><span class="function"><span class="comment">//从当前位置获取一个字节</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">byte</span> <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//从当前位置拷贝dst.length长度的字节到dst</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ByteBuffer <span class="title">get</span><span class="params">(<span class="keyword">byte</span>[] dst)</span></span></span><br><span class="line"><span class="function"><span class="comment">//从当前位置读取一个int</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getInt</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//从当前位置读取一个double</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">getDouble</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">//将字节数组src写入当前位置</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> ByteBuffer <span class="title">put</span><span class="params">(<span class="keyword">byte</span>[] src)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将long类型的value写入当前位置</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> ByteBuffer <span class="title">putLong</span><span class="params">(<span class="keyword">long</span> value)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*可以直接指定position的方法,不会改变当前位置position*/</span></span><br><span class="line"><span class="comment">//从index处读取一个int</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getInt</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"><span class="comment">//从index处读取一个double</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">getDouble</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"><span class="comment">//在index处写入一个double</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> ByteBuffer <span class="title">putDouble</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">double</span> value)</span></span>;</span><br><span class="line"><span class="comment">//在index处写入一个long</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> ByteBuffer <span class="title">putLong</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">long</span> value)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*加载与同步相关方法*/</span></span><br><span class="line"><span class="comment">//检查文件内容是否真实加载到了内存，这个值是一个参考值，不一定精确</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">isLoaded</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//尽量将文件内容加载到内存</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> MappedByteBuffer <span class="title">load</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"><span class="comment">//将对内存的修改强制同步到硬盘上</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> MappedByteBuffer <span class="title">force</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="BasicQueue"><a href="#BasicQueue" class="headerlink" title="BasicQueue"></a>BasicQueue</h3><p>基于内存映射文件,实现的一个简单消息队列</p>
+<h4 id="功能-1"><a href="#功能-1" class="headerlink" title="功能"></a>功能</h4><p>BasicQueue是一个先进先出的循环队列，长度固定，接口主要是出队和入队，与之前介绍的容器类的区别是：</p>
+<ul>
+<li>消息持久化保存在文件中，重启程序消息不会丢失</li>
+<li>可以供不同的程序进行协作，典型场景是，有两个不同的程序，一个是生产者，另一个是消费者，生成者只将消息放入队列，而消费者只从队列中取消息，两个程序通过队列进行协作，这种协作方式更灵活，相互依赖性小，是一种常见的协作方式。</li>
+</ul>
+<p>BasicQueue的队列长度是有限的，如果满了，调用enqueue会抛出异常，消息的最大长度也是有限的，不能超过1020，如果超了，也会抛出异常。如果队列为空，dequeue返回null。</p>
+<h4 id="设计-1"><a href="#设计-1" class="headerlink" title="设计"></a>设计</h4><ul>
+<li>使用两个文件来保存消息队列，一个为数据文件，后缀为.data，一个是元数据文件.meta。</li>
+<li>在.data文件中使用固定长度存储每条信息，长度为1024，前4个字节为实际长度，后面是实际内容，每条消息的最大长度不能超过1020。</li>
+<li>在.meta文件中保存队列头和尾，指向.data文件中的位置，初始都是0，入队增加尾，出队增加头，到结尾时，再从0开始，模拟循环队列。</li>
+<li><p>为了区分队列满和空的状态，始终留一个位置不保存数据，当队列头和尾一样的时候表示队列为空，当队列尾的下一个位置是队列头的时候表示队列满。</p>
+</li>
+<li><p>BasicQueue实现</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BasicQueue</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 队列最多消息个数，实际个数还会减1</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_MSG_NUM = <span class="number">1020</span>*<span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 消息体最大长度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_MSG_BODY_SIZE = <span class="number">1020</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每条消息占用的空间</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MSG_SIZE = MAX_MSG_BODY_SIZE + <span class="number">4</span>;</span><br><span class="line">        </span><br><span class="line">    <span class="comment">// 队列消息体数据文件大小</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DATA_FILE_SIZE = MAX_MSG_NUM * MSG_SIZE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 队列元数据文件大小 (head + tail)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> META_SIZE = <span class="number">8</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> MappedByteBuffer dataBuf;</span><br><span class="line">    <span class="keyword">private</span> MappedByteBuffer metaBuf;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BasicQueue</span><span class="params">(String path, String queueName)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (path.endsWith(File.separator)) &#123;</span><br><span class="line">            path += File.separator;</span><br><span class="line">        &#125;</span><br><span class="line">        RandomAccessFile dataFile = <span class="keyword">null</span>;</span><br><span class="line">        RandomAccessFile metaFile = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            dataFile = <span class="keyword">new</span> RandomAccessFile(path + queueName + <span class="string">".data"</span>, <span class="string">"rw"</span>);</span><br><span class="line">            metaFile = <span class="keyword">new</span> RandomAccessFile(path + queueName + <span class="string">".meta"</span>, <span class="string">"rw"</span>);</span><br><span class="line"></span><br><span class="line">            dataBuf = dataFile.getChannel().map(MapMode.READ_WRITE, <span class="number">0</span>,</span><br><span class="line">                    DATA_FILE_SIZE);</span><br><span class="line">            metaBuf = metaFile.getChannel().map(MapMode.READ_WRITE, <span class="number">0</span>,</span><br><span class="line">                    META_SIZE);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (dataFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">                dataFile.close();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (metaFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">                metaFile.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">head</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> metaBuf.getInt(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">head</span><span class="params">(<span class="keyword">int</span> newHead)</span> </span>&#123;</span><br><span class="line">        metaBuf.putInt(<span class="number">0</span>, newHead);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">tail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> metaBuf.getInt(<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">tail</span><span class="params">(<span class="keyword">int</span> newTail)</span> </span>&#123;</span><br><span class="line">        metaBuf.putInt(<span class="number">4</span>, newTail);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> head() == tail();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ((tail() + MSG_SIZE) % DATA_FILE_SIZE) == head();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(<span class="keyword">byte</span>[] data)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (data.length &gt; MAX_MSG_BODY_SIZE) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"msg size is "</span> + data.length</span><br><span class="line">                    + <span class="string">", while maximum allowed length is "</span> + MAX_MSG_BODY_SIZE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (isFull()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"queue is full"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> tail = tail();</span><br><span class="line">        dataBuf.position(tail);</span><br><span class="line">        dataBuf.putInt(data.length);</span><br><span class="line">        dataBuf.put(data);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (tail + MSG_SIZE &gt;= DATA_FILE_SIZE) &#123;</span><br><span class="line">            tail(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            tail(tail + MSG_SIZE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] dequeue() <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> head = head();</span><br><span class="line">        dataBuf.position(head);</span><br><span class="line">        <span class="keyword">int</span> length = dataBuf.getInt();</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[length];</span><br><span class="line">        dataBuf.get(data);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (head + MSG_SIZE &gt;= DATA_FILE_SIZE) &#123;</span><br><span class="line">            head(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            head(head + MSG_SIZE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Consumer和Producer</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*Consumer*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BasicQueue queue = <span class="keyword">new</span> BasicQueue(<span class="string">"C:/Users/KINGBOOK/Desktop/"</span>, <span class="string">"task"</span>);</span><br><span class="line">            Random rnd = <span class="keyword">new</span> Random();</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">byte</span>[] bytes = queue.dequeue();</span><br><span class="line">                <span class="keyword">if</span> (bytes == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    Thread.sleep(rnd.nextInt(<span class="number">1000</span>));</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"consume: "</span> + <span class="keyword">new</span> String(bytes, <span class="string">"UTF-8"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Producer*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Producer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BasicQueue queue = <span class="keyword">new</span> BasicQueue(<span class="string">"C:/Users/KINGBOOK/Desktop/"</span>, <span class="string">"task"</span>);</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            Random rnd = <span class="keyword">new</span> Random();</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                String msg = <span class="keyword">new</span> String(<span class="string">"task "</span> + (i++));</span><br><span class="line">                queue.enqueue(msg.getBytes(<span class="string">"UTF-8"</span>));</span><br><span class="line">                System.out.println(<span class="string">"produce: "</span> + msg);</span><br><span class="line">                Thread.sleep(rnd.nextInt(<span class="number">1000</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="神奇的序列化"><a href="#神奇的序列化" class="headerlink" title="神奇的序列化"></a>神奇的序列化</h2><p>序列化对象需要实现Serializable接口,默认的序列化机制能够处理循环引用的情况</p>
+<h3 id="定制序列化"><a href="#定制序列化" class="headerlink" title="定制序列化"></a>定制序列化</h3><p>定制序列化的意义,对于有些字段，它的值可能与内存位置有关，比如默认的hashCode()方法的返回值，当恢复对象后，内存位置肯定变了，基于原内存位置的值也就没有了意义。还有一些字段，可能与当前时间有关，比如表示对象创建时的时间，保存和恢复这个字段就是不正确的。</p>
+<p>还有一些情况，如果类中的字段表示的是类的实现细节，而非逻辑信息，那默认序列化也是不适合的。为什么不适合呢？因为序列化格式表示一种契约，应该描述类的逻辑结构，而非与实现细节相绑定，绑定实现细节将使得难以修改，破坏封装。</p>
+<p>两种定制序列化机制,一种是transient关键字,另外一种是实现writeObject和readObject方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明为transient,告诉Java默认的序列化机制,不要自动保存该字段</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类可以实现writeObject方法,以自定义该类对象的序列化过程,其声明必须为</span></span><br><span class="line"><span class="comment">//LinkedList序列化代码</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(java.io.ObjectOutputStream s)</span> <span class="keyword">throws</span> java.io.IOException</span>&#123;</span><br><span class="line">    <span class="comment">//write out any hidden serialization magic</span></span><br><span class="line">    <span class="comment">//调用默认的序列化逻辑,该方法不仅保存数据信息,还保存元数据描述等隐藏信息。</span></span><br><span class="line">    s.defaultWriteObject();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//write out size</span></span><br><span class="line">    s.writeInt(size);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//write out all elements in the proper order</span></span><br><span class="line">    <span class="keyword">for</span>(Node&lt;E&gt; x=first;x!=<span class="keyword">null</span>;x=x.next)&#123;</span><br><span class="line">        s.writeObject(x.item);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//LinkedList的反序列化代码</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream s)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> java.io.IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">    <span class="comment">// Read in any hidden serialization magic</span></span><br><span class="line">    s.defaultReadObject();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read in size</span></span><br><span class="line">    <span class="keyword">int</span> size = s.readInt();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read in all elements in the proper order.</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">        linkLast((E)s.readObject());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>writeObject的基本逻辑是：</p>
+<ul>
+<li>如果对象没有实现Serializable，抛出异常NotSerializableException。</li>
+<li>每个对象都有一个编号，如果之前已经写过该对象了，则本次只会写该对象的引用，这可以解决对象引用和循环引用的问题。</li>
+<li>如果对象实现了writeObject方法，调用它的自定义方法。</li>
+<li>默认是利用反射机制(反射我们留待后续文章介绍)，遍历对象结构图，对每个没有标记为transient的字段，根据其类型，分别进行处理，写出到流，流中的信息包括字段的类型即完整类名、字段名、字段值等。</li>
+</ul>
+<p>readObject的基本逻辑是：</p>
+<ul>
+<li>不调用任何构造方法。</li>
+<li>它自己就相当于是一个独立的构造方法，根据字节流初始化对象，利用的也是反射机制。</li>
+<li>在解析字节流时，对于引用到的类型信息，会动态加载，如果找不到类，会抛出ClassNotFoundException。</li>
+</ul>
+<h3 id="版本问题"><a href="#版本问题" class="headerlink" title="版本问题"></a>版本问题</h3><p>Java会给类定义一个版本号，这个版本号是根据类中一系列的信息自动生成的。在反序列化时，如果类的定义发生了变化，版本号就会变化，与流中的版本号就会不匹配，反序列化就会抛出异常，类型为java.io.InvalidClassException。</p>
+<p>自定义版本号,一方面为了更好的控制版本,一方面为了性能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br></pre></td></tr></table></figure>
+<p>如果版本号一样，但实际的字段不匹配。Java会分情况自动进行处理，以尽量保持兼容性，大概分为三种情况：</p>
+<ul>
+<li>字段删掉了：即流中有该字段，而类定义中没有，该字段会被忽略。</li>
+<li>新增了字段：即类定义中有，而流中没有，该字段会被设为默认值。</li>
+<li>字段类型变了：对于同名的字段，类型变了，会抛出InvalidClassException。</li>
+</ul>
+<h3 id="高级自定义"><a href="#高级自定义" class="headerlink" title="高级自定义"></a>高级自定义</h3><p>与writeObject/readObject的区别是，如果对象实现了Externalizable接口，则序列化过程会由writeExternal/readExternal这两个方法控制，默认序列化机制中的反射等将不再起作用，不再有类似defaultWriteObject和defaultReadObject调用，另一个区别是，反序列化时，会先调用类的无参构造方法创建对象，然后才调用readExternal。默认的序列化机制由于需要分析对象结构，往往比较慢，通过实现Externalizable接口，可以提高性能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Externalizable接口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writeExternal</span><span class="params">(ObjectOutput out)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">readExternal</span><span class="params">(ObjectInput in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//反序列化后额外调用该方法,返回值被当作反序列化后的结果</span></span></span><br><span class="line"><span class="function">Object <span class="title">readResolve</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"><span class="comment">//序列化后额外调用该方法,返回值当作序列化后的结果</span></span></span><br><span class="line"><span class="function">Object <span class="title">writeResolve</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+    
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <section class="site-overview sidebar-panel sidebar-panel-active">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

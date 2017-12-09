@@ -1,0 +1,686 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="随机抽查系统分析项目功能:  备查项目管理、执法人员管理(对数据的增、删、改、查、Excel的导入) 根据抽取条件(人员数、项目数等),随机分配人员对项目进行抽查 权限管理，使用的是用户关联角色的模式。  框架使用:  前端:easyui,jquery, 后端:spring,spring mvc,mybatis">
+<meta name="keywords" content="系统分析">
+<meta property="og:type" content="website">
+<meta property="og:title" content="随机抽查管理系统分析">
+<meta property="og:url" content="http://yeomanye.github.io/draft/随机抽查管理系统分析.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="随机抽查系统分析项目功能:  备查项目管理、执法人员管理(对数据的增、删、改、查、Excel的导入) 根据抽取条件(人员数、项目数等),随机分配人员对项目进行抽查 权限管理，使用的是用户关联角色的模式。  框架使用:  前端:easyui,jquery, 后端:spring,spring mvc,mybatis">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随机抽查管理系统分析">
+<meta name="twitter:description" content="随机抽查系统分析项目功能:  备查项目管理、执法人员管理(对数据的增、删、改、查、Excel的导入) 根据抽取条件(人员数、项目数等),随机分配人员对项目进行抽查 权限管理，使用的是用户关联角色的模式。  框架使用:  前端:easyui,jquery, 后端:spring,spring mvc,mybatis">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/draft/随机抽查管理系统分析.html"/>
+
+
+
+
+
+  <title>
+  
+
+  
+    随机抽查管理系统分析 | 探险
+  
+</title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left  ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+  <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline">随机抽查管理系统分析</h1>
+
+
+
+</header>
+
+    
+    
+      <h1 id="随机抽查系统分析"><a href="#随机抽查系统分析" class="headerlink" title="随机抽查系统分析"></a>随机抽查系统分析</h1><p>项目功能:</p>
+<ul>
+<li>备查项目管理、执法人员管理(对数据的增、删、改、查、Excel的导入)</li>
+<li>根据抽取条件(人员数、项目数等),随机分配人员对项目进行抽查</li>
+<li>权限管理，使用的是用户关联角色的模式。</li>
+</ul>
+<p>框架使用:</p>
+<ul>
+<li>前端:easyui,jquery,</li>
+<li>后端:spring,spring mvc,mybatis</li>
+</ul>
+<a id="more"></a>
+<h2 id="值得注意的地方"><a href="#值得注意的地方" class="headerlink" title="值得注意的地方"></a>值得注意的地方</h2><h3 id="使用了插件进行分页"><a href="#使用了插件进行分页" class="headerlink" title="使用了插件进行分页"></a>使用了插件进行分页</h3><p>使用了第三方的Mybatis的插件(PageHelper)进行分页的操作<br>mybatis根标签下:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- com.github.pagehelper为PageHelper类所在包名 --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">interceptor</span>=<span class="string">"com.github.pagehelper.PageHelper"</span>&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 4.0.0以后版本可以不设置该参数 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dialect"</span> <span class="attr">value</span>=<span class="string">"oracle"</span>/&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 该参数默认为false --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 和startPage中的pageNum效果一样--&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"offsetAsPageNum"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 该参数默认为false --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 设置为true时，使用RowBounds分页会进行count查询 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"rowBoundsWithCount"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）--&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"pageSizeZero"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 启用合理化时，如果pageNum&lt;1会查询第一页，如果pageNum&gt;pages会查询最后一页 --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 禁用合理化时，如果pageNum&lt;1或pageNum&gt;pages会返回空数据 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"reasonable"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 3.5.0版本可用 - 为了支持startPage(Object params)方法 --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值 --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 不理解该含义的前提下，不要随便复制该配置 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"params"</span> <span class="attr">value</span>=<span class="string">"pageNum=start;pageSize=limit;"</span>/&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- 支持通过Mapper接口参数来传递分页参数 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"supportMethodsArguments"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!-- always总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"returnPageInfo"</span> <span class="attr">value</span>=<span class="string">"check"</span>/&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>后端调用:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置当前页面以及分页大小,这个方法后的第一个查询方法会被分页</span></span><br><span class="line">PageHelper.startPage(currentPage, pageSize);</span><br><span class="line"><span class="comment">//执行dao方法获取结果集</span></span><br><span class="line">List&lt;Student&gt; student = dao.selectStudent();</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 如果只需要分页查询，那么上面的两行代码就够了</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//将执行结果注入到PageInfo中,可以从该对象获取分页相关的信息和当前页面的内容</span></span><br><span class="line">PageInfo&lt;Student&gt; studentListPage = <span class="keyword">new</span> PageInfo&lt;Student&gt;(student);</span><br><span class="line"><span class="comment">//本次查询总条数</span></span><br><span class="line">studentListPage.getTotal();</span><br><span class="line"><span class="comment">//本次查询的结果</span></span><br><span class="line">studentListPage.getList();</span><br></pre></td></tr></table></figure></p>
+<p>除了项目中使用的方式外的其他几种重要的使用方式:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种，RowBounds方式的调用</span></span><br><span class="line">List&lt;Country&gt; list = sqlSession.selectList(<span class="string">"x.y.selectIf"</span>, <span class="keyword">null</span>, <span class="keyword">new</span> RowBounds(<span class="number">0</span>, <span class="number">10</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种，Mapper接口方式的调用，推荐这种使用方式。</span></span><br><span class="line">PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectIf(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第三种，Mapper接口方式的调用，推荐这种使用方式。</span></span><br><span class="line">PageHelper.offsetPage(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectIf(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第四种，参数方法调用</span></span><br><span class="line"><span class="comment">//存在以下 Mapper 接口方法，你不需要在 xml 处理后两个参数</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CountryMapper</span> </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Country&gt; <span class="title">selectByPageNumSize</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            @Param(<span class="string">"user"</span>)</span> User user,</span></span><br><span class="line"><span class="function">            @<span class="title">Param</span><span class="params">(<span class="string">"pageNum"</span>)</span> <span class="keyword">int</span> pageNum, </span></span><br><span class="line"><span class="function">            @<span class="title">Param</span><span class="params">(<span class="string">"pageSize"</span>)</span> <span class="keyword">int</span> pageSize)</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//配置supportMethodsArguments=true</span></span><br><span class="line"><span class="comment">//在代码中直接调用：</span></span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectByPageNumSize(user, <span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第五种，参数对象</span></span><br><span class="line"><span class="comment">//如果 pageNum 和 pageSize 存在于 User 对象中，只要参数有值，也会被分页</span></span><br><span class="line"><span class="comment">//有如下 User 对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="comment">//其他fields</span></span><br><span class="line">    <span class="comment">//下面两个参数名和 params 配置的名字一致</span></span><br><span class="line">    <span class="keyword">private</span> Integer pageNum;</span><br><span class="line">    <span class="keyword">private</span> Integer pageSize;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//存在以下 Mapper 接口方法，你不需要在 xml 处理后两个参数</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CountryMapper</span> </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Country&gt; <span class="title">selectByPageNumSize</span><span class="params">(User user)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//当 user 中的 pageNum!= null &amp;&amp; pageSize!= null 时，会自动分页</span></span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectByPageNumSize(user);</span><br><span class="line"></span><br><span class="line"><span class="comment">//第六种，ISelect 接口方式</span></span><br><span class="line"><span class="comment">//jdk6,7用法，创建接口</span></span><br><span class="line">Page&lt;Country&gt; page = PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>).doSelectPage(<span class="keyword">new</span> ISelect() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSelect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        countryMapper.selectGroupBy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//jdk8 lambda用法</span></span><br><span class="line">Page&lt;Country&gt; page = PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>).doSelectPage(()-&gt; countryMapper.selectGroupBy());</span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以直接返回PageInfo，注意doSelectPageInfo方法和doSelectPage</span></span><br><span class="line">pageInfo = PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>).doSelectPageInfo(<span class="keyword">new</span> ISelect() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSelect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        countryMapper.selectGroupBy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//对应的lambda用法</span></span><br><span class="line">pageInfo = PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>).doSelectPageInfo(() -&gt; countryMapper.selectGroupBy());</span><br><span class="line"></span><br><span class="line"><span class="comment">//count查询，返回一个查询语句的count数</span></span><br><span class="line"><span class="keyword">long</span> total = PageHelper.count(<span class="keyword">new</span> ISelect() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSelect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        countryMapper.selectLike(country);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//lambda</span></span><br><span class="line">total = PageHelper.count(()-&gt;countryMapper.selectLike(country));</span><br></pre></td></tr></table></figure></p>
+<p>Mybatis插件的编写:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Intercepts</span>(&#123;<span class="meta">@Signature</span>(</span><br><span class="line">  type= Executor.class,<span class="comment">//拦截的时机</span></span><br><span class="line">  method = <span class="string">"update"</span>,<span class="comment">//拦截的方法</span></span><br><span class="line">  <span class="comment">//方法的参数</span></span><br><span class="line">  args = &#123;MappedStatement.class,Object.class&#125;)&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExamplePlugin</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//拦截后具体执行什么</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Invocation invocation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">    <span class="comment">//最后一个语句一定的是这个，否则拦截器链就断了</span></span><br><span class="line">    <span class="keyword">return</span> invocation.proceed();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//将目标对象包装到拦截器中，生成一个代理对象</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">plugin</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Plugin.wrap(target, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//设置属性</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProperties</span><span class="params">(Properties properties)</span> </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考文档：</strong><br><a href="https://github.com/pagehelper/Mybatis-PageHelper" target="_blank" rel="noopener">官方说明</a><br><a href="http://blog.csdn.net/hupanfeng/article/details/9247379" target="_blank" rel="noopener">插件原理</a></p>
+<h3 id="使用了MyBatis-Generator"><a href="#使用了MyBatis-Generator" class="headerlink" title="使用了MyBatis Generator"></a>使用了MyBatis Generator</h3><p>MBG(MyBatis Generator)一个通过读取配置文件并根据数据库中对应的表生成实体类、以及映射文件、对应DAO层的工具。(该系统中只是简单测试了下这个生成器的功能)<br>配置文件:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE generatorConfiguration</span></span><br><span class="line"><span class="meta">  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span></span><br><span class="line"><span class="meta">  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">classPathEntry</span>    <span class="attr">location</span>=<span class="string">"ojdbc6.jar"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">"testTables"</span> <span class="attr">targetRuntime</span>=<span class="string">"MyBatis3"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!-- 是否去除自动生成的注释 true：是： false:否 --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suppressAllComments"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--数据库连接的信息：驱动类、连接地址、用户名、密码 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">"oracle.jdbc.OracleDriver"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">connectionURL</span>=<span class="string">"jdbc:oracle:thin:@localhost:1521:orcl"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">userId</span>=<span class="string">"ots"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">password</span>=<span class="string">"ots"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 默认false，把JDBC DECIMAL和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL和</span></span><br><span class="line"><span class="comment">           NUMERIC 类型解析为java.math.BigDecimal --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"forceBigDecimals"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- targetProject:生成PO类的位置 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"po"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">targetProject</span>=<span class="string">".\src"</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!--enableSubPackages:是否让schema作为包的后缀 --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line">           <span class="comment">&lt;!-- 从数据库返回的值被清理前后的空格 --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"trimStrings"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">javaModelGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- targetProject:mapper映射文件生成的位置 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"map"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">targetProject</span>=<span class="string">".\src"</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!--enableSubPackages:是否让schema作为包的后缀 --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">sqlMapGenerator</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- targetPackage：mapper接口生成的位置 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">type</span>=<span class="string">"XMLMAPPER"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">targetPackage</span>=<span class="string">"dao"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">targetProject</span>=<span class="string">".\src"</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!--enableSubPackages:是否让schema作为包的后缀 --&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">javaClientGenerator</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 指定数据库表 --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">"Subject"</span>&gt;</span><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用java生成:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; warnings = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line"><span class="keyword">boolean</span> overwrite = <span class="keyword">true</span>;</span><br><span class="line">File configFile = <span class="keyword">new</span> File(<span class="string">"generatorConfig.xml"</span>);</span><br><span class="line">ConfigurationParser cp = <span class="keyword">new</span> ConfigurationParser(warnings);</span><br><span class="line">Configuration config = cp.parseConfiguration(configFile);</span><br><span class="line">DefaultShellCallback callback = <span class="keyword">new</span> DefaultShellCallback(overwrite);</span><br><span class="line">MyBatisGenerator myBatisGenerator = <span class="keyword">new</span> MyBatisGenerator(config, callback, warnings);</span><br><span class="line">myBatisGenerator.generate(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure></p>
+<p>使用命令行生成<code>java -jar mybatis-generator-core-1.3.2.jar -configfile generatorConfig.xml -overwrite</code>,需要将对应的jar包、驱动jar包、配置文件放在当前目录下并且保证targetProject存在。</p>
+<p>生成的文件包括:Subject.java,SubjectExample.java(用于设置条件),SubjectMapper.xml(映射文件),SubjectMapper.java(接口，即Dao层)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SubjectMapper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countByExample</span><span class="params">(SubjectExample example)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">deleteByExample</span><span class="params">(SubjectExample example)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">deleteByPrimaryKey</span><span class="params">(String uuid)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(Subject record)</span></span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 可选插入,record中不为空的字段将插入</span></span><br><span class="line"><span class="comment">     * xml中使用if标签配置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insertSelective</span><span class="params">(Subject record)</span></span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据条件进行查询</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;Subject&gt; <span class="title">selectByExample</span><span class="params">(SubjectExample example)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Subject <span class="title">selectByPrimaryKey</span><span class="params">(String uuid)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">updateByExampleSelective</span><span class="params">(@Param(<span class="string">"record"</span>)</span> Subject record, @<span class="title">Param</span><span class="params">(<span class="string">"example"</span>)</span> SubjectExample example)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">updateByExample</span><span class="params">(@Param(<span class="string">"record"</span>)</span> Subject record, @<span class="title">Param</span><span class="params">(<span class="string">"example"</span>)</span> SubjectExample example)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">updateByPrimaryKeySelective</span><span class="params">(Subject record)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">updateByPrimaryKey</span><span class="params">(Subject record)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>条件配置示例:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">TestTableExample example = <span class="keyword">new</span> TestTableExample();</span><br><span class="line"></span><br><span class="line">  example.or()</span><br><span class="line">    .andField1EqualTo(<span class="number">5</span>)</span><br><span class="line">    .andField2IsNull();</span><br><span class="line"></span><br><span class="line">  example.or()</span><br><span class="line">    .andField3NotEqualTo(<span class="number">9</span>)</span><br><span class="line">    .andField4IsNotNull();</span><br><span class="line"></span><br><span class="line">  List&lt;Integer&gt; field5Values = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">  field5Values.add(<span class="number">8</span>);</span><br><span class="line">  field5Values.add(<span class="number">11</span>);</span><br><span class="line">  field5Values.add(<span class="number">14</span>);</span><br><span class="line">  field5Values.add(<span class="number">22</span>);</span><br><span class="line"></span><br><span class="line">  example.or()</span><br><span class="line">    .andField5In(field5Values);</span><br><span class="line"></span><br><span class="line">  example.or()</span><br><span class="line">    .andField6Between(<span class="number">3</span>, <span class="number">7</span>);</span><br></pre></td></tr></table></figure></p>
+<p>对应的sql条件为:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">where (field1 = 5 and field2 is null)</span><br><span class="line">    or (field3 &lt;&gt; 9 and field4 is not null)</span><br><span class="line">    or (field5 in (8, 11, 14, 22))</span><br><span class="line">    or (field6 between 3 and 7)</span><br></pre></td></tr></table></figure></p>
+<p>实现机制:Example内部具有三个类(GeneratedCriteria(抽像类，表示条件的集合，条件间使用or相隔开)、Criteria(抽线类的实现类)、Criterion(表示条件,包括条件的关键字等等)),xml获取example的oredCriteria(Criteria的集合),迭代条件每个条件用or相连接。</p>
+<p><strong>参考文档：</strong><br><a href="http://www.mybatis.org/generator/quickstart.html" target="_blank" rel="noopener">快速起步</a><br><a href="http://www.mybatis.org/generator/running/running.html" target="_blank" rel="noopener">MBG运行</a><br><a href="http://www.mybatis.org/generator/generatedobjects/exampleClassUsage.html" target="_blank" rel="noopener">Example类的使用</a></p>
+<h2 id="觉得不好的地方"><a href="#觉得不好的地方" class="headerlink" title="觉得不好的地方"></a>觉得不好的地方</h2><h3 id="控制层含有业务操作"><a href="#控制层含有业务操作" class="headerlink" title="控制层含有业务操作"></a>控制层含有业务操作</h3><p>控制层应该只进行逻辑判定、参数传递的操作，不应该有业务层的代码。</p>
+<h3 id="对功能不理解"><a href="#对功能不理解" class="headerlink" title="对功能不理解"></a>对功能不理解</h3><p>比如对mybatis分页插件pagehelper使用不理解，造成许多冗余的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PageHelper.startPage(currentPage, pageSize);</span><br><span class="line">marshalsList = marshalsDao.selectMarshalsLike(marshals);</span><br><span class="line">PageInfo&lt;Marshals&gt; marshalsListPage = <span class="keyword">new</span> PageInfo&lt;Marshals&gt;(marshalsList);</span><br><span class="line">Map&lt;String, Object&gt; data = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">Iterator&lt;Marshals&gt; datas = marshalsListPage.getList().iterator();</span><br><span class="line">List&lt;Marshals&gt; marshalsDatas = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">while</span> (datas.hasNext()) &#123;</span><br><span class="line">    marshalsDatas.add(datas.next());</span><br><span class="line">&#125;</span><br><span class="line">data.put(<span class="string">"rows"</span>, marshalsDatas);</span><br><span class="line">data.put(<span class="string">"total"</span>, marshalsListPage.getTotal());</span><br><span class="line"><span class="comment">//因为前端使用的是easyui的数据表格，后端只需要返回一个json,</span></span><br><span class="line"><span class="comment">//rows为数组对象,total为页面大小,所以只需要分页查询就够了</span></span><br><span class="line">PageHelper.startPage(currentPage, pageSize);</span><br><span class="line">marshalsList = marshalsDao.selectMarshalsLike(marshals);</span><br><span class="line">data.put(<span class="string">"rows"</span>, marshalsList);</span><br><span class="line">data.put(<span class="string">"total"</span>, marshalsList.size());</span><br></pre></td></tr></table></figure>
+    
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <section class="site-overview sidebar-panel sidebar-panel-active">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

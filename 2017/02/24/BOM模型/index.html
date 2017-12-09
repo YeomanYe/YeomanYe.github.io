@@ -1,0 +1,971 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="BOM模型浏览器对象模型（Browser Object Model），BOM对象是JavaScript的核心，该对象提供了与浏览器交互相关对象结构。BOM由多个子对象组成，其核心为window对象，它是BOM的顶层对象，表示在浏览器环境中的一个全局的顶级对象。除了window对象还具有frames、navigator、history、location、screen、document(DOM)。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BOM模型">
+<meta property="og:url" content="http://yeomanye.github.io/2017/02/24/BOM模型/index.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="BOM模型浏览器对象模型（Browser Object Model），BOM对象是JavaScript的核心，该对象提供了与浏览器交互相关对象结构。BOM由多个子对象组成，其核心为window对象，它是BOM的顶层对象，表示在浏览器环境中的一个全局的顶级对象。除了window对象还具有frames、navigator、history、location、screen、document(DOM)。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yeomanye.github.io/2017/02/24/BOM模型/location对象属性.png">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BOM模型">
+<meta name="twitter:description" content="BOM模型浏览器对象模型（Browser Object Model），BOM对象是JavaScript的核心，该对象提供了与浏览器交互相关对象结构。BOM由多个子对象组成，其核心为window对象，它是BOM的顶层对象，表示在浏览器环境中的一个全局的顶级对象。除了window对象还具有frames、navigator、history、location、screen、document(DOM)。">
+<meta name="twitter:image" content="http://yeomanye.github.io/2017/02/24/BOM模型/location对象属性.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/2017/02/24/BOM模型/"/>
+
+
+
+
+
+  <title> BOM模型 | 探险 </title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/02/24/BOM模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                BOM模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T00:00:00+08:00">
+                2017-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/02/24/BOM模型/" class="leancloud_visitors" data-flag-title="BOM模型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  1,752
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="BOM模型"><a href="#BOM模型" class="headerlink" title="BOM模型"></a>BOM模型</h1><p>浏览器对象模型（Browser Object Model），BOM对象是JavaScript的核心，该对象提供了与浏览器交互相关对象结构。BOM由多个子对象组成，其核心为window对象，它是BOM的顶层对象，表示在浏览器环境中的一个全局的顶级对象。除了window对象还具有frames、navigator、history、location、screen、document(DOM)。</p>
+<a id="more"></a>
+<h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><p>window对象既是通过JavaScript访问浏览器窗口的一个接口,又是ECMAScript规定的Gloal对象。</p>
+<p>window.open() (返回打开的窗口的引用,即打开窗口的window对象)</p>
+<ul>
+<li>第一个参数:打开窗口的URL</li>
+<li>第二个参数:链接的目标,相当于a标签的target,当不存在target窗口时,将会创建一个窗口,以第二个参数命名;也可使用_self、_parent、_top或_blank等具有意义的参数</li>
+<li>第三个参数:设置浏览器窗口的样式,通过”,”分隔个属性,并且只有第二个窗口创建一个新窗口才有效</li>
+<li>第四个参数:是否打开一个新窗口,默认为是</li>
+</ul>
+<p>原窗口以及弹窗有个属性指向打开他的原始窗口opener<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newWin = <span class="built_in">window</span>.open(<span class="string">"http://www.abc.com"</span>,<span class="string">"newWin"</span>);</span><br><span class="line">newWin.opener = <span class="literal">null</span> ;</span><br></pre></td></tr></table></figure></p>
+<p>浏览器内置程序屏蔽弹出窗口时,window.open()返回空,扩展程序阻止时会抛出错误。因此可以通过检测是否抛出异常,来判断弹窗是否被屏蔽。</p>
+<p>其他常用的全局函数还有:(超时调用)setTimeout/clearTimeout；(间歇调用)setInterval/clearInterval；系统对话框(alert、prompt、confirm同步窗口，js执行停止)；查找打印(print、find异步窗口，js执行不停止)</p>
+<h2 id="frames"><a href="#frames" class="headerlink" title="frames"></a>frames</h2><p>对于使用框架集的页面，每一个frame都拥有自己的window对象,并保存在frames集合中。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">frameset</span> <span class="attr">rows</span>=<span class="string">"16,*"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">frame</span> <span class="attr">src</span>=<span class="string">"frame.html"</span> <span class="attr">name</span>=<span class="string">"topFrame"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">frame</span> <span class="attr">src</span>=<span class="string">"anotherframe.html"</span> <span class="attr">name</span>=<span class="string">"leftFrame"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">frameset</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可通过索引或框架名来访问。如:<code>window.frames[“topFrame”]</code>,也可用<code>top.frames[“topFrame”]</code>进行访问</p>
+<ul>
+<li>top:指向最外层的window</li>
+<li>parent:父层的window</li>
+<li>self:始终指向window(都是window的属性)</li>
+</ul>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p>提供了与当前窗口中加载的文档有关的信息,还提供了一些导航功能。既是window对象的属性,也是document对象的属性</p>
+<p>location对象具有以下属性：</p>
+<p><img src="location对象属性.png" alt="location对象属性"></p>
+<p>改变浏览器位置方式：</p>
+<ul>
+<li>assign():立即打开url,并在浏览器中生成一条记录(与给window.location设置url相同)</li>
+<li>replace():立即打开url,并且不生成历史记录当前页面的历史记录</li>
+<li>reload():重新加载当前页面,如果不传递true参数,并且参数无变化,从缓存中加载。</li>
+<li>通过改变location的属性,也会改变浏览器位置</li>
+</ul>
+<h2 id="navigator"><a href="#navigator" class="headerlink" title="navigator"></a>navigator</h2><p>navigator对象用于识别客户端浏览器</p>
+<p>它具有很多与客户端浏览器相关的信息，比如：</p>
+<ul>
+<li>appName 完整浏览器名</li>
+<li>appVersion 浏览器的版本</li>
+<li>cookieEnabled 表示cookie是否启用</li>
+<li>javaEnabled() 表示当前浏览器是否启用了Java</li>
+<li>language 浏览器主语言</li>
+<li>onLine 浏览器是否连接到英特网</li>
+<li>plugins 浏览器中安装的插件信息的数组</li>
+<li>registerContentHandler() 针对特定的MIME类型将一个站点注册为处理程序</li>
+<li>registerProtocolHanlder() 针对特定的协议将一个站点注册为处理程序</li>
+</ul>
+<p>检测插件(使用plugins数组)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//检测是否存在插件</span></span><br><span class="line"><span class="comment">//IE以外的插件</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hasPlugin</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">        name = name.toLowerCase();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;navigator.plugins.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(navigator.plugins[i].name.toLowerCase().indexOf(name)&gt;<span class="number">-1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//检测IE中的插件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasIEPlugin</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//参数name,插件对应的COM对象的标识符</span></span><br><span class="line">        <span class="keyword">new</span> ActiveXObject(name);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注册处理程序<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将http://www.somereader.com注册为RSS源处理程序,%s表示RSS源URL</span></span><br><span class="line">navigator.registerContentHandler(<span class="string">"application/rss+xml"</span>,<span class="string">"http://www.somereader.com?feed=%s"</span>,<span class="string">"Some Reader"</span>);</span><br><span class="line"><span class="comment">//将http://www.somemailclient.com注册为邮件处理程序,%s表示原始请求</span></span><br><span class="line">navigator.registerProtocolHandler(<span class="string">"mailto"</span>,<span class="string">"http://www.somemailclient.com?cmd=%s"</span>,<span class="string">"Some Mail Client"</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>history对象保存着用户上网的历史记录,从窗口被打开的那一刻算起。</p>
+<p>历史记录跳转</p>
+<ul>
+<li>back():后退一页,等价于go(-1)</li>
+<li>forword():前进一页,等价于go(1)</li>
+<li>go():前进或后退任意一页</li>
+<li>length属性,保存着历史记录的数量。加载到窗口、标签页或框架中的第一个页面history.length等于0,有些浏览器等于1</li>
+</ul>
+<h2 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h2><p>screen对象中包含了用户显示器屏幕相关信息。通过该对象，可以访问用户显示器屏幕宽、高、色深等信息。</p>
+<ul>
+<li>colorDepth 表现颜色的位数</li>
+<li>height 屏幕的像素高度</li>
+<li>width 屏幕的像素宽度</li>
+</ul>
+<h2 id="document"><a href="#document" class="headerlink" title="document"></a>document</h2><p>DOM可以认为是BOM的一个子集，DOM中有关文档操作相关对象，如：Node、Document、Element等DOM节点类型对象，都是做为window对象的子属性出现的。</p>
+<p>document是window对象的了个属性，它是一个Document对象实例，表示当前窗口中文档对象。通过该对象，可以对文档和文档中元素、节点等进行操作。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="可视宽高"><a href="#可视宽高" class="headerlink" title="可视宽高"></a>可视宽高</h3><p>获取页面可视区域宽高</p>
+<p>jQuery<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">window</span>).width();</span><br><span class="line">$(<span class="built_in">window</span>).height();</span><br></pre></td></tr></table></figure></p>
+<p>原生JS<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不同浏览器下,取得页面视图大小</span></span><br><span class="line"><span class="keyword">var</span> clientWidth = <span class="built_in">window</span>.innerWidth,clientHeight = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> clientWidth != <span class="string">"number"</span>)&#123;</span><br><span class="line">    <span class="comment">//compatMode浏览器采用的渲染方式:BackCompact标准兼容模式关闭,CSS1Compat标准兼容模式开启</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">"CSS1Compat"</span>)&#123;</span><br><span class="line">        <span class="comment">// 在页面指定了DOCTYPE时，需要使用这种方式来获取宽高</span></span><br><span class="line">        clientWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">        clientHeight = <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//有些浏览器用于保存初始的布局视图大小</span></span><br><span class="line">        clientWidth = <span class="built_in">document</span>.body.clientWidth;</span><br><span class="line">        clientHeight = <span class="built_in">document</span>.body.clientHeight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在页面指定了DOCTYPE时，需要使用<code>document.documentElement</code>这种方式来获取宽高，而不能使用<code>document.body</code>的方式来获取</p>
+<h3 id="文档宽高"><a href="#文档宽高" class="headerlink" title="文档宽高"></a>文档宽高</h3><p>获取整个文档的宽高</p>
+<p>jQuery<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).height();</span><br><span class="line">$(<span class="built_in">document</span>).width();</span><br></pre></td></tr></table></figure></p>
+<p>原生JS<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//compatMode浏览器采用的渲染方式:BackCompact标准兼容模式关闭,CSS1Compat标准兼容模式开启</span></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">"CSS1Compat"</span>)&#123;</span><br><span class="line">    <span class="comment">// 在页面指定了DOCTYPE时，需要使用这种方式来获取宽高</span></span><br><span class="line">    pageWidth = <span class="built_in">document</span>.documentElement.scrollWidth;</span><br><span class="line">    pageHeight = <span class="built_in">document</span>.documentElement.scrollHeight;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//有些浏览器用于保存初始的布局视图大小</span></span><br><span class="line">    pageWidth = <span class="built_in">document</span>.body.scrollWidth;</span><br><span class="line">    pageHeight = <span class="built_in">document</span>.body.scrollHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="滚动宽高"><a href="#滚动宽高" class="headerlink" title="滚动宽高"></a>滚动宽高</h3><p>获取滚动条到顶部或左边的宽度或高度</p>
+<p>jQuery<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).scrollTop();</span><br><span class="line">$(<span class="built_in">document</span>).scrollLeft();</span><br></pre></td></tr></table></figure></p>
+<p>原生JS<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//compatMode浏览器采用的渲染方式:BackCompact标准兼容模式关闭,CSS1Compat标准兼容模式开启</span></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">"CSS1Compat"</span>)&#123;</span><br><span class="line">    <span class="comment">// 在页面指定了DOCTYPE时，需要使用这种方式来获取宽高</span></span><br><span class="line">    scrollHeight = <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">    scrollWidth = <span class="built_in">document</span>.documentElement.scrollLeft;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//有些浏览器用于保存初始的布局视图大小</span></span><br><span class="line">    scrollHeight = <span class="built_in">document</span>.body.scrollTop;</span><br><span class="line">    scrollWidth = <span class="built_in">document</span>.body.scrollLeft;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>JS高程(第三版)<br><a href="https://itbilu.com/javascript/js/4k9JcnZRl.html#BOM-frame" target="_blank" rel="noopener">JavaScript BOM对象</a><br><a href="http://blog.csdn.net/jh0610y/article/details/46355833" target="_blank" rel="noopener">jQuery获取宽高</a><br><a href="http://www.cnblogs.com/geektimi/p/5748664.html" target="_blank" rel="noopener">js获取宽高</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="FWHeart WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.png" alt="FWHeart Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/20/未来世界的幸存者/" rel="next" title="未来世界的幸存者-文章总结">
+                <i class="fa fa-chevron-left"></i> 未来世界的幸存者-文章总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/01/DOM模型/" rel="prev" title="DOM模型">
+                DOM模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <ul class="sidebar-nav motion-element">
+      <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+        Table of Contents
+      </li>
+      <li class="sidebar-nav-overview" data-target="site-overview">
+        Overview
+      </li>
+    </ul>
+    
+    <section class="site-overview sidebar-panel">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+    
+    <!--noindex-->
+    <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+      <div class="post-toc">
+           
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BOM模型"><span class="nav-number">1.</span> <span class="nav-text"><a href="#BOM&#x6A21;&#x578B;" class="headerlink" title="BOM&#x6A21;&#x578B;"></a>BOM&#x6A21;&#x578B;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#window"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#window" class="headerlink" title="window"></a>window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#frames"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#frames" class="headerlink" title="frames"></a>frames</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#location" class="headerlink" title="location"></a>location</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#navigator"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#navigator" class="headerlink" title="navigator"></a>navigator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#history"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#history" class="headerlink" title="history"></a>history</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#screen"><span class="nav-number">1.6.</span> <span class="nav-text"><a href="#screen" class="headerlink" title="screen"></a>screen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#document"><span class="nav-number">1.7.</span> <span class="nav-text"><a href="#document" class="headerlink" title="document"></a>document</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">1.8.</span> <span class="nav-text"><a href="#&#x5176;&#x4ED6;" class="headerlink" title="&#x5176;&#x4ED6;"></a>&#x5176;&#x4ED6;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可视宽高"><span class="nav-number">1.8.1.</span> <span class="nav-text"><a href="#&#x53EF;&#x89C6;&#x5BBD;&#x9AD8;" class="headerlink" title="&#x53EF;&#x89C6;&#x5BBD;&#x9AD8;"></a>&#x53EF;&#x89C6;&#x5BBD;&#x9AD8;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档宽高"><span class="nav-number">1.8.2.</span> <span class="nav-text"><a href="#&#x6587;&#x6863;&#x5BBD;&#x9AD8;" class="headerlink" title="&#x6587;&#x6863;&#x5BBD;&#x9AD8;"></a>&#x6587;&#x6863;&#x5BBD;&#x9AD8;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滚动宽高"><span class="nav-number">1.8.3.</span> <span class="nav-text"><a href="#&#x6EDA;&#x52A8;&#x5BBD;&#x9AD8;" class="headerlink" title="&#x6EDA;&#x52A8;&#x5BBD;&#x9AD8;"></a>&#x6EDA;&#x52A8;&#x5BBD;&#x9AD8;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.9.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</span></a></li></ol></li></ol></div>
+          
+      </div>
+    </section>
+    <!--/noindex-->
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+ 
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

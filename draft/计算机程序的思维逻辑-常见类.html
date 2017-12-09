@@ -1,0 +1,711 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content=",,," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="[笔记]计算机思维逻辑-常见类计算机程序的思维逻辑是“老马”的系列文章，文章通过Java语言来介绍计算机技术的本质。第三章节常见类,介绍了包装类的共性，hashCode作用，String、StringBuilder的内部表示,Arrays常用的方法,时间日期常用方法，Joda-Time计算时间，随机种子等概念。原文目录(26-34章)">
+<meta name="keywords" content="Java,笔记,基础知识">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计算机程序的思维逻辑-常见类">
+<meta property="og:url" content="http://yeomanye.github.io/draft/计算机程序的思维逻辑-常见类.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="[笔记]计算机思维逻辑-常见类计算机程序的思维逻辑是“老马”的系列文章，文章通过Java语言来介绍计算机技术的本质。第三章节常见类,介绍了包装类的共性，hashCode作用，String、StringBuilder的内部表示,Arrays常用的方法,时间日期常用方法，Joda-Time计算时间，随机种子等概念。原文目录(26-34章)">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yeomanye.github.io/draft/resources/images/字符类型.png">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机程序的思维逻辑-常见类">
+<meta name="twitter:description" content="[笔记]计算机思维逻辑-常见类计算机程序的思维逻辑是“老马”的系列文章，文章通过Java语言来介绍计算机技术的本质。第三章节常见类,介绍了包装类的共性，hashCode作用，String、StringBuilder的内部表示,Arrays常用的方法,时间日期常用方法，Joda-Time计算时间，随机种子等概念。原文目录(26-34章)">
+<meta name="twitter:image" content="http://yeomanye.github.io/draft/resources/images/字符类型.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/draft/计算机程序的思维逻辑-常见类.html"/>
+
+
+
+
+
+  <title>
+  
+
+  
+    计算机程序的思维逻辑-常见类 | 探险
+  
+</title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left  ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+  <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline">计算机程序的思维逻辑-常见类</h1>
+
+
+
+</header>
+
+    
+    
+      <h1 id="笔记-计算机思维逻辑-常见类"><a href="#笔记-计算机思维逻辑-常见类" class="headerlink" title="[笔记]计算机思维逻辑-常见类"></a>[笔记]计算机思维逻辑-常见类</h1><p>计算机程序的思维逻辑是“老马”的系列文章，文章通过Java语言来介绍计算机技术的本质。第三章节常见类,介绍了包装类的共性，hashCode作用，String、StringBuilder的内部表示,Arrays常用的方法,时间日期常用方法，Joda-Time计算时间，随机种子等概念。<br><a href="http://www.cnblogs.com/swiftma/p/5631311.html" target="_blank" rel="noopener">原文目录(26-34章)</a></p>
+<a id="more"></a>
+<h2 id="剖析包装类"><a href="#剖析包装类" class="headerlink" title="剖析包装类"></a>剖析包装类</h2><p>对两个对象，如果equals方法返回true，则hashCode也必须一样,反过来却不一定。</p>
+<p>哈希值是一个int类型的数，由对象中一般不变的属性映射得来，用于快速对对象进行区分、分组等</p>
+<p>包装类都实现了Comparable接口；都具有,如parseInteger(String[,Integer])静态方法(可解析,数值类型),将字符串解析为对应的基本类型。还有输出为各种进制的字符串toBinaryString(),toHexString()；具有与基本类型相关的常量</p>
+<p>包装类常用常量<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Integer</span></span><br><span class="line">public <span class="keyword">static</span> final int   MIN_VALUE = <span class="number">0x80000000</span>;</span><br><span class="line">public <span class="keyword">static</span> final int   MAX_VALUE = <span class="number">0x7fffffff</span>;</span><br><span class="line"><span class="comment">//Float,Double</span></span><br><span class="line">public <span class="keyword">static</span> final double POSITIVE_INFINITY = <span class="number">1.0</span> / <span class="number">0.0</span>;</span><br><span class="line">public <span class="keyword">static</span> final double NEGATIVE_INFINITY = <span class="number">-1.0</span> / <span class="number">0.0</span>;</span><br><span class="line">public <span class="keyword">static</span> final double <span class="literal">NaN</span> = <span class="number">0.0</span>d / <span class="number">0.0</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h3><p>Unicode给每个字符分配了一个类型,这个类型非常重要,很多其他检查和操作是基于这个类型的。</p>
+<p><img src="resources/images/字符类型.png" alt="字符类型"></p>
+<p>常见检测API:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取字符类型(general category)：</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getType</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getType</span><span class="params">(<span class="keyword">char</span> ch)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查字符是否为数字,可检测全角数字</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isDigit</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为字母(Letter)：</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isLetter</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span></span><br><span class="line"><span class="function"><span class="comment">//如果getType()的返回值为下列之一，则为Letter：</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//UPPERCASE_LETTER</span></span></span><br><span class="line"><span class="function"><span class="comment">//LOWERCASE_LETTER</span></span></span><br><span class="line"><span class="function"><span class="comment">//TITLECASE_LETTER</span></span></span><br><span class="line"><span class="function"><span class="comment">//MODIFIER_LETTER</span></span></span><br><span class="line"><span class="function"><span class="comment">//OTHER_LETTER</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为字母或数字</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isLetterOrDigit</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为字母(Alphabetic)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isAlphabetic</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*这也是检查是否为字母，与isLetter的区别是，</span></span></span><br><span class="line"><span class="function"><span class="comment">isLetter返回true时，isAlphabetic也必然返回true，</span></span></span><br><span class="line"><span class="function"><span class="comment">此外，getType()值为LETTER_NUMBER时，isAlphabetic也返回true，</span></span></span><br><span class="line"><span class="function"><span class="comment">而isLetter返回false。Letter_NUMBER中常见的字符有罗马数字字符，如：'Ⅰ','Ⅱ','Ⅲ','Ⅳ'。*/</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为空格字符</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isSpaceChar</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*getType()值为SPACE_SEPARATOR，LINE_SEPARATOR和PARAGRAPH_SEPARATOR时，返回true。</span></span></span><br><span class="line"><span class="function"><span class="comment">这个方法其实并不常用，因为它只能严格匹配空格字符本身，不能匹配实际产生空格效果的字符，如tab控制键'\t'。*/</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//更常用的检查空格的方法</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isWhitespace</span><span class="params">(<span class="keyword">int</span> codePoint)</span> </span></span><br><span class="line"><span class="function"><span class="comment">//'\t'，'\n'，全角空格'　'，和半角空格' '的返回值都为true。</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为小写字符</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isLowerCase</span><span class="params">(<span class="keyword">int</span> codePoint)</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为大写字符</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isUpperCase</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为表意象形文字</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isIdeographic</span><span class="params">(<span class="keyword">int</span> codePoint)</span> </span></span><br><span class="line"><span class="function"><span class="comment">//大部分中文都返回为true。</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为ISO 8859-1编码中的控制字符</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isISOControl</span><span class="params">(<span class="keyword">int</span> codePoint)</span> </span></span><br><span class="line"><span class="function"><span class="comment">//0到31，127到159表示控制字符。</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否可作为Java标示符的第一个字符</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isJavaIdentifierStart</span><span class="params">(<span class="keyword">int</span> codePoint)</span> </span></span><br><span class="line"><span class="function"><span class="comment">/*Java标示符是Java中的变量名、函数名、类名等，</span></span></span><br><span class="line"><span class="function"><span class="comment">字母(Alphabetic)，美元符号($)，下划线(_)可作为Java标示符的第一个字符，但数字字符不可以。*/</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否可作为Java标示符的中间字符</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isJavaIdentifierPart</span><span class="params">(<span class="keyword">int</span> codePoint)</span> </span></span><br><span class="line"><span class="function"><span class="comment">//相比isJavaIdentifierStart，主要多了数字字符，中间可以有数字。</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//检查是否为镜像(mirrowed)字符</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isMirrored</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span></span><br><span class="line"><span class="function"><span class="comment">//常见镜像字符有( ) &#123; &#125; &lt; &gt; [ ]，都有对应的镜像。</span></span></span><br></pre></td></tr></table></figure></p>
+<p>常见转换API:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">toLowerCase</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">toUpperCase</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回字符表示的数值(a-z,返回10-35无论全角还是半角)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getNumberValue</span><span class="params">(<span class="keyword">int</span> codePoint)</span></span>;</span><br><span class="line"><span class="comment">//返回给定进制表示</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">digit</span><span class="params">(<span class="keyword">int</span> codePoint,<span class="keyword">int</span> radix)</span></span>;</span><br><span class="line"><span class="comment">//返回数值的字符形式</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span> <span class="title">forDigit</span><span class="params">(<span class="keyword">int</span> digit,<span class="keyword">int</span> radix)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="剖析String"><a href="#剖析String" class="headerlink" title="剖析String"></a>剖析String</h2><p>内部用一个字符数组表示字符串:private final char value[];</p>
+<p>String声明为final,具有不可变性。对String的修改都是重新创建了新字符串。</p>
+<p>字符串常量就是String类型的对象,在内存中,它们被放在一个共享的地方,这个地方被称作常量池,因此可以使用字符串的函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//String常量赋值</span></span><br><span class="line"><span class="built_in">String</span> name1 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"常量"</span>);</span><br><span class="line"><span class="built_in">String</span> name2 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">"常量"</span>);</span><br><span class="line">name1 == name2;<span class="comment">//false</span></span><br><span class="line">name1.equals(name2);<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>与正则表达式相关的方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public <span class="built_in">String</span>[] split(<span class="built_in">String</span> regex);</span><br><span class="line">public boolean matches(<span class="built_in">String</span> regex);</span><br><span class="line">public <span class="built_in">String</span> replace(<span class="built_in">String</span> regex,<span class="built_in">String</span> replacement);</span><br><span class="line">public <span class="built_in">String</span> replaceAll(<span class="built_in">String</span> regex,<span class="built_in">String</span> replacement);</span><br></pre></td></tr></table></figure></p>
+<h2 id="剖析StringBuilder"><a href="#剖析StringBuilder" class="headerlink" title="剖析StringBuilder"></a>剖析StringBuilder</h2><p>StringBuilder和StringBuffer类,这两个类的方法基本完全一样,而StringBuffer是线程安全的,StringBuilder不是。append的实现机制是通过数组的复制(Arrays.copyOf(oriArr,tarArr))来扩大内部的char数组的</p>
+<p>+和+=用字符串对象生成StringBuilder对象调用append后再调用toString()方法转为String对象</p>
+<h2 id="剖析Arrays"><a href="#剖析Arrays" class="headerlink" title="剖析Arrays"></a>剖析Arrays</h2><p>Arrays.toString(Object[] a)返回各项toString的值,如:{1,2,3} -&gt; [1,2,3]<br>Arrays.sort(int[] a[, Comparator&lt;? super T&gt; c])默认为升序排序,可指定一个对象设置排序规则。使用了策略模式，排序基本步骤和算法不变，排序的策略却会改变。</p>
+<p>对于多维数组,数组的第一维必须初始化,多维数组操作的API:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">static</span> <span class="built_in">String</span> deepToString(<span class="built_in">Object</span>[] a);</span><br><span class="line">public <span class="keyword">static</span> boolean deepEquals(<span class="built_in">Object</span>[] a1, <span class="built_in">Object</span>[] a2);</span><br><span class="line">public <span class="keyword">static</span> int deepHashCode(<span class="built_in">Object</span> a[]);</span><br></pre></td></tr></table></figure></p>
+<h2 id="剖析日期和时间"><a href="#剖析日期和时间" class="headerlink" title="剖析日期和时间"></a>剖析日期和时间</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>所有计算机系统内部都用一个整数表示时刻，这个整数是距离格林尼治标准时间1970年1月1日0时0分0秒的毫秒数</p>
+<p>纪元时:格林尼治标准时间1970年1月1日0时0分0秒也被称为Epoch Time (纪元时)。</p>
+<p>时刻是一个绝对时间，对时刻的解读，如年月日周时分秒等，则是相对的，与年历和时区相关</p>
+<p>Java API表示日期和时间的类:</p>
+<ul>
+<li>Date：表示时刻，即绝对时间，与年月日无关。</li>
+<li>Calendar：表示年历，Calendar是一个抽象类，其中表示公历的子类是GregorianCalendar</li>
+<li>DateFormat：表示格式化，能够将日期和时间与字符串进行相互转换，DateFormat也是一个抽象类，其中最常用的子类是SimpleDateFormat。</li>
+<li>TimeZone: 表示时区</li>
+<li>Locale: 表示国家和语言</li>
+</ul>
+<h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3><p>常用API:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回毫秒数</span></span><br><span class="line">public long getTime();</span><br><span class="line"><span class="comment">//与其他Date进行比较</span></span><br><span class="line">public int compareTo(<span class="built_in">Date</span> anotherDate);</span><br><span class="line">public boolean before(<span class="built_in">Date</span> when);</span><br><span class="line">public boolean after(<span class="built_in">Date</span> when);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Calendar"><a href="#Calendar" class="headerlink" title="Calendar"></a>Calendar</h3><p>常用API<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建</span></span><br><span class="line">public <span class="keyword">static</span> Calendar getInstance()</span><br><span class="line">public <span class="keyword">static</span> Calendar getInstance(Locale aLocale)</span><br><span class="line">public <span class="keyword">static</span> Calendar getInstance(TimeZone zone)</span><br><span class="line">public <span class="keyword">static</span> Calendar getInstance(TimeZone zone, Locale aLocale)</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取</span></span><br><span class="line">calendar.get(Calendar.YEAR);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置</span></span><br><span class="line">public final <span class="keyword">void</span> setTime(<span class="built_in">Date</span> date);</span><br><span class="line">public <span class="keyword">void</span> setTimeInMillis(long millis);</span><br><span class="line">public final <span class="keyword">void</span> int set(int year,int month,int date,int hour,int minute,int second);</span><br><span class="line">public <span class="keyword">void</span> set(int field, int value)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//增加或减少时间</span></span><br><span class="line">public <span class="keyword">void</span> add(int field, int amount)</span><br><span class="line"><span class="comment">//增加或减少时间,但不影响更大范围的值</span></span><br><span class="line">public <span class="keyword">void</span> roll(int field, int amount)</span><br></pre></td></tr></table></figure></p>
+<h3 id="DateFormat"><a href="#DateFormat" class="headerlink" title="DateFormat"></a>DateFormat</h3><p>DateFormat(主要方法format,parse),DateFormat是个抽像类，一般使用SimpleDateFormat</p>
+<p>SimpleDateFormat使用一个模式作为参数,该模式定义了Date的字符串形式。</p>
+<p>pattern中的英文字符a-z和A-Z表示特殊含义，其他字符原样输出:</p>
+<ul>
+<li>yyyy：表示四位的年</li>
+<li>MM：表示月，两位数表示</li>
+<li>dd：表示日，两位数表示</li>
+<li>HH：表示24小时制的小时数，两位数表示</li>
+<li>mm：表示分钟，两位数表示</li>
+<li>ss：表示秒，两位数表示</li>
+<li>E：表示星期几</li>
+<li>SSS: 表示毫秒,三位数表示</li>
+</ul>
+<p>SimpleDateFormat非线程安全的</p>
+<h2 id="Joda-Time"><a href="#Joda-Time" class="headerlink" title="Joda-Time"></a>Joda-Time</h2><p>Joda-Time是Apache提供的时间日期的工具类</p>
+<h3 id="DateTime"><a href="#DateTime" class="headerlink" title="DateTime"></a>DateTime</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建对象</span></span><br><span class="line">DateTime dt = <span class="keyword">new</span> DateTime();</span><br><span class="line"><span class="comment">//2016-08-18 15:20:47</span></span><br><span class="line">DateTime dt2 = <span class="keyword">new</span> DateTime(<span class="number">2016</span>,<span class="number">8</span>,<span class="number">18</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">47</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取</span></span><br><span class="line">dt.getYear();</span><br><span class="line"></span><br><span class="line"><span class="comment">//格式化</span></span><br><span class="line">dt.toString(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置时间</span></span><br><span class="line">dt.withHourOfDay(<span class="number">15</span>);</span><br><span class="line"><span class="comment">//增加时间</span></span><br><span class="line">dt.plusWeeks(<span class="number">1</span>);</span><br><span class="line"><span class="comment">//减少时间</span></span><br><span class="line">dt.minusMinutes(<span class="number">1</span>);</span><br><span class="line"><span class="comment">//设置为当天最后一刻</span></span><br><span class="line">DateTime dt = <span class="keyword">new</span> DateTime().millisOfDay().withMaximumValue();</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">millisOfDay()的返回值比较特别，它是一个属性，</span></span><br><span class="line"><span class="comment">具体类为DateTime的一个内部类Property，这个属性代表当天毫秒信息，</span></span><br><span class="line"><span class="comment">这个属性有一些方法，可以接着对日期进行修改，</span></span><br><span class="line"><span class="comment">withMaximumValue就是将该属性的值设为最大值。</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<h3 id="时间段计算"><a href="#时间段计算" class="headerlink" title="时间段计算"></a>时间段计算</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DateTime start = <span class="keyword">new</span> DateTime(<span class="number">2016</span>,<span class="number">8</span>,<span class="number">18</span>,<span class="number">10</span>,<span class="number">58</span>);</span><br><span class="line">DateTime end = <span class="keyword">new</span> DateTime(<span class="number">2016</span>,<span class="number">9</span>,<span class="number">19</span>,<span class="number">12</span>,<span class="number">3</span>);</span><br><span class="line">Period period = <span class="keyword">new</span> Period(start,end);        </span><br><span class="line">System.out.println(period.getMonths()+<span class="string">"月"</span>+period.getDays()+<span class="string">"天"</span></span><br><span class="line">        +period.getHours()+<span class="string">"小时"</span>+period.getMinutes()+<span class="string">"分"</span>);</span><br><span class="line"><span class="comment">//结果为 1月1天1小时5分</span></span><br></pre></td></tr></table></figure>
+<h2 id="随机"><a href="#随机" class="headerlink" title="随机"></a>随机</h2><p>Random常用函数nextInt(int range);位于java.util包下;线程安全的</p>
+<p>设置随机种子<code>public Random(long seed);</code></p>
+<p>种子决定了随机产生的序列,种子相同,产生的随机序列数就是相同的。</p>
+<p>Math.rondom()内部也是通过Random对象生成随机数</p>
+
+    
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <section class="site-overview sidebar-panel sidebar-panel-active">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

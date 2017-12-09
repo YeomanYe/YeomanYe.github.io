@@ -1,0 +1,1064 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="DOM模型DOM(文档对象模型)是针对HTML和XML的一个API，DOM描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面某一部分。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM模型">
+<meta property="og:url" content="http://yeomanye.github.io/2017/03/01/DOM模型/index.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="DOM模型DOM(文档对象模型)是针对HTML和XML的一个API，DOM描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面某一部分。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yeomanye.github.io/2017/03/01/DOM模型/IEVersion值.png">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOM模型">
+<meta name="twitter:description" content="DOM模型DOM(文档对象模型)是针对HTML和XML的一个API，DOM描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面某一部分。">
+<meta name="twitter:image" content="http://yeomanye.github.io/2017/03/01/DOM模型/IEVersion值.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/2017/03/01/DOM模型/"/>
+
+
+
+
+
+  <title> DOM模型 | 探险 </title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/03/01/DOM模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                DOM模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-01T00:00:00+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/03/01/DOM模型/" class="leancloud_visitors" data-flag-title="DOM模型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  2,782
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="DOM模型"><a href="#DOM模型" class="headerlink" title="DOM模型"></a>DOM模型</h1><p>DOM(文档对象模型)是针对HTML和XML的一个API，DOM描绘了一个层次化的节点树，允许开发人员添加、移除和修改页面某一部分。</p>
+<a id="more"></a>
+<p>IE中的所有DOM对象都是以COM对象(Component Object Model,组件对象模型)的形式实现的。因此,IE中的DOM对象与原生JavaScript对象的行为或活动特点并不一致。</p>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p>DOM1级规定了Node接口，12种节点类型都继承自该接口。但是在IE中无法访问到Node类型。</p>
+<p><a href="http://www.w3school.com.cn/jsref/prop_node_nodetype.asp" target="_blank" rel="noopener">节点类型</a></p>
+<p>Node常见的属性：</p>
+<ul>
+<li>nodeType:1代表元素节点,2属性节点,3文本节点(保证兼容性,使用数值进行比较。)</li>
+<li>nodeName:元素节点为标签名,</li>
+<li>nodeValue:元素节点值为null</li>
+<li>childNodes:保存着NodeList对象</li>
+<li>parentNode:父节点</li>
+<li>previousSibling和nextSibling:前一个和后一个兄弟节点</li>
+<li>firstChild和lastChild:指向第一和最后一个孩子节点</li>
+<li>ownerDocument:指向表示整个文档的文档节点</li>
+</ul>
+<p>Node常见的方法：</p>
+<ul>
+<li>hasChildNodes():查询是否存在子节点</li>
+<li>appendChild():如果传入的节点在文档流中存在,则从一个位置移向另一个位置。返回移动的节点</li>
+<li>insertBefore():第一个参数为要插入的节点,第二个参数为参照的节点。如果参照节点为空,则执行效果与appendChild()相同</li>
+<li>replaceChild():第一个参数为替换的节点,第二个参数为被替换节点。</li>
+<li>removeChild():移除的节点任然在文档流中,但没有位置。</li>
+<li>cloneNode():用于创建调用这个方法的节点的一个完全相同的副本。若参数为true,则复制该节点的整个节点树。不会复制事件处理程序,IE下会复制事件处理程序。</li>
+<li>normalize():去掉空的文本节点，合并非空的文本节点为一个文本节点。</li>
+</ul>
+<p>注意NodeList对象可以通过下标访问,也具有length属性,但并非Array的实例。DOM结构的变化能自动反映在NodeList对象中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将NodeList转换为数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">convertToArray</span>(<span class="params">nodes</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> array = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        array = <span class="built_in">Array</span>.prototype.slice.call(nodes,<span class="number">0</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">        array = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=nodes.length;i&lt;len;i++)&#123;</span><br><span class="line">            array.push(nodes[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Document"><a href="#Document" class="headerlink" title="Document"></a>Document</h2><p>document对象是HTMLDocument继承自Document类型)的一个实例,表示整个HTML页面,是window对象的一个属性</p>
+<p>document常见属性：</p>
+<ul>
+<li>documentElement:指向<code>&lt;html&gt;</code>元素</li>
+<li>body:指向<code>&lt;body&gt;</code>元素</li>
+<li>doctype:访问<code>&lt;!DOCTYPE&gt;</code>信息,支持情况不一</li>
+<li>title:设置文档标题。设置它不会修改<code>&lt;title&gt;</code>标签</li>
+<li>URL:获得url,不可设置</li>
+<li>domain:获取域名,只可设置为URL包含的域</li>
+<li>referrer:取得来源页面的url,不可设置</li>
+</ul>
+<p>特殊集合，这些集合都是HTMLCollection对象</p>
+<ul>
+<li>forms 文档中所有的form元素</li>
+<li>images 文档中所有的img元素</li>
+<li>links 所有带href的a元素</li>
+</ul>
+<p>HTMLCollection具有namedItem方法，可以根据name属性获得值<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> imgs = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"img"</span>);</span><br><span class="line">imgs.namedItem(<span class="string">"firstImg"</span>);</span><br><span class="line"><span class="comment">//获得name属性值为firstImg的元素(只返回一个),等价于</span></span><br><span class="line">imgs[<span class="string">"firstImg"</span>];</span><br></pre></td></tr></table></figure></p>
+<p>document常见方法：</p>
+<ul>
+<li>getElementById()取得元素通过ID</li>
+<li>getElementsByTagName():取得元素通过标签名</li>
+<li>getElementsByName():返回所有name属性为参数的HTMLCollection集合。</li>
+<li>implementation.hasFeature(‘HTML’,’1.0’) 检测浏览器是否支持,DOM的功能和版本</li>
+<li>createElement()创建Element</li>
+<li>createAttribute()创建属性节点</li>
+<li>createTextNode()创建文本节点</li>
+<li>createDocumentFragement() 创建文档片段</li>
+<li>write/writeln():输出内容到html文档中，页面加载期间不会重写内容,页面加载后会重写内容</li>
+</ul>
+<p>将domain设置为相同,内外两个页面就可以相互操作。设置domain只能设置为更简短，不能设置为更长。例如：将www.xwork.com和p2p.xwork.com 都设置为 xwork.com 两个页面就能互相操作。</p>
+<h2 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h2><p>Element类型用于表现XML或HTML元素，提供了对元素标签名、子节点及特性的访问。所有HTML元素都由HTMLElement类型表示,不是直接通过这个类型,也是通过它的子类型来表示。</p>
+<p>每个HTML元素都存在的标准特性</p>
+<ul>
+<li>id,元素在文档中的唯一标识符</li>
+<li>title,有关元素的附加说明信息</li>
+<li>className,与元素class对应</li>
+<li>clientWidth/clientHeight 内部宽高</li>
+<li>clientLeft/clientTop 距离左边/上边的长度</li>
+<li>innerHTML 这个元素内容的文本</li>
+<li>attributes属性包含一系列节点，每个节点的nodeName是特性的名称，而节点的nodeValue是特性的值。<ul>
+<li>getNamedItem(name) 返回nodeName属性等于name的节点</li>
+<li>removeNamedItem(name) 移除nodeName属性等于name的节点</li>
+<li>setNamedItem(node) 向列表中添加节点(参数需要是Attr类型)，节点的nodeName属性为索引</li>
+<li>item(pos) 返回数字pos位置处的节点</li>
+<li>specified 每个属性节点具有该属性用于判断元素是否设置了该属性</li>
+</ul>
+</li>
+</ul>
+<p>常见方法:</p>
+<ul>
+<li>addEventListener()/removeEventListener() 添加/移除事件处理函数</li>
+<li>getAttribute()/hasAttribute()/setAttribute() 获取/含有/设置属性</li>
+<li>getElementsByTagName() 通过标签获取元素</li>
+<li>setAttributeNode()/getAttributeNode() 设置/获取属性节点</li>
+<li>querySelector()/querySelectorAll() 根据条件查询一个/全部节点</li>
+<li>元素遍历API<ul>
+<li>childElementCount 子元素个数</li>
+<li>firstElementChild 第一个子元素</li>
+<li>lastElementChild 最后一个子元素</li>
+<li>previousElementSibling 前一个同辈元素</li>
+<li>nextElementSibling 后一个同辈元素</li>
+</ul>
+</li>
+</ul>
+<h2 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h2><p>文本节点由Text类型标识，包含的是可以照字面解释的纯文本内容。文本节点中保存的字符会经过编码，像&gt;&lt;&amp;字符会被转义。</p>
+<p>常见方法：</p>
+<ul>
+<li>appendData(text) 将text添加到节点的末尾</li>
+<li>deleteData(offset,count) 从offset指定的位置开始删除count个字符</li>
+<li>insertData(offset,text) 在offset指定的位置插入text</li>
+<li>replaceData(offset,count,text) 用text替换offset指定的位置开始到offset+count为止处的文本</li>
+<li>splitText(offset) 从offset指定的位置将当前文本节点分成两个文本节点。</li>
+<li>substringData(offset,count) 提取从offset指定的位置到offset+count为止的字符</li>
+</ul>
+<h2 id="Comment"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</h2><p>Comment代表注释节点，可以通过nodeValue或data取得值。拥有Text相同的字符串操作方法，除了splitText之外。</p>
+<h2 id="CDATASection"><a href="#CDATASection" class="headerlink" title="CDATASection"></a>CDATASection</h2><p>CDATASection只针对XML文档，表示的是CDATA区域。继承自Text，也是具有除splitText()之外的所有字符串操作方法。</p>
+<h2 id="DocumentType"><a href="#DocumentType" class="headerlink" title="DocumentType"></a>DocumentType</h2><p>DOM1级中，DocumentType对象不能动态创建，只能通过解析文档代码的方式来创建。支持的浏览器会把它保存在document.doctype中。</p>
+<ul>
+<li>name 表示文档类型名称</li>
+<li>entities 文档类型描述的实体的NamedNodeMap对象（通常为空）</li>
+<li>notations 文档类型描述的符号的NamedNodeMap对象（通常为空）</li>
+</ul>
+<h2 id="DocumentFragment"><a href="#DocumentFragment" class="headerlink" title="DocumentFragment"></a>DocumentFragment</h2><p>DOM规定文档片段(document fragment)是一种”轻量级”的文档,可以包含和控制节点,但不会像完整的文档那样占用额外的资源，在文档中没有对应的标记。</p>
+<p>可以将文档片段作为一个”仓库”来使用,可以将文档仓库中的文档节点一次性添加到文档的标签中,避免重复渲染。一个节点不能同时存在于文档片段和文档中。</p>
+<h2 id="Attr"><a href="#Attr" class="headerlink" title="Attr"></a>Attr</h2><p>元素的特性在DOM中以Attr类型表示。</p>
+<ul>
+<li>name 特性名称</li>
+<li>value 特性值</li>
+<li>specified 用以区别特性是否为指定的</li>
+</ul>
+<h2 id="HTML5-DOM扩展"><a href="#HTML5-DOM扩展" class="headerlink" title="HTML5 DOM扩展"></a>HTML5 DOM扩展</h2><ul>
+<li>getElementByClassName()可以使用复数个类名作为参数,类名之间用空格作为分隔符</li>
+<li>元素的classList属性,类名的集合<ul>
+<li>add(clsName):添加一个类,如果已存在则不添加</li>
+<li>contains(clsName):判断是否包含类名,包含返回true,否则返回false</li>
+<li>remove(clsName):从列表中删除给定的字符串</li>
+<li>toggle(clsName):如果列表中已经存在给定的值,删除;否则,添加</li>
+</ul>
+</li>
+<li>document.activeElement 指向当前获得焦点的元素,文档加载期间document.activeElement的值为null</li>
+<li>document.hasFocus()确定文档是否获得了焦点</li>
+<li>HTMLDocument的变化</li>
+<li>readyState属性,document(loading正在加载,complete已经加载完成)</li>
+<li>document.compatMode(标准模式”CSS1Compat”,混杂模式”BackCompat”)</li>
+<li>document.head(表示文档的&lt; head&gt;元素)</li>
+<li>document.charset文档使用的字符集,document.defaultCharset文档默认应该使用的字符集</li>
+<li>为元素添加非标准的属性,但要添加前缀data-,用于表示提供的属性信息与渲染无关;使用JS取的属性时不需要加data-前缀</li>
+<li>innerHTML不同的浏览器读取/写入(标签),可能略有差别。</li>
+<li>outerHTML返回调用它的元素及所有子节点的HTML标签;写入的内容替换元素节点。需要将移除的节点的事件删除减少内存占用。</li>
+</ul>
+<h2 id="专有DOM扩展"><a href="#专有DOM扩展" class="headerlink" title="专有DOM扩展"></a>专有DOM扩展</h2><p>强制IE浏览器以特定的模式渲染页面<code>&lt;meta http-equiv=”X-UA-Compatible” content=”IE=IEVersion”&gt;</code></p>
+<p><img src="IEVersion值.png" alt="IEVersion值"></p>
+<ul>
+<li>children只包含元素子节点</li>
+<li>contains()是否包含节点</li>
+<li>compareDocumentPosition()确定两个节点间的位置关系(掩码1:无关,2:居前,3:居后,8:包含,16:被包含)</li>
+<li>innerText返回所有文本节点拼接的值,写入将删除所有子节点。textContent是DOM Level3规定的一个属性</li>
+<li>outerText与outerHTML类似用文本节点取代元素。</li>
+</ul>
+<h2 id="各级DOM"><a href="#各级DOM" class="headerlink" title="各级DOM"></a>各级DOM</h2><h3 id="DOM0"><a href="#DOM0" class="headerlink" title="DOM0"></a>DOM0</h3><p>JavaScript在早期版本中提供了查询和操作Web文档的内容API（如：图像和表单），在JavaScript中定义了定义了’images’、’forms’等</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.images[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">document</span>.forms[<span class="string">'user'</span>]</span><br></pre></td></tr></table></figure>
+<p>这实际上是未形成标准的试验性质的初级阶段的DOM，现在习惯上被称为DOM0，即：第0级DOM。DOM0在W3C进行标准备化之前出现，还处于未形成标准的初期阶段</p>
+<h3 id="DOM1"><a href="#DOM1" class="headerlink" title="DOM1"></a>DOM1</h3><p>DOM1级主要定义了HTML和XML文档的底层结构。在DOM1中，DOM由两个模块组成：DOM Core（DOM核心）和DOM HTML。其中，DOM Core规定了基于XML的文档结构标准，通过这个标准简化了对文档中任意部分的访问和操作。DOM HTML则在DOM核心的基础上加以扩展，添加了针对HTML的对象和方法，如：JavaScript中的Document对象</p>
+<h3 id="DOM2与DOM3"><a href="#DOM2与DOM3" class="headerlink" title="DOM2与DOM3"></a>DOM2与DOM3</h3><p>在DOM1的基础上DOM2和DOM3引入了更多的交互能力，也支持了更高级的XML特性。DOM2和DOM3将DOM分为更多具有联系的模块。DOM2级在原来DOM的基础上又扩充了鼠标、用户界面事件、范围、遍历等细分模块，而且通过对象接口增加了对CSS的支持。DOM1级中的DOM核心模块也经过扩展开始支持XML命名空间。在DOM2中引入了下列模块，在模块包含了众多新类型和新接口：</p>
+<ul>
+<li>DOM视图（DOM Views）：定义了跟踪不同文档视图的接口</li>
+<li>DOM事件（DOM Events）：定义了事件和事件处理的接口</li>
+<li>DOM样式（DOM Style）：定义了基于CSS为元素应用样式的接口</li>
+<li>DOM遍历和范围（DOM Traversal and Range）：定义了遍历和操作文档树的接口</li>
+</ul>
+<p>DOM3进一步扩展了DOM，在DOM3中引入了以下模块：</p>
+<ul>
+<li>DOM加载和保存模块（DOM Load and Save）：引入了以统一方式加载和保存文档的方法</li>
+<li>DOM验证模块（DOM Validation）：定义了验证文档的方法</li>
+<li>DOM核心的扩展（DOM Style）：支持XML 1.0规范，涉及XML Infoset、XPath和XML Base</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>JS高程(第三版)<br><a href="http://www.cnblogs.com/fsjohnhuang/archive/2011/12/07/2279554.html" target="_blank" rel="noopener">使用document.domain实现跨域</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCollection" target="_blank" rel="noopener">MDN HTMLCollection</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element" target="_blank" rel="noopener">MDN Element</a><br><a href="https://itbilu.com/javascript/js/Vyxodm_1g.html" target="_blank" rel="noopener">DOM产生与发展</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="FWHeart WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.png" alt="FWHeart Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/24/BOM模型/" rel="next" title="BOM模型">
+                <i class="fa fa-chevron-left"></i> BOM模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/04/Web端通信技术/" rel="prev" title="Web端通信技术">
+                Web端通信技术 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <ul class="sidebar-nav motion-element">
+      <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+        Table of Contents
+      </li>
+      <li class="sidebar-nav-overview" data-target="site-overview">
+        Overview
+      </li>
+    </ul>
+    
+    <section class="site-overview sidebar-panel">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+    
+    <!--noindex-->
+    <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+      <div class="post-toc">
+           
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DOM模型"><span class="nav-number">1.</span> <span class="nav-text"><a href="#DOM&#x6A21;&#x578B;" class="headerlink" title="DOM&#x6A21;&#x578B;"></a>DOM&#x6A21;&#x578B;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#Node" class="headerlink" title="Node"></a>Node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Document"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#Document" class="headerlink" title="Document"></a>Document</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Element类型"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#Element&#x7C7B;&#x578B;" class="headerlink" title="Element&#x7C7B;&#x578B;"></a>Element&#x7C7B;&#x578B;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Text"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#Text" class="headerlink" title="Text"></a>Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comment"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDATASection"><span class="nav-number">1.6.</span> <span class="nav-text"><a href="#CDATASection" class="headerlink" title="CDATASection"></a>CDATASection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DocumentType"><span class="nav-number">1.7.</span> <span class="nav-text"><a href="#DocumentType" class="headerlink" title="DocumentType"></a>DocumentType</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DocumentFragment"><span class="nav-number">1.8.</span> <span class="nav-text"><a href="#DocumentFragment" class="headerlink" title="DocumentFragment"></a>DocumentFragment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attr"><span class="nav-number">1.9.</span> <span class="nav-text"><a href="#Attr" class="headerlink" title="Attr"></a>Attr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5-DOM扩展"><span class="nav-number">1.10.</span> <span class="nav-text"><a href="#HTML5-DOM&#x6269;&#x5C55;" class="headerlink" title="HTML5 DOM&#x6269;&#x5C55;"></a>HTML5 DOM&#x6269;&#x5C55;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#专有DOM扩展"><span class="nav-number">1.11.</span> <span class="nav-text"><a href="#&#x4E13;&#x6709;DOM&#x6269;&#x5C55;" class="headerlink" title="&#x4E13;&#x6709;DOM&#x6269;&#x5C55;"></a>&#x4E13;&#x6709;DOM&#x6269;&#x5C55;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各级DOM"><span class="nav-number">1.12.</span> <span class="nav-text"><a href="#&#x5404;&#x7EA7;DOM" class="headerlink" title="&#x5404;&#x7EA7;DOM"></a>&#x5404;&#x7EA7;DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM0"><span class="nav-number">1.12.1.</span> <span class="nav-text"><a href="#DOM0" class="headerlink" title="DOM0"></a>DOM0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM1"><span class="nav-number">1.12.2.</span> <span class="nav-text"><a href="#DOM1" class="headerlink" title="DOM1"></a>DOM1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM2与DOM3"><span class="nav-number">1.12.3.</span> <span class="nav-text"><a href="#DOM2&#x4E0E;DOM3" class="headerlink" title="DOM2&#x4E0E;DOM3"></a>DOM2&#x4E0E;DOM3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.13.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</span></a></li></ol></li></ol></div>
+          
+      </div>
+    </section>
+    <!--/noindex-->
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+ 
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

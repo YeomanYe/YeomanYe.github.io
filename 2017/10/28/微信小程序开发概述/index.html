@@ -1,0 +1,951 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="软件," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="微信小程序开发概述由于微信的使用人数众多，因此微信小程序也受到许多企业公司的推崇。除此之外小程序还有开发简单容易，用户流量较大的优点，因此学习小程序还是很有意义的。">
+<meta name="keywords" content="软件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序开发概述">
+<meta property="og:url" content="http://yeomanye.github.io/2017/10/28/微信小程序开发概述/index.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="微信小程序开发概述由于微信的使用人数众多，因此微信小程序也受到许多企业公司的推崇。除此之外小程序还有开发简单容易，用户流量较大的优点，因此学习小程序还是很有意义的。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yeomanye.github.io/2017/10/28/微信小程序开发概述/wx架构.png">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小程序开发概述">
+<meta name="twitter:description" content="微信小程序开发概述由于微信的使用人数众多，因此微信小程序也受到许多企业公司的推崇。除此之外小程序还有开发简单容易，用户流量较大的优点，因此学习小程序还是很有意义的。">
+<meta name="twitter:image" content="http://yeomanye.github.io/2017/10/28/微信小程序开发概述/wx架构.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/2017/10/28/微信小程序开发概述/"/>
+
+
+
+
+
+  <title> 微信小程序开发概述 | 探险 </title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/10/28/微信小程序开发概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                微信小程序开发概述
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-28T00:00:00+08:00">
+                2017-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件/" itemprop="url" rel="index">
+                    <span itemprop="name">软件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/10/28/微信小程序开发概述/" class="leancloud_visitors" data-flag-title="微信小程序开发概述">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  1,556
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="微信小程序开发概述"><a href="#微信小程序开发概述" class="headerlink" title="微信小程序开发概述"></a>微信小程序开发概述</h1><p>由于微信的使用人数众多，因此微信小程序也受到许多企业公司的推崇。除此之外小程序还有开发简单容易，用户流量较大的优点，因此学习小程序还是很有意义的。</p>
+<a id="more"></a>
+<h2 id="开发入门"><a href="#开发入门" class="headerlink" title="开发入门"></a>开发入门</h2><p>浏览器环境的前端html、css、js分别对应于微信中的wxml、wxss、js文件。与浏览器环境不同的是每个页面(Page)和整个应用(App)都有对应名称的json文件用于配置，project.config.json文件用于开发环境的配置。</p>
+<p><img src="wx架构.png" alt="wx架构"></p>
+<h2 id="WXML"><a href="#WXML" class="headerlink" title="WXML"></a>WXML</h2><p>wxml(WeiXin Markup Language)是框架设计的一套标签语言，结合基础组件、事件系统，可以构建出页面的结构。</p>
+<h3 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h3><p>wxml页面数据绑定使用双括号的形式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">data-ml</span>=<span class="string">"&#123;&#123;a&#125;&#125;"</span>&gt;</span> &#123;&#123;a + b&#125;&#125; + &#123;&#123;c&#125;&#125; + d <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>数据是单向绑定的，只有通过setData方法改变Page的data对象中的属性才能改变页面中对应表达式中的值</p>
+<h3 id="条件渲染与列表渲染"><a href="#条件渲染与列表渲染" class="headerlink" title="条件渲染与列表渲染"></a>条件渲染与列表渲染</h3><p>条件渲染与列表渲染相当于，vue中的组件</p>
+<p>条件渲染<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">wx:if</span>=<span class="string">"&#123;&#123;length &gt; 5&#125;&#125;"</span>&gt;</span> 1 <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">wx:elif</span>=<span class="string">"&#123;&#123;length &gt; 2&#125;&#125;"</span>&gt;</span> 2 <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">wx:else</span>&gt;</span> 3 <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>wx:if是惰性的，如果在初始渲染条件为 false，框架什么也不做，在条件第一次变成真的时候才开始局部渲染。<br>相比之下，hidden 就简单的多，组件始终会被渲染，只是简单的控制显示与隐藏。</p>
+<p>列表渲染<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">wx:for</span>=<span class="string">"&#123;&#123;array&#125;&#125;"</span> <span class="attr">wx:for-index</span>=<span class="string">"idx"</span> <span class="attr">wx:for-item</span>=<span class="string">"itemName"</span> <span class="attr">wx:key</span>=<span class="string">"message"</span>&gt;</span></span><br><span class="line">  &#123;&#123;idx&#125;&#125;: &#123;&#123;itemName.message&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果列表中项目的位置会动态改变或者有新的项目添加到列表中，并且希望列表中的项目保持自己的特征和状态（如 <code>&lt;input/&gt;</code> 中的输入内容，<code>&lt;switch/&gt;</code>的选中状态），需要使用 wx:key 来指定列表中项目的唯一的标识符。<br>wx:key的两种值：字符串代表item中的某个熟悉;*this代表循环中的item本身</p>
+<h3 id="template"><a href="#template" class="headerlink" title="template"></a>template</h3><p>template定义的模板可以在任意地方引用<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- template.wxml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"odd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span>&gt;</span> odd <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"even"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span>&gt;</span> even <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- index.wxml --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">block</span> <span class="attr">wx:for</span>=<span class="string">"&#123;&#123;[1, 2, 3, 4, 5]&#125;&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"&#123;&#123;item % 2 == 0 ? 'even' : 'odd'&#125;&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">block</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>include可以将目标文件除了<code>&lt;template/&gt;</code>的整个代码引入，相当于是拷贝到include位置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.wxml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">src</span>=<span class="string">"header.wxml"</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- header.wxml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span>&gt;</span> header <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>import可以在该文件中使用目标文件定义的template<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">import</span> <span class="attr">src</span>=<span class="string">"item.wxml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"item"</span> <span class="attr">data</span>=<span class="string">"&#123;&#123;text: 'forbar'&#125;&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>相比于include使用import可以设置数据</p>
+<p>import具有作用域的概念，C导入B，B导入A。C中只能获取B中的模板，而不能获取B中导入的A中的。</p>
+<h2 id="WXSS"><a href="#WXSS" class="headerlink" title="WXSS"></a>WXSS</h2><p>wxss是小程序用于描述页面的样式语言，该语言与css基本相同。</p>
+<p>新增加了rpx(responsive pixel)响应式单位，该单位可以根据屏幕宽度进行自适应。<br>样式导入@import “common.wxss”;</p>
+<h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><p>导出模块可以使用CommonJS机制和ES6的模块机制</p>
+<p>CommonJS<br>每个js模块都在自己的作用域中，导出模块需要使用exports或module.exports<br>导入使用require,但是不支持绝对路径。</p>
+<p>ES6<br>使用ES6的模块机制导出模块，导入使用import…from等关键字，导出使用export default关键字</p>
+<h2 id="路由分类"><a href="#路由分类" class="headerlink" title="路由分类"></a>路由分类</h2><p>路由是指导航到页面的方式，路由的种类有：navigateTo、redirectTo、switchTab、reLaunch、navigateBack</p>
+<p>除了navigateTo、switchTab的方式是隐藏当前页面其他的方式都会卸载当前页面。</p>
+<p>navigateTo, redirectTo 只能打开非 tabBar 页面。<br>switchTab 只能打开 tabBar 页面。<br>reLaunch 可以打开任意页面。</p>
+<p>具体见表<a href="https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/route.html" target="_blank" rel="noopener">路由</a></p>
+<h2 id="事件分类"><a href="#事件分类" class="headerlink" title="事件分类"></a>事件分类</h2><p>小程序中事件分为冒泡和非冒泡两种类型。</p>
+<p>事件的生命周期阶段与浏览器中相同都是先捕获后冒泡。</p>
+<p>绑定事件的方式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">id</span>=<span class="string">"outer"</span> <span class="attr">bindtap</span>=<span class="string">"handleTap1"</span>&gt;</span></span><br><span class="line">  outer view</span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">id</span>=<span class="string">"middle"</span> <span class="attr">catchtap</span>=<span class="string">"handleTap2"</span>&gt;</span></span><br><span class="line">    middle view</span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">id</span>=<span class="string">"inner"</span> <span class="attr">bindtap</span>=<span class="string">"handleTap3"</span>&gt;</span></span><br><span class="line">      inner view</span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">view</span> <span class="attr">id</span>=<span class="string">"inner"</span> <span class="attr">bind:touchstart</span>=<span class="string">"handleTap3"</span> <span class="attr">capture-bind:touchstart</span>=<span class="string">"handleTap4"</span>&gt;</span></span><br><span class="line">    inner view</span><br><span class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>bind事件发生在冒泡阶段，且不阻止事件向上冒泡</li>
+<li>capture-bind事件发生在捕获阶段，且不阻止事件捕获</li>
+<li>catch事件发生在冒泡阶段，阻止事件向上冒泡</li>
+<li>capture-catch事件发生在捕获阶段，阻止事件捕获</li>
+</ul>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>小程序提供了许多组件，常见的有：</p>
+<ul>
+<li>view相当于div</li>
+<li>text相当于span</li>
+<li>navigator相当于a</li>
+<li>image相当于img</li>
+<li>canvas相当于canvas</li>
+<li>contact-button客户会话，从此处发送的消息，会在微信小程序后台接收到</li>
+</ul>
+<p>小程序中表单form组件不同于浏览器的地方是，无法像浏览器一样通过给表单配置action让页面直接跳转。需要对表单设置submit事件，在submit中获取数据处理跳转逻辑，要获取数据表单项必须要有name属性，这点与浏览器中一致。</p>
+<p>小程序中的button除了像浏览器中一样可以通过form-type属性设置为submit、reset与表单相关的按钮之外。<br>还可以通过设置open-type属性设置为特别的按钮:</p>
+<ul>
+<li>contact(打开客服会话)</li>
+<li>share(触发用户转发)</li>
+<li>getUserInfo(获取用户信息，可以在bindgetuserinfo回调中取到用户信息)</li>
+<li>getPhoneNumber(获取用户手机号，可以从bindgetphonenumber中取得)</li>
+</ul>
+<h2 id="一些细节"><a href="#一些细节" class="headerlink" title="一些细节"></a>一些细节</h2><p>小程序中阻止事件冒泡，使用的是catchXX方法(事件还分为冒泡和非冒泡两种)</p>
+<p>没有阻止默认行为的方法</p>
+<p>使用wx.canvasToTempFilePath方法生成图片，如果canvas使用图片进行了绘制，那图片必须是本地图片。而且在微信基础库版本1.5.4下，使用本地图片需要导出两次才能在开发者工具上的canvas看到图片</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">wx.downloadFile(&#123;</span><br><span class="line">       url: url,</span><br><span class="line">       success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">         <span class="comment">// console.log('下载图片文件')</span></span><br><span class="line">         <span class="comment">// console.log(res)</span></span><br><span class="line">         ctx.drawImage(res.tempFilePath, left, top, width, height);</span><br><span class="line">         ctx.draw();</span><br><span class="line">         wx.canvasToTempFilePath(&#123;</span><br><span class="line">           canvasId: <span class="string">'photoid'</span>,</span><br><span class="line">           success(res) &#123;</span><br><span class="line">             wx.canvasToTempFilePath(&#123;</span><br><span class="line">               canvasId: <span class="string">'photoid'</span>,</span><br><span class="line">               success(res) &#123;</span><br><span class="line">                 <span class="comment">//...</span></span><br><span class="line">               &#125;</span><br><span class="line">             &#125;);</span><br><span class="line">           &#125;</span><br><span class="line">         &#125;)</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;)</span><br></pre></td></tr></table></figure>
+<p><a href="https://mp.weixin.qq.com/debug/wxadoc/dev/" target="_blank" rel="noopener">官方文档</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="FWHeart WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.png" alt="FWHeart Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件/" rel="tag"># 软件</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/15/客户端存储技术/" rel="next" title="客户端存储技术">
+                <i class="fa fa-chevron-left"></i> 客户端存储技术
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <ul class="sidebar-nav motion-element">
+      <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+        Table of Contents
+      </li>
+      <li class="sidebar-nav-overview" data-target="site-overview">
+        Overview
+      </li>
+    </ul>
+    
+    <section class="site-overview sidebar-panel">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+    
+    <!--noindex-->
+    <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+      <div class="post-toc">
+           
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#微信小程序开发概述"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x6982;&#x8FF0;" class="headerlink" title="&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x6982;&#x8FF0;"></a>&#x5FAE;&#x4FE1;&#x5C0F;&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x6982;&#x8FF0;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发入门"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x5F00;&#x53D1;&#x5165;&#x95E8;" class="headerlink" title="&#x5F00;&#x53D1;&#x5165;&#x95E8;"></a>&#x5F00;&#x53D1;&#x5165;&#x95E8;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WXML"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#WXML" class="headerlink" title="WXML"></a>WXML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据绑定"><span class="nav-number">1.2.1.</span> <span class="nav-text"><a href="#&#x6570;&#x636E;&#x7ED1;&#x5B9A;" class="headerlink" title="&#x6570;&#x636E;&#x7ED1;&#x5B9A;"></a>&#x6570;&#x636E;&#x7ED1;&#x5B9A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件渲染与列表渲染"><span class="nav-number">1.2.2.</span> <span class="nav-text"><a href="#&#x6761;&#x4EF6;&#x6E32;&#x67D3;&#x4E0E;&#x5217;&#x8868;&#x6E32;&#x67D3;" class="headerlink" title="&#x6761;&#x4EF6;&#x6E32;&#x67D3;&#x4E0E;&#x5217;&#x8868;&#x6E32;&#x67D3;"></a>&#x6761;&#x4EF6;&#x6E32;&#x67D3;&#x4E0E;&#x5217;&#x8868;&#x6E32;&#x67D3;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#template"><span class="nav-number">1.2.3.</span> <span class="nav-text"><a href="#template" class="headerlink" title="template"></a>template</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WXSS"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#WXSS" class="headerlink" title="WXSS"></a>WXSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块化"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#&#x6A21;&#x5757;&#x5316;" class="headerlink" title="&#x6A21;&#x5757;&#x5316;"></a>&#x6A21;&#x5757;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由分类"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#&#x8DEF;&#x7531;&#x5206;&#x7C7B;" class="headerlink" title="&#x8DEF;&#x7531;&#x5206;&#x7C7B;"></a>&#x8DEF;&#x7531;&#x5206;&#x7C7B;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件分类"><span class="nav-number">1.6.</span> <span class="nav-text"><a href="#&#x4E8B;&#x4EF6;&#x5206;&#x7C7B;" class="headerlink" title="&#x4E8B;&#x4EF6;&#x5206;&#x7C7B;"></a>&#x4E8B;&#x4EF6;&#x5206;&#x7C7B;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.7.</span> <span class="nav-text"><a href="#&#x7EC4;&#x4EF6;" class="headerlink" title="&#x7EC4;&#x4EF6;"></a>&#x7EC4;&#x4EF6;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些细节"><span class="nav-number">1.8.</span> <span class="nav-text"><a href="#&#x4E00;&#x4E9B;&#x7EC6;&#x8282;" class="headerlink" title="&#x4E00;&#x4E9B;&#x7EC6;&#x8282;"></a>&#x4E00;&#x4E9B;&#x7EC6;&#x8282;</span></a></li></ol></li></ol></div>
+          
+      </div>
+    </section>
+    <!--/noindex-->
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+ 
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

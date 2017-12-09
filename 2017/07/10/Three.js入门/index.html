@@ -1,0 +1,1051 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="WebGL," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Three.js入门WebGL可以看做是将OpenGL ES（OpenGL for Embedded Systems，OpenGL嵌入式版本，针对手机、游戏机等设备相对较轻量级的版本）移植到了网页平台，像Chrome、Firefox这些现代浏览器都实现了WebGL标准，使用JavaScript就可以用你熟悉的、类似OpenGL的代码编写了。 Three.js封装了底层的图形接口，使得程序员能够在无">
+<meta name="keywords" content="WebGL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Three.js入门">
+<meta property="og:url" content="http://yeomanye.github.io/2017/07/10/Three.js入门/index.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="Three.js入门WebGL可以看做是将OpenGL ES（OpenGL for Embedded Systems，OpenGL嵌入式版本，针对手机、游戏机等设备相对较轻量级的版本）移植到了网页平台，像Chrome、Firefox这些现代浏览器都实现了WebGL标准，使用JavaScript就可以用你熟悉的、类似OpenGL的代码编写了。 Three.js封装了底层的图形接口，使得程序员能够在无">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/渲染器_相机_场景.jpg">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/坐标系.jpg">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/正交相机.png">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/透视投影相机.png">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/立方体.png">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/球体.png">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/圆柱体.png">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/圆环.png">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/圆环结.png">
+<meta property="og:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/自定义形状.png">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.414Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Three.js入门">
+<meta name="twitter:description" content="Three.js入门WebGL可以看做是将OpenGL ES（OpenGL for Embedded Systems，OpenGL嵌入式版本，针对手机、游戏机等设备相对较轻量级的版本）移植到了网页平台，像Chrome、Firefox这些现代浏览器都实现了WebGL标准，使用JavaScript就可以用你熟悉的、类似OpenGL的代码编写了。 Three.js封装了底层的图形接口，使得程序员能够在无">
+<meta name="twitter:image" content="http://yeomanye.github.io/2017/07/10/Three.js入门/resources/images/渲染器_相机_场景.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/2017/07/10/Three.js入门/"/>
+
+
+
+
+
+  <title> Three.js入门 | 探险 </title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/07/10/Three.js入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Three.js入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-10T00:00:00+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WebGL/" itemprop="url" rel="index">
+                    <span itemprop="name">WebGL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/10/Three.js入门/" class="leancloud_visitors" data-flag-title="Three.js入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  5,239
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Three-js入门"><a href="#Three-js入门" class="headerlink" title="Three.js入门"></a>Three.js入门</h1><p>WebGL可以看做是将OpenGL ES（OpenGL for Embedded Systems，OpenGL嵌入式版本，针对手机、游戏机等设备相对较轻量级的版本）移植到了网页平台，像Chrome、Firefox这些现代浏览器都实现了WebGL标准，使用JavaScript就可以用你熟悉的、类似OpenGL的代码编写了。</p>
+<p>Three.js封装了底层的图形接口，使得程序员能够在无需掌握繁冗的图形学知识的情况下，也能用简单的代码实现三维场景的渲染。我们都知道，更高的封装程度往往意味着灵活性的牺牲，但是Three.js在这方面做得很好。几乎不会有WebGL支持而Three.js实现不了的情况，而且就算真的遇到这种情况，你还是能同时使用WebGL去实现，而不会有冲突。</p>
+<a id="more"></a>
+<p>一个典型的Three.js程序至少要包括渲染器（Renderer）、场景（Scene）、照相机（Camera），以及你在场景中创建的物体。</p>
+<p><img src="resources/images/渲染器_相机_场景.jpg" alt="渲染器_相机_场景"></p>
+<p>Three.js使用右手坐标系</p>
+<p><img src="resources/images/坐标系.jpg" alt="坐标系"></p>
+<h2 id="相机"><a href="#相机" class="headerlink" title="相机"></a>相机</h2><p>相机定义了三维空间到二维屏幕的投影方式，用“照相机”这样一个类比，可以使我们直观地理解这一投影方式。</p>
+<h3 id="正交投影相机"><a href="#正交投影相机" class="headerlink" title="正交投影相机"></a>正交投影相机</h3><p>正交投影照相机（Orthographic Camera）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.OrthographicCamera(left, right, top, bottom, near, far)</span><br></pre></td></tr></table></figure>
+<p>这六个参数分别代表正交投影照相机拍摄到的空间的六个面的位置，这六个面围成一个长方体，我们称其为视景体（Frustum）。只有在视景体内部（下图中的灰色部分）的物体才可能显示在屏幕上，而视景体外的物体会在显示之前被裁减掉。</p>
+<p><img src="resources/images/正交相机.png" alt="正交相机"></p>
+<p>为了保持照相机的横竖比例，需要保证(right - left)与(top - bottom)的比例与Canvas宽度与高度的比例一致。</p>
+<h3 id="透视投影相机"><a href="#透视投影相机" class="headerlink" title="透视投影相机"></a>透视投影相机</h3><p>透视投影照相机（Perspective Camera）的构造函数是<code>THREE.PerspectiveCamera(fov, aspect, near, far)</code></p>
+<p><img src="resources/images/透视投影相机.png" alt="透视投影相机"></p>
+<p>透视图中，灰色的部分是视景体，是可能被渲染的物体所在的区域。fov是视景体竖直方向上的张角（是角度制而非弧度制），如侧视图所示。</p>
+<p>aspect等于width / height，是照相机水平方向和竖直方向长度的比值，通常设为Canvas的横纵比例。</p>
+<p>near和far分别是照相机到视景体最近、最远的距离，均为正值，且far应大于near。</p>
+<h2 id="几何形状"><a href="#几何形状" class="headerlink" title="几何形状"></a>几何形状</h2><p>几何形状（Geometry）最主要的功能是储存了一个物体的顶点信息。WebGL需要程序员指定每个顶点的位置，而在Three.js中，可以通过指定一些特征来创建几何形状</p>
+<h3 id="立方体"><a href="#立方体" class="headerlink" title="立方体"></a>立方体</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.CubeGeometry(width, height, depth, widthSegments, heightSegments, depthSegments)</span><br></pre></td></tr></table></figure>
+<p>width是x方向上的长度；height是y方向上的长度；depth是z方向上的长度；后三个参数分别是在三个方向上的分段数，如widthSegments为3的话，代表x方向上水平分为三份。</p>
+<p><img src="resources/images/立方体.png" alt="立方体"></p>
+<h3 id="平面"><a href="#平面" class="headerlink" title="平面"></a>平面</h3><p>这里的平面（PlaneGeometry）其实是一个长方形，而不是数学意义上无限大小的平面。其构造函数为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.PlaneGeometry(width, height, widthSegments, heightSegments)</span><br></pre></td></tr></table></figure>
+<p>width是x方向上的长度；height是y方向上的长度；后两个参数同样表示分段。</p>
+<h3 id="球体"><a href="#球体" class="headerlink" title="球体"></a>球体</h3><p>球体（SphereGeometry）的构造函数是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.SphereGeometry(radius, segmentsWidth, segmentsHeight, phiStart, phiLength, thetaStart, thetaLength)</span><br></pre></td></tr></table></figure>
+<p>radius是半径；segmentsWidth表示经度上的切片数；segmentsHeight表示纬度上的切片数；phiStart表示经度开始的弧度；phiLength表示经度跨过的弧度；thetaStart表示纬度开始的弧度；thetaLength表示纬度跨过的弧度。</p>
+<p><img src="resources/images/球体.png" alt="球体"></p>
+<p>在图形底层的实现中，并没有曲线的概念，曲线都是由多个折线近似构成的。对于球体而言，当segmentsWidth和segmentsHeight值较大的时候，形成的多面体就可以近似看做是球体了。</p>
+<h3 id="圆形"><a href="#圆形" class="headerlink" title="圆形"></a>圆形</h3><p>圆形（CircleGeometry）可以创建圆形或者扇形，其构造函数是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.CircleGeometry(radius, segments, thetaStart, thetaLength)</span><br></pre></td></tr></table></figure>
+<h3 id="圆柱体"><a href="#圆柱体" class="headerlink" title="圆柱体"></a>圆柱体</h3><p>圆柱体（CylinderGeometry）的构造函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.CylinderGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded)</span><br></pre></td></tr></table></figure>
+<p>radiusTop与radiusBottom分别是顶面和底面的半径，由此可知，当这两个参数设置为不同的值时，实际上创建的是一个圆台；height是圆柱体的高度；radiusSegments与heightSegments可类比球体中的分段；openEnded是一个布尔值，表示是否没有顶面和底面，缺省值为false，表示有顶面和底面。</p>
+<p><img src="resources/images/圆柱体.png" alt="圆柱体"></p>
+<h3 id="正四面体、正八面体、正二十面体"><a href="#正四面体、正八面体、正二十面体" class="headerlink" title="正四面体、正八面体、正二十面体"></a>正四面体、正八面体、正二十面体</h3><p>正四面体（TetrahedronGeometry）、正八面体（OctahedronGeometry）、正二十面体（IcosahedronGeometry）的构造函数较为类似</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">THREE.TetrahedronGeometry(radius, detail)</span><br><span class="line">THREE.OctahedronGeometry(radius, detail)</span><br><span class="line">THREE.IcosahedronGeometry(radius, detail)</span><br></pre></td></tr></table></figure>
+<p>radius是半径；detail是细节层次（Level of Detail）的层数，对于大面片数模型，可以控制在视角靠近物体时，显示面片数多的精细模型，而在离物体较远时，显示面片数较少的粗略模型。这里我们不对detail多作展开，一般可以对这个值缺省。</p>
+<h3 id="圆环面"><a href="#圆环面" class="headerlink" title="圆环面"></a>圆环面</h3><p>圆环面（TorusGeometry）就是甜甜圈的形状，构造函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.TorusGeometry(radius, tube, radialSegments, tubularSegments, arc)</span><br></pre></td></tr></table></figure>
+<p>radius是圆环半径；tube是管道半径；radialSegments与tubularSegments分别是两个分段数，详见上图；arc是圆环面的弧度，缺省值为Math.PI * 2。</p>
+<p><img src="resources/images/圆环.png" alt="圆环"></p>
+<h3 id="圆环结"><a href="#圆环结" class="headerlink" title="圆环结"></a>圆环结</h3><p>圆环结是打了结的甜甜圈。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.TorusKnotGeometry(radius, tube, radialSegments, tubularSegments, p, q, heightScale)</span><br></pre></td></tr></table></figure>
+<p>p和q是控制其样式的参数，一般可以缺省（<a href="https://en.wikipedia.org/wiki/Torus_knot" target="_blank" rel="noopener">相关资料</a>）。heightScale是在z轴方向上的缩放。</p>
+<p><code>new THREE.TorusKnotGeometry(2, 0.5, 32, 8)</code><br><img src="resources/images/圆环结.png" alt="圆环结"></p>
+<h3 id="自定义形状"><a href="#自定义形状" class="headerlink" title="自定义形状"></a>自定义形状</h3><p>由于自定义形状需要手动指定每个顶点位置，以及顶点连接情况，如果该形状非常复杂，程序员的计算量就会比较大。在这种情况下，建议在3ds Max之类的建模软件中创建模型，然后使用Three.js导入到场景中，这样会更高效方便。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化几何形状</span></span><br><span class="line"><span class="keyword">var</span> geometry = <span class="keyword">new</span> THREE.Geometry();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置顶点位置</span></span><br><span class="line"><span class="comment">// 顶部4顶点</span></span><br><span class="line">geometry.vertices.push(<span class="keyword">new</span> THREE.Vector3(<span class="number">-1</span>, <span class="number">2</span>, <span class="number">-1</span>));</span><br><span class="line">geometry.vertices.push(<span class="keyword">new</span> THREE.Vector3(<span class="number">1</span>, <span class="number">2</span>, <span class="number">-1</span>));</span><br><span class="line">geometry.vertices.push(<span class="keyword">new</span> THREE.Vector3(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>));</span><br><span class="line">geometry.vertices.push(<span class="keyword">new</span> THREE.Vector3(<span class="number">-1</span>, <span class="number">2</span>, <span class="number">1</span>));</span><br><span class="line"><span class="comment">// 底部4顶点</span></span><br><span class="line">geometry.vertices.push(<span class="keyword">new</span> THREE.Vector3(<span class="number">-2</span>, <span class="number">0</span>, <span class="number">-2</span>));</span><br><span class="line">geometry.vertices.push(<span class="keyword">new</span> THREE.Vector3(<span class="number">2</span>, <span class="number">0</span>, <span class="number">-2</span>));</span><br><span class="line">geometry.vertices.push(<span class="keyword">new</span> THREE.Vector3(<span class="number">2</span>, <span class="number">0</span>, <span class="number">2</span>));</span><br><span class="line">geometry.vertices.push(<span class="keyword">new</span> THREE.Vector3(<span class="number">-2</span>, <span class="number">0</span>, <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置顶点连接情况</span></span><br><span class="line"><span class="comment">// 顶面</span></span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line"><span class="comment">// 底面</span></span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>));</span><br><span class="line"><span class="comment">// 四个侧面</span></span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">1</span>, <span class="number">5</span>, <span class="number">6</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">6</span>, <span class="number">2</span>, <span class="number">1</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">2</span>, <span class="number">6</span>, <span class="number">7</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">7</span>, <span class="number">3</span>, <span class="number">2</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">3</span>, <span class="number">7</span>, <span class="number">0</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">7</span>, <span class="number">4</span>, <span class="number">0</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">0</span>, <span class="number">4</span>, <span class="number">5</span>));</span><br><span class="line">geometry.faces.push(<span class="keyword">new</span> THREE.Face3(<span class="number">0</span>, <span class="number">5</span>, <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<p>最终效果如下：</p>
+<p><img src="resources/images/自定义形状.png" alt="自定义形状"></p>
+<h3 id="文字形状"><a href="#文字形状" class="headerlink" title="文字形状"></a>文字形状</h3><p>使用文字形状需要下载和引用额外的字体库，在<a href="https://github.com/mrdoob/three.js/tree/master/examples/fonts" target="_blank" rel="noopener">Three.js GitHub master/examples/fonts</a>目录下可下载需要的字体库</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> loader = <span class="keyword">new</span> THREE.FontLoader();</span><br><span class="line">loader.load(<span class="string">'../lib/helvetiker_regular.typeface.json'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">font</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> mesh = <span class="keyword">new</span> THREE.Mesh(<span class="keyword">new</span> THREE.TextGeometry(<span class="string">'Hello'</span>, &#123;</span><br><span class="line">        font: font,</span><br><span class="line">        size: <span class="number">1</span>,</span><br><span class="line">        height: <span class="number">1</span></span><br><span class="line">    &#125;), material);</span><br><span class="line">    scene.add(mesh);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// render</span></span><br><span class="line">    renderer.render(scene, camera);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>附加参数介绍：</p>
+<ul>
+<li>size：字号大小，一般为大写字母的高度</li>
+<li>height：文字的厚度</li>
+<li>curveSegments：弧线分段数，使得文字的曲线更加光滑</li>
+<li>font：字体，默认是’helvetiker’，需对应引用的字体文件</li>
+<li>weight：值为’normal’或’bold’，表示是否加粗</li>
+<li>style：值为’normal’或’italics’，表示是否斜体</li>
+<li>bevelEnabled：布尔值，是否使用倒角，意为在边缘处斜切</li>
+<li>bevelThickness：倒角厚度</li>
+<li>bevelSize：倒角宽度</li>
+</ul>
+<h2 id="材质"><a href="#材质" class="headerlink" title="材质"></a>材质</h2><p>材质（Material）是独立于物体顶点信息之外的与渲染效果相关的属性。通过设置材质可以改变物体的颜色、纹理贴图、光照模式等。</p>
+<h3 id="基本材质"><a href="#基本材质" class="headerlink" title="基本材质"></a>基本材质</h3><p>使用基本材质（BasicMaterial）的物体，渲染后物体的颜色始终为该材质的颜色，而不会由于光照产生明暗、阴影效果。如果没有指定材质的颜色，则颜色是随机的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.MeshBasicMaterial(opt)</span><br></pre></td></tr></table></figure>
+<p>opt包含的可选属性</p>
+<ul>
+<li>visible：是否可见，默认为true</li>
+<li>side：渲染面片正面或是反面，默认为正面THREE.FrontSide，可设置为反面THREE.BackSide，或双面THREE.DoubleSide</li>
+<li>wireframe：是否渲染线而非面，默认为false</li>
+<li>color：十六进制RGB颜色，如红色表示为0xff0000</li>
+<li>map：使用纹理贴图</li>
+</ul>
+<h3 id="Lambert材质"><a href="#Lambert材质" class="headerlink" title="Lambert材质"></a>Lambert材质</h3><p>Lambert材质（MeshLambertMaterial）是符合Lambert光照模型的材质。Lambert光照模型的主要特点是只考虑漫反射而不考虑镜面反射的效果，因而对于金属、镜子等需要镜面反射效果的物体就不适应，对于其他大部分物体的漫反射效果都是适用的。</p>
+<p>光照模型公式为：<code>Idiffuse = Kd * Id * cos(theta)</code><br>Idiffuse是漫反射光强，Kd是物体表面的漫反射属性，Id是光强，theta是光的入射角弧度。</p>
+<p>创建一个的Lambert材质的方法为<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> THREE.MeshLambertMaterial(&#123;</span><br><span class="line">    color: <span class="number">0xffff00</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>还可以设置的属性有</p>
+<ul>
+<li>color是用来表现材质对散射光的反射能力，也是最常用来设置材质颜色的属性。除此之外，还可以用ambient和emissive控制材质的颜色。</li>
+<li>ambient表示对环境光的反射能力，只有当设置了AmbientLight后，该值才是有效的，材质对环境光的反射能力与环境光强相乘后得到材质实际表现的颜色。</li>
+<li>emissive是材质的自发光颜色，可以用来表现光源的颜色。</li>
+</ul>
+<h3 id="Phong材质"><a href="#Phong材质" class="headerlink" title="Phong材质"></a>Phong材质</h3><p>Phong材质（MeshPhongMaterial）是符合Phong光照模型的材质。和Lambert不同的是，Phong模型考虑了镜面反射的效果，因此对于金属、镜面的表现尤为适合。</p>
+<p>漫反射部分和Lambert光照模型是相同的，镜面反射部分的模型为：<br><code>Ispecular = Ks * Is * (cos(alpha)) ^ n</code></p>
+<p>Ispecular是镜面反射的光强，Ks是材质表面镜面反射系数，Is是光源强度，alpha是反射光与视线的夹角，n是高光指数，越大则高光光斑越小。</p>
+<p>不指定镜面反射系数时，效果与lambert材质相同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> material = <span class="keyword">new</span> THREE.MeshPhongMaterial(&#123;</span><br><span class="line">    <span class="comment">// 指定镜面反射系数Ks</span></span><br><span class="line">    specular: <span class="number">0xff0000</span>,</span><br><span class="line">    <span class="comment">// 指定光照模型中的n值</span></span><br><span class="line">    shininess: <span class="number">1000</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> sphere = <span class="keyword">new</span> THREE.Mesh(<span class="keyword">new</span> THREE.SphereGeometry(<span class="number">3</span>, <span class="number">20</span>, <span class="number">8</span>), material);</span><br></pre></td></tr></table></figure>
+<h3 id="法向材质"><a href="#法向材质" class="headerlink" title="法向材质"></a>法向材质</h3><p>法向材质可以将材质的颜色设置为其法向量的方向，材质的颜色与照相机与该物体的角度相关，这在调试时很有帮助。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> THREE.MeshNormalMaterial()</span><br></pre></td></tr></table></figure>
+<h3 id="材质的纹理贴图"><a href="#材质的纹理贴图" class="headerlink" title="材质的纹理贴图"></a>材质的纹理贴图</h3><p>单张图片材质设置<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> texture = THREE.ImageUtils.loadTexture(<span class="string">'../img/0.png'</span>, &#123;&#125;, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    renderer.render(scene, camera);</span><br><span class="line">&#125;);</span><br><span class="line">texture.wrapS = texture.wrapT = THREE.RepeatWrapping; <span class="comment">// 设置重复方向</span></span><br><span class="line">texture.repeat.set(<span class="number">4</span>, <span class="number">4</span>); <span class="comment">//设置重复次数</span></span><br><span class="line"><span class="keyword">var</span> material = <span class="keyword">new</span> THREE.MeshLambertMaterial(&#123;</span><br><span class="line">    map: texture</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>每个面不同的图片<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> materials = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; ++i) &#123;</span><br><span class="line">    materials.push(<span class="keyword">new</span> THREE.MeshBasicMaterial(&#123;</span><br><span class="line">        map: THREE.ImageUtils.loadTexture(<span class="string">'../img/'</span> + i + <span class="string">'.png'</span>,</span><br><span class="line">                &#123;&#125;, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    renderer.render(scene, camera);</span><br><span class="line">                &#125;),</span><br><span class="line">        overdraw: <span class="literal">true</span></span><br><span class="line">    &#125;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> cube = <span class="keyword">new</span> THREE.Mesh(<span class="keyword">new</span> THREE.CubeGeometry(<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>),</span><br><span class="line">        <span class="keyword">new</span> THREE.MeshFaceMaterial(materials));</span><br><span class="line">scene.add(cube);</span><br></pre></td></tr></table></figure></p>
+<h2 id="网格"><a href="#网格" class="headerlink" title="网格"></a>网格</h2><p>最常用的一种物体就是网格（Mesh），网格是由顶点、边、面等组成的物体；其他物体包括线段（Line）、骨骼（Bone）、粒子系统（ParticleSystem）等。创建物体需要指定几何形状和材质，其中，几何形状决定了物体的顶点位置等信息，材质决定了物体的颜色、纹理等信息。</p>
+<p>网格的创建非常简单，只要把几何形状与材质传入其构造函数。它代表包含点、线、面的几何体，其构造函数是:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.Mesh(geometry, material);</span><br></pre></td></tr></table></figure></p>
+<p>位置、缩放、旋转是物体三个常用属性。由于THREE.Mesh基础自THREE.Object3D，因此包含scale、rotation、position三个属性。它们都是THREE.Vector3实例，因此修改其值的方法是相同的，以位置为例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改单一属性</span></span><br><span class="line">mesh.position.z = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 同时设置多个属性</span></span><br><span class="line">mesh.position.set(<span class="number">1.5</span>, <span class="number">-0.5</span>, <span class="number">0</span>);</span><br><span class="line">mesh.position = <span class="keyword">new</span> THREE.Vector3(<span class="number">1.5</span>, <span class="number">-0.5</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p>setInterval与requestAnimationFrame的区别：</p>
+<p>当浏览器达不到设定的调用周期时，requestAnimationFrame采用跳过某些帧的方式来表现动画，虽然会有卡滞的效果但是整体速度不会拖慢，而setInterval会因此使整个程序放慢运行，但是每一帧都会绘制出来；</p>
+<h3 id="显示FPS"><a href="#显示FPS" class="headerlink" title="显示FPS"></a>显示FPS</h3><p>stat.js是Three.js的作者Mr. Doob的另一个有用的JavaScript库。很多情况下，我们希望知道实时的FPS信息，从而更好地监测动画效果。这时候，stat.js就能提供一个很好的帮助，它占据屏幕中的一小块位置，单击后显示每帧渲染时间。<a href="https://github.com/mrdoob/stats.js/blob/master/build/stats.min.js" target="_blank" rel="noopener">下载地址</a></p>
+<p>调用stat.begin();与stat.end();分别表示一帧的开始与结束<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    stat.begin();</span><br><span class="line"></span><br><span class="line">    mesh.rotation.y = (mesh.rotation.y + <span class="number">0.01</span>) % (<span class="built_in">Math</span>.PI * <span class="number">2</span>);</span><br><span class="line">    renderer.render(scene, camera);</span><br><span class="line"></span><br><span class="line">    stat.end();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>Three.js有一系列导入外部文件的辅助函数，是在three.js之外的，使用前需要额外下载(<a href="https://github.com/mrdoob/three.js/tree/master/examples/js/loaders" target="_blank" rel="noopener">下载地址</a>)</p>
+<p><code>*.obj</code>是最常用的模型格式，导入<code>*.obj</code>文件需要<code>OBJLoader.js</code>；导入带<code>*.mtl</code>材质的<code>*.obj</code>文件需要<code>MTLLoader.js</code>以及<code>OBJMTLLoader.js</code>。另有<code>PLYLoader.js</code>、<code>STLLoader.js</code>等分别对应不同格式的加载器，可以根据模型格式自行选择。</p>
+<p>obj模型加载<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> loader = <span class="keyword">new</span> THREE.OBJLoader();</span><br><span class="line">loader.load(<span class="string">'../lib/port.obj'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    obj.traverse(<span class="function"><span class="keyword">function</span>(<span class="params">child</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (child <span class="keyword">instanceof</span> THREE.Mesh) &#123;</span><br><span class="line">            <span class="comment">// 设置面片的绘制为双面绘制，防止某个角度没有被绘制的情况出现。</span></span><br><span class="line">            child.material.side = THREE.DoubleSide;</span><br><span class="line">            <span class="comment">// 设置材质</span></span><br><span class="line">            child.material = <span class="keyword">new</span> THREE.MeshLambertMaterial(&#123;</span><br><span class="line">                color: <span class="number">0xffff00</span>,</span><br><span class="line">                side: THREE.DoubleSide</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    mesh = obj;</span><br><span class="line">    scene.add(obj);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>mtl模型加载,mtl模型是带材质的模型加载它需要用不同的库。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"MTLLoader.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"OBJMTLLoader.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> loader = <span class="keyword">new</span> THREE.OBJMTLLoader();</span></span><br><span class="line"><span class="javascript">    loader.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> obj = event.content;</span></span><br><span class="line"><span class="undefined">        mesh = obj;</span></span><br><span class="line"><span class="undefined">        scene.add(obj);</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="javascript">    loader.load(<span class="string">'../lib/port.obj'</span>, <span class="string">'../lib/port.mtl'</span>);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="光与影"><a href="#光与影" class="headerlink" title="光与影"></a>光与影</h2><p>了使计算机模拟丰富的光照效果，人们提出了几种不同的光源模型（环境光、平行光、点光源、聚光灯等），在不同场合下组合利用，将能达到很好的光照效果。</p>
+<h3 id="环境光"><a href="#环境光" class="headerlink" title="环境光"></a>环境光</h3><p>环境光是指场景整体的光照效果，是由于场景内若干光源的多次反射形成的亮度一致的效果，通常用来为整个场景指定一个基础亮度。因此，环境光没有明确的光源位置，在各处形成的亮度也是一致的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> light = <span class="keyword">new</span> THREE.AmbientLight(<span class="number">0xffffff</span>);</span><br><span class="line">scene.add(light);</span><br></pre></td></tr></table></figure>
+<p>按照作者的说法材质的ambient属性物体反射光的能力，某一种光照射在物体ambient对该光的通道为0上时，则不会显示该物体。例如：0xff0000的光照射在ambient为0x00ffff的材质上时，不会显示物体。不论材质的color是什么。</p>
+<p>经过实验后发现影响光通道的是color属性，不是ambient</p>
+<h3 id="点光源"><a href="#点光源" class="headerlink" title="点光源"></a>点光源</h3><p>点光源是不计光源大小，可以看作一个点发出的光源。点光源照到不同物体表面的亮度是线性递减的，因此，离点光源距离越远的物体会显得越暗。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.PointLight(hex, intensity, distance)</span><br></pre></td></tr></table></figure>
+<p>hex是光源十六进制的颜色值；intensity是亮度，缺省值为1，表示100%亮度；distance是光源最远照射到的距离，缺省值为0。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> light = <span class="keyword">new</span> THREE.PointLight(<span class="number">0xffffff</span>, <span class="number">2</span>, <span class="number">100</span>);</span><br><span class="line">light.position.set(<span class="number">0</span>, <span class="number">1.5</span>, <span class="number">2</span>);</span><br><span class="line">scene.add(light);</span><br></pre></td></tr></table></figure>
+<h3 id="平行光"><a href="#平行光" class="headerlink" title="平行光"></a>平行光</h3><p>对于任意平行的平面，平行光照射的亮度都是相同的，而与平面所在位置无关。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.DirectionalLight(hex, intensity)</span><br></pre></td></tr></table></figure>
+<p>hex是光源十六进制的颜色值；intensity是亮度，缺省值为1，表示100%亮度。</p>
+<p>平行光与点光源一样需要设置位置。</p>
+<h3 id="聚光灯"><a href="#聚光灯" class="headerlink" title="聚光灯"></a>聚光灯</h3><p>聚光灯是一种特殊的点光源，它能够朝着一个方向投射光线。聚光灯投射出的是类似圆锥形的光线，这与我们现实中看到的聚光灯是一致的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THREE.SpotLight(hex, intensity, distance, angle, exponent)</span><br></pre></td></tr></table></figure>
+<p>相比点光源，多了angle和exponent两个参数。angle是聚光灯的张角，缺省值是Math.PI / 3，最大值是Math.PI / 2；exponent是光强在偏离target的衰减指数（target需要在之后定义，缺省值为(0, 0, 0)），缺省值是10。</p>
+<p>设置聚光灯</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">light.position.set(x1, y1, z1);</span><br><span class="line">light.target.position.set(x2, y2, z2);</span><br><span class="line"><span class="comment">// 设置聚光灯跟随物体移动</span></span><br><span class="line">light.target = cube;</span><br></pre></td></tr></table></figure>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><p>能形成阴影的光源只有THREE.DirectionalLight与THREE.SpotLight；而相对地，能表现阴影效果的材质只有THREE.LambertMaterial与THREE.PhongMaterial。</p>
+<p>第一步 告诉渲染器渲染阴影<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">renderer.shadowMapEnabled = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure></p>
+<p>第二步 对于光源以及所有要产生阴影的物体调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx.castShadow = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure></p>
+<p>第三部 接收阴影的物体调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx.receiveShadow = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure></p>
+<p>对于聚光灯，需要设置shadowCameraNear、shadowCameraFar、shadowCameraFov三个值，类比我们在第二章学到的透视投影照相机，只有介于shadowCameraNear与shadowCameraFar之间的物体将产生阴影，shadowCameraFov表示张角。</p>
+<p>对于平行光，需要设置shadowCameraNear、shadowCameraFar、shadowCameraLeft、shadowCameraRight、shadowCameraTop以及shadowCameraBottom六个值，相当于正交投影照相机的六个面。同样，只有在这六个面围成的长方体内的物体才会产生阴影效果。</p>
+<p>为了看到阴影照相机的位置，通常可以在调试时开启light.shadowCameraVisible = true。</p>
+<p>如果想要修改阴影的深浅，可以通过在灯光上设置shadowDarkness，该值的范围是0到1，越小越浅。</p>
+<p>此处介绍的实现阴影效果的方法是Shadow Mapping，即阴影是作为渲染前计算好的贴图贴上去的，因而会受到贴图像素大小的限制。所以可以通过设置shadowMapWidth与shadowMapHeight值控制贴图的大小，来改变阴影的精确度。</p>
+<p>而如果想实现软阴影的效果，可以通过renderer.shadowMapSoft = true;方便地实现。</p>
+<h2 id="着色器"><a href="#着色器" class="headerlink" title="着色器"></a>着色器</h2><p>使用着色器可以更灵活地控制渲染效果，结合纹理，可以进行多次渲染，达到更强大的效果。</p>
+<p>着色器是屏幕上呈现画面之前的最后一步，用它可以对先前渲染的结果做修改，包括对颜色、位置等等信息的修改，甚至可以对先前渲染的结果做后处理，实现高级的渲染效果。</p>
+<p>WebGL是基于OpenGL的，而OpenGL用GLSL（OpenGL Shading Language）这一着色器语言完成着色器工作，因此，WebGL的着色器程序大致与GLSL相同，是一种接近C语言的代码。着色器通常分为几何着色器（Geometry Shader）、顶点着色器（Vertex Shader）、片元着色器（Fragment Shader）等等。由于WebGL基于OpenGL ES 2.0，因此WebGL支持的着色器只有顶点着色器与片元着色器。</p>
+<p>着色器代码可以写在单独的文件中（顶点着色器的文件名后缀为.vs，片元着色器的文件名后缀为.fs），也可以在HTML文件中定义script标签实现。需要将script标签的type属性分别设置为<code>x-shader/x-vertex</code>、<code>x-shader/x-fragment</code></p>
+<p>使用标签的语法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">material = <span class="keyword">new</span> THREE.ShaderMaterial(&#123;</span><br><span class="line">    <span class="comment">// 给脚本分别设置id为vs，fs</span></span><br><span class="line">    vertexShader: <span class="built_in">document</span>.getElementById(<span class="string">'vs'</span>).textContent,</span><br><span class="line">    fragmentShader: <span class="built_in">document</span>.getElementById(<span class="string">'fs'</span>).textContent</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="顶点着色器"><a href="#顶点着色器" class="headerlink" title="顶点着色器"></a>顶点着色器</h3><p>顶点着色器中的“顶点”指的正是Mesh中的顶点，对于每个顶点调用一次。因此，如果场景中有一个正方体，那么对八个顶点将各自调用一次顶点着色器，可以修改顶点的位置或者颜色等信息，然后传入片元着色器。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表示变量的范围从顶点着色器到片元着色器，类型为vec2</span></span><br><span class="line">varying vec2 vUv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;    </span><br><span class="line">    <span class="comment">// uv是Three.js传入的属性，它代表了该顶点在UV映射时的横纵坐标</span></span><br><span class="line">    vUv = uv;</span><br><span class="line">    <span class="comment">//计算三维模型在二维显示屏上的坐标</span></span><br><span class="line">    <span class="comment">//position是Three.js传入的物体的顶点坐标</span></span><br><span class="line">    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="片元着色器"><a href="#片元着色器" class="headerlink" title="片元着色器"></a>片元着色器</h3><p>片元是栅格化之后，在形成像素之前的数据。片元着色器是每个片元会调用一次的程序，因此，片元着色器特别适合用来做图像后处理。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">varying vec2 vUv;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//gl_FragColor用来设置片元的颜色,vec4的四个维度分别表示红、绿、蓝以及alpha通道</span></span><br><span class="line">    gl_FragColor = vec4(vUv.x, vUv.y, <span class="number">1.0</span>, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.hewebgl.com/article/articledir/1" target="_blank" rel="noopener">Three.js初级教程</a><br><a href="http://www.ituring.com.cn/book/1272" target="_blank" rel="noopener">Three.js入门指南</a><br><a href="http://www.cnblogs.com/wanbo/p/6754066.html" target="_blank" rel="noopener">Three.js与WebGL工作原理</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="FWHeart WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.png" alt="FWHeart Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WebGL/" rel="tag"># WebGL</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/06/Vue2入门/" rel="next" title="Vue2入门">
+                <i class="fa fa-chevron-left"></i> Vue2入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/16/疯狂的程序员/" rel="prev" title="疯狂的程序员">
+                疯狂的程序员 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <ul class="sidebar-nav motion-element">
+      <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+        Table of Contents
+      </li>
+      <li class="sidebar-nav-overview" data-target="site-overview">
+        Overview
+      </li>
+    </ul>
+    
+    <section class="site-overview sidebar-panel">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+    
+    <!--noindex-->
+    <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+      <div class="post-toc">
+           
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Three-js入门"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Three-js&#x5165;&#x95E8;" class="headerlink" title="Three.js&#x5165;&#x95E8;"></a>Three.js&#x5165;&#x95E8;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相机"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x76F8;&#x673A;" class="headerlink" title="&#x76F8;&#x673A;"></a>&#x76F8;&#x673A;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正交投影相机"><span class="nav-number">1.1.1.</span> <span class="nav-text"><a href="#&#x6B63;&#x4EA4;&#x6295;&#x5F71;&#x76F8;&#x673A;" class="headerlink" title="&#x6B63;&#x4EA4;&#x6295;&#x5F71;&#x76F8;&#x673A;"></a>&#x6B63;&#x4EA4;&#x6295;&#x5F71;&#x76F8;&#x673A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透视投影相机"><span class="nav-number">1.1.2.</span> <span class="nav-text"><a href="#&#x900F;&#x89C6;&#x6295;&#x5F71;&#x76F8;&#x673A;" class="headerlink" title="&#x900F;&#x89C6;&#x6295;&#x5F71;&#x76F8;&#x673A;"></a>&#x900F;&#x89C6;&#x6295;&#x5F71;&#x76F8;&#x673A;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几何形状"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x51E0;&#x4F55;&#x5F62;&#x72B6;" class="headerlink" title="&#x51E0;&#x4F55;&#x5F62;&#x72B6;"></a>&#x51E0;&#x4F55;&#x5F62;&#x72B6;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#立方体"><span class="nav-number">1.2.1.</span> <span class="nav-text"><a href="#&#x7ACB;&#x65B9;&#x4F53;" class="headerlink" title="&#x7ACB;&#x65B9;&#x4F53;"></a>&#x7ACB;&#x65B9;&#x4F53;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平面"><span class="nav-number">1.2.2.</span> <span class="nav-text"><a href="#&#x5E73;&#x9762;" class="headerlink" title="&#x5E73;&#x9762;"></a>&#x5E73;&#x9762;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#球体"><span class="nav-number">1.2.3.</span> <span class="nav-text"><a href="#&#x7403;&#x4F53;" class="headerlink" title="&#x7403;&#x4F53;"></a>&#x7403;&#x4F53;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#圆形"><span class="nav-number">1.2.4.</span> <span class="nav-text"><a href="#&#x5706;&#x5F62;" class="headerlink" title="&#x5706;&#x5F62;"></a>&#x5706;&#x5F62;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#圆柱体"><span class="nav-number">1.2.5.</span> <span class="nav-text"><a href="#&#x5706;&#x67F1;&#x4F53;" class="headerlink" title="&#x5706;&#x67F1;&#x4F53;"></a>&#x5706;&#x67F1;&#x4F53;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正四面体、正八面体、正二十面体"><span class="nav-number">1.2.6.</span> <span class="nav-text"><a href="#&#x6B63;&#x56DB;&#x9762;&#x4F53;&#x3001;&#x6B63;&#x516B;&#x9762;&#x4F53;&#x3001;&#x6B63;&#x4E8C;&#x5341;&#x9762;&#x4F53;" class="headerlink" title="&#x6B63;&#x56DB;&#x9762;&#x4F53;&#x3001;&#x6B63;&#x516B;&#x9762;&#x4F53;&#x3001;&#x6B63;&#x4E8C;&#x5341;&#x9762;&#x4F53;"></a>&#x6B63;&#x56DB;&#x9762;&#x4F53;&#x3001;&#x6B63;&#x516B;&#x9762;&#x4F53;&#x3001;&#x6B63;&#x4E8C;&#x5341;&#x9762;&#x4F53;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#圆环面"><span class="nav-number">1.2.7.</span> <span class="nav-text"><a href="#&#x5706;&#x73AF;&#x9762;" class="headerlink" title="&#x5706;&#x73AF;&#x9762;"></a>&#x5706;&#x73AF;&#x9762;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#圆环结"><span class="nav-number">1.2.8.</span> <span class="nav-text"><a href="#&#x5706;&#x73AF;&#x7ED3;" class="headerlink" title="&#x5706;&#x73AF;&#x7ED3;"></a>&#x5706;&#x73AF;&#x7ED3;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义形状"><span class="nav-number">1.2.9.</span> <span class="nav-text"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x5F62;&#x72B6;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x5F62;&#x72B6;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x5F62;&#x72B6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字形状"><span class="nav-number">1.2.10.</span> <span class="nav-text"><a href="#&#x6587;&#x5B57;&#x5F62;&#x72B6;" class="headerlink" title="&#x6587;&#x5B57;&#x5F62;&#x72B6;"></a>&#x6587;&#x5B57;&#x5F62;&#x72B6;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材质"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x6750;&#x8D28;" class="headerlink" title="&#x6750;&#x8D28;"></a>&#x6750;&#x8D28;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本材质"><span class="nav-number">1.3.1.</span> <span class="nav-text"><a href="#&#x57FA;&#x672C;&#x6750;&#x8D28;" class="headerlink" title="&#x57FA;&#x672C;&#x6750;&#x8D28;"></a>&#x57FA;&#x672C;&#x6750;&#x8D28;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambert材质"><span class="nav-number">1.3.2.</span> <span class="nav-text"><a href="#Lambert&#x6750;&#x8D28;" class="headerlink" title="Lambert&#x6750;&#x8D28;"></a>Lambert&#x6750;&#x8D28;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Phong材质"><span class="nav-number">1.3.3.</span> <span class="nav-text"><a href="#Phong&#x6750;&#x8D28;" class="headerlink" title="Phong&#x6750;&#x8D28;"></a>Phong&#x6750;&#x8D28;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#法向材质"><span class="nav-number">1.3.4.</span> <span class="nav-text"><a href="#&#x6CD5;&#x5411;&#x6750;&#x8D28;" class="headerlink" title="&#x6CD5;&#x5411;&#x6750;&#x8D28;"></a>&#x6CD5;&#x5411;&#x6750;&#x8D28;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#材质的纹理贴图"><span class="nav-number">1.3.5.</span> <span class="nav-text"><a href="#&#x6750;&#x8D28;&#x7684;&#x7EB9;&#x7406;&#x8D34;&#x56FE;" class="headerlink" title="&#x6750;&#x8D28;&#x7684;&#x7EB9;&#x7406;&#x8D34;&#x56FE;"></a>&#x6750;&#x8D28;&#x7684;&#x7EB9;&#x7406;&#x8D34;&#x56FE;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网格"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#&#x7F51;&#x683C;" class="headerlink" title="&#x7F51;&#x683C;"></a>&#x7F51;&#x683C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#&#x52A8;&#x753B;" class="headerlink" title="&#x52A8;&#x753B;"></a>&#x52A8;&#x753B;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示FPS"><span class="nav-number">1.5.1.</span> <span class="nav-text"><a href="#&#x663E;&#x793A;FPS" class="headerlink" title="&#x663E;&#x793A;FPS"></a>&#x663E;&#x793A;FPS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">1.6.</span> <span class="nav-text"><a href="#&#x6A21;&#x578B;" class="headerlink" title="&#x6A21;&#x578B;"></a>&#x6A21;&#x578B;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#光与影"><span class="nav-number">1.7.</span> <span class="nav-text"><a href="#&#x5149;&#x4E0E;&#x5F71;" class="headerlink" title="&#x5149;&#x4E0E;&#x5F71;"></a>&#x5149;&#x4E0E;&#x5F71;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境光"><span class="nav-number">1.7.1.</span> <span class="nav-text"><a href="#&#x73AF;&#x5883;&#x5149;" class="headerlink" title="&#x73AF;&#x5883;&#x5149;"></a>&#x73AF;&#x5883;&#x5149;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点光源"><span class="nav-number">1.7.2.</span> <span class="nav-text"><a href="#&#x70B9;&#x5149;&#x6E90;" class="headerlink" title="&#x70B9;&#x5149;&#x6E90;"></a>&#x70B9;&#x5149;&#x6E90;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平行光"><span class="nav-number">1.7.3.</span> <span class="nav-text"><a href="#&#x5E73;&#x884C;&#x5149;" class="headerlink" title="&#x5E73;&#x884C;&#x5149;"></a>&#x5E73;&#x884C;&#x5149;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚光灯"><span class="nav-number">1.7.4.</span> <span class="nav-text"><a href="#&#x805A;&#x5149;&#x706F;" class="headerlink" title="&#x805A;&#x5149;&#x706F;"></a>&#x805A;&#x5149;&#x706F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阴影"><span class="nav-number">1.7.5.</span> <span class="nav-text"><a href="#&#x9634;&#x5F71;" class="headerlink" title="&#x9634;&#x5F71;"></a>&#x9634;&#x5F71;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#着色器"><span class="nav-number">1.8.</span> <span class="nav-text"><a href="#&#x7740;&#x8272;&#x5668;" class="headerlink" title="&#x7740;&#x8272;&#x5668;"></a>&#x7740;&#x8272;&#x5668;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顶点着色器"><span class="nav-number">1.8.1.</span> <span class="nav-text"><a href="#&#x9876;&#x70B9;&#x7740;&#x8272;&#x5668;" class="headerlink" title="&#x9876;&#x70B9;&#x7740;&#x8272;&#x5668;"></a>&#x9876;&#x70B9;&#x7740;&#x8272;&#x5668;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#片元着色器"><span class="nav-number">1.8.2.</span> <span class="nav-text"><a href="#&#x7247;&#x5143;&#x7740;&#x8272;&#x5668;" class="headerlink" title="&#x7247;&#x5143;&#x7740;&#x8272;&#x5668;"></a>&#x7247;&#x5143;&#x7740;&#x8272;&#x5668;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.9.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</span></a></li></ol></li></ol></div>
+          
+      </div>
+    </section>
+    <!--/noindex-->
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+ 
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

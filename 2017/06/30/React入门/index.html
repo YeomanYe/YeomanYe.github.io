@@ -1,0 +1,971 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="前端框架,React," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="React入门本文介绍React的相关概念，使用方式。目的是使读者对React有一个大致的了解，以便于能够更加深入的学习、快速上手React。学习React要掌握其中的几个重要的概念JSX、元素（事件处理）、组件（props、state、ref、受控组件、生命周期）。">
+<meta name="keywords" content="前端框架,React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React入门">
+<meta property="og:url" content="http://yeomanye.github.io/2017/06/30/React入门/index.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="React入门本文介绍React的相关概念，使用方式。目的是使读者对React有一个大致的了解，以便于能够更加深入的学习、快速上手React。学习React要掌握其中的几个重要的概念JSX、元素（事件处理）、组件（props、state、ref、受控组件、生命周期）。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-09T15:40:31.358Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React入门">
+<meta name="twitter:description" content="React入门本文介绍React的相关概念，使用方式。目的是使读者对React有一个大致的了解，以便于能够更加深入的学习、快速上手React。学习React要掌握其中的几个重要的概念JSX、元素（事件处理）、组件（props、state、ref、受控组件、生命周期）。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/2017/06/30/React入门/"/>
+
+
+
+
+
+  <title> React入门 | 探险 </title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/06/30/React入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-30T00:00:00+08:00">
+                2017-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端框架/" itemprop="url" rel="index">
+                    <span itemprop="name">前端框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/06/30/React入门/" class="leancloud_visitors" data-flag-title="React入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  2,410
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="React入门"><a href="#React入门" class="headerlink" title="React入门"></a>React入门</h1><p>本文介绍React的相关概念，使用方式。目的是使读者对React有一个大致的了解，以便于能够更加深入的学习、快速上手React。学习React要掌握其中的几个重要的概念JSX、元素（事件处理）、组件（props、state、ref、受控组件、生命周期）。</p>
+<a id="more"></a>
+<h2 id="React优缺点"><a href="#React优缺点" class="headerlink" title="React优缺点"></a>React优缺点</h2><p>React是一个前端框架，学习框架必然要了解框架的优缺点、以便根据不同的项目采用合适的框架。<br>优点：</p>
+<ul>
+<li>能够实现服务器端的渲染，便于搜索引擎优化。</li>
+<li>能够很好的和现有的代码结合。React只是MVC中的View层，对于其他的部分并没有硬性要求。</li>
+<li>组件化的开发方式，能够更好的复用代码、更好的定位bug。</li>
+<li>使用virtual dom，性能很好</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>不是完整的开发框架需要加上其他东西才能写大型应用。</li>
+</ul>
+<h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><p>JSX是JavaScript Syntax eXtension的缩写，它是一种在JavaScript中嵌入XML的React语法，类似于E4X。React推荐使用JSX来描述用户界面</p>
+<p>JSX语法需要写在<code>&lt;script type=&quot;text/babel&quot;&gt;&lt;/script&gt;</code>标签中或者使用babel转码器进行转码</p>
+<p>JSX基本语法规则:遇到 HTML 标签（以 &lt; 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析。</p>
+<p>JSX 允许直接在模板插入 JavaScript 变量。如果这个变量是一个数组，则会展开这个数组的所有成员</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> arr = [</span></span><br><span class="line"><span class="javascript">  &lt;h1&gt;Hello world!<span class="xml"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>,</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>React is awesome<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>,</span></span><br><span class="line"><span class="undefined">];</span></span><br><span class="line"><span class="undefined">ReactDOM.render(</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;arr&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>)</span></span><br><span class="line"><span class="undefined">);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h2><p>元素是构成React应用的最小单位，React中元素时普通的对象。React DOM可以确保浏览器DOM的数据内容与React元素保持一致。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line"><span class="comment">// 使用ReactDOM.render渲染到页面上</span></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  element,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>当元素被创建之后，是无法改变其内容或属性的。如果想要改变需要将它传入ReactDOM.render()方法中。(react只会渲染必要的部分)</p>
+<p>元素除了可以是DOM元素外，还可以是自定义的组件。</p>
+<h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><p>驼峰式命名，使用函数名作为事件处理函数，需要使用e.preventDefault()来阻止默认行为，不能直接使用return false阻止返回值。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="class"><span class="keyword">class</span> <span class="title">Toggle</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">constructor</span>(props) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">super</span>(props);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.state = &#123;<span class="attr">isToggleOn</span>: <span class="literal">true</span>&#125;;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// This binding is necessary to make `this` work in the callback</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  handleClick(e) &#123;</span></span><br><span class="line"><span class="undefined">    e.preventDefault();</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> (&#123;</span></span><br><span class="line"><span class="undefined">      isToggleOn: !prevState.isToggleOn</span></span><br><span class="line"><span class="undefined">    &#125;));</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  render() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick&#125;</span>&gt;</span></span></span><br><span class="line"><span class="javascript">        &#123;<span class="keyword">this</span>.state.isToggleOn ? <span class="string">'ON'</span> : <span class="string">'OFF'</span>&#125;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>e是一个合成事件不需要考虑跨浏览器的兼容性问题。</p>
+<p>使用实验性的属性初始化器语法来绑定this</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="class"><span class="keyword">class</span> <span class="title">LoggingButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="comment">// This syntax ensures `this` is bound within handleClick.</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// Warning: this is *experimental* syntax.</span></span></span><br><span class="line"><span class="javascript">  handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">'this is:'</span>, <span class="keyword">this</span>);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">  render() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick&#125;</span>&gt;</span></span></span><br><span class="line"><span class="undefined">        Click me</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>顾明思议是用来将UI切分成可复用且独立的部件。</p>
+<p>函数、类定义组件:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">Welcome</span>(<span class="params">props</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="class"><span class="keyword">class</span> <span class="title">Welcome</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">   <span class="keyword">constructor</span>(props) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">super</span>(props);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.state = &#123;<span class="attr">date</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  render() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">Welcome</span> <span class="attr">name</span>=<span class="string">"Sara"</span> /&gt;</span>;</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>组件之间可以像普通标签一样嵌套组合成新元素、新组件。</p>
+<p>style属性的设置不能写成:style=”opacity:&#123;this.state.opacity&#125;;”,而要写成style=&#123;&#123;opacity: this.state.opacity&#125;&#125;。因为React组件样式是一个对象，所以第一重大括号表示这是JS语法，第二重大括号表示样式对象。</p>
+<h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3><p>class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。</p>
+<p>this.props 对象的属性与组件的属性一一对应，但是有一个例外，就是 this.props.children 属性。它表示组件的所有子节点</p>
+<p>this.props.children 的值有三种可能：如果当前组件没有子节点，它就是 undefined ;如果有一个子节点，数据类型是 object ；如果有多个子节点，数据类型就是 array 。所以，处理 this.props.children 的时候要小心。</p>
+<p>React 提供一个工具方法 React.Children 来处理 this.props.children 。我们可以用 React.Children.map 来遍历子节点，而不用担心 this.props.children 的数据类型是 undefined 还是 object。</p>
+<p>props的值不能够被改变。</p>
+<p>使用propTypes来验证别人使用组件时，提供的参数是否符合要求<br>使用defaultProps设置默认值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Greeting.propTypes = &#123;</span><br><span class="line">    title: React.PropTypes.string.isRequired,</span><br><span class="line">    <span class="comment">//限制为一个子代</span></span><br><span class="line">    children: PropTypes.element.isRequired</span><br><span class="line">&#125;;</span><br><span class="line">Greeting.defaultProps = &#123;</span><br><span class="line">    name:<span class="string">"test"</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>每当组件的状态state发生改变时，组件就可以自动的更新。</p>
+<p>state在构造函数中初始化，使用书面语的形式，即this.state = {}</p>
+<p>状态的更新需要使用setState(可接收对象或函数(参数是上一个状态、props))函数，不能直接使用书面语(this.state.comment = “”)</p>
+<p>this.props 和 this.state 可能是异步更新的，不能直接依靠它们来计算state，而应该是使用函数的形式。</p>
+<h3 id="列表-amp-Keys"><a href="#列表-amp-Keys" class="headerlink" title="列表 &amp; Keys"></a>列表 &amp; Keys</h3><p>Keys可以在DOM中的某些元素被增加或删除的时候帮助React识别哪些元素发生了变化。因此你应当给数组中的每一个元素赋予一个确定的标识。</p>
+<p>key应该在数组中被明确出来，可以使用id或索引来作为key</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> todoItems = todos.map(<span class="function">(<span class="params">todo, index</span>) =&gt;</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// Only do this if items have no stable IDs</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    &#123;todo.text&#125;</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="undefined">);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h3><p>在HTML当中，像<code>&lt;input&gt;</code>,<code>&lt;textarea&gt;</code>, 和 <code>&lt;select&gt;</code>这类表单元素会维持自身状态，并根据用户输入进行更新。但在React中，可变的状态通常保存在组件的状态属性中，并且只能用 setState(). 方法进行更新.</p>
+<p>因此使用“受控组件”的形式来编写表单组件(值统一写在value属性中，更新方法写在onChange函数中)</p>
+<p>多个受控组件的统一解决方案，动态确定state的属性</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="class"><span class="keyword">class</span> <span class="title">Reservation</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">constructor</span>(props) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">super</span>(props);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.state = &#123;</span></span><br><span class="line"><span class="javascript">      isGoing: <span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">      numberOfGuests: 2</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.handleInputChange = <span class="keyword">this</span>.handleInputChange.bind(<span class="keyword">this</span>);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  handleInputChange(event) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> target = event.target;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> value = target.type === <span class="string">'checkbox'</span> ? target.checked : target.value;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> name = target.name;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.setState(&#123;</span></span><br><span class="line"><span class="undefined">      [name]: value</span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  render() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="undefined">          Is going:</span></span><br><span class="line"><span class="undefined">          &lt;input</span></span><br><span class="line"><span class="javascript">            name=<span class="string">"isGoing"</span></span></span><br><span class="line"><span class="javascript">            type=<span class="string">"checkbox"</span></span></span><br><span class="line"><span class="javascript">            checked=&#123;<span class="keyword">this</span>.state.isGoing&#125;</span></span><br><span class="line"><span class="javascript">            onChange=&#123;<span class="keyword">this</span>.handleInputChange&#125; /&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">Number</span> <span class="keyword">of</span> guests:</span></span><br><span class="line"><span class="undefined">          &lt;input</span></span><br><span class="line"><span class="javascript">            name=<span class="string">"numberOfGuests"</span></span></span><br><span class="line"><span class="javascript">            type=<span class="string">"number"</span></span></span><br><span class="line"><span class="javascript">            value=&#123;<span class="keyword">this</span>.state.numberOfGuests&#125;</span></span><br><span class="line"><span class="javascript">            onChange=&#123;<span class="keyword">this</span>.handleInputChange&#125; /&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h3><p>在受控组件中，表单数据由 React 组件处理。如果让表单数据由 DOM 处理时，替代方案为使用非受控组件。(使用ref获取DOM并取值(必须要等到DOM插入后才能获得DOM)，使用defaultValue设置默认值)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="class"><span class="keyword">class</span> <span class="title">NameForm</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">constructor</span>(props) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">super</span>(props);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.handleSubmit = <span class="keyword">this</span>.handleSubmit.bind(<span class="keyword">this</span>);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  handleSubmit(event) &#123;</span></span><br><span class="line"><span class="javascript">    alert(<span class="string">'A name was submitted: '</span> + <span class="keyword">this</span>.input.value);</span></span><br><span class="line"><span class="undefined">    event.preventDefault();</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">    render() &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> (</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;this.handleSubmit&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="undefined">            Name:</span></span><br><span class="line"><span class="undefined">            &lt;input</span></span><br><span class="line"><span class="javascript">              defaultValue=<span class="string">"Bob"</span></span></span><br><span class="line"><span class="javascript">              type=<span class="string">"text"</span></span></span><br><span class="line"><span class="javascript">              ref=&#123;(input) =&gt; <span class="keyword">this</span>.input = input&#125; /&gt;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Submit"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="undefined">      );</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="状态提升"><a href="#状态提升" class="headerlink" title="状态提升"></a>状态提升</h3><p>如果多个组件中有需要共用的状态，应该将该状态设置在父组件上，来实现状态共享。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/babel"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> scaleNames = &#123;</span></span><br><span class="line"><span class="javascript">  c: <span class="string">'Celsius'</span>,</span></span><br><span class="line"><span class="javascript">  f: <span class="string">'Fahrenheit'</span></span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">toCelsius</span>(<span class="params">fahrenheit</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">return</span> (fahrenheit - <span class="number">32</span>) * <span class="number">5</span> / <span class="number">9</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">toFahrenheit</span>(<span class="params">celsius</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">return</span> (celsius * <span class="number">9</span> / <span class="number">5</span>) + <span class="number">32</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">tryConvert</span>(<span class="params">temperature, convert</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">const</span> input = <span class="built_in">parseFloat</span>(temperature);</span></span><br><span class="line"><span class="javascript">  <span class="keyword">if</span> (<span class="built_in">Number</span>.isNaN(input)) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> <span class="string">''</span>;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">const</span> output = convert(input);</span></span><br><span class="line"><span class="javascript">  <span class="keyword">const</span> rounded = <span class="built_in">Math</span>.round(output * <span class="number">1000</span>) / <span class="number">1000</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">return</span> rounded.toString();</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">BoilingVerdict</span>(<span class="params">props</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">if</span> (props.celsius &gt;= <span class="number">100</span>) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The water would boil.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The water would not boil.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="class"><span class="keyword">class</span> <span class="title">TemperatureInput</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">constructor</span>(props) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">super</span>(props);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.handleChange = <span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  handleChange(e) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.props.onTemperatureChange(e.target.value);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  render() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> temperature = <span class="keyword">this</span>.props.temperature;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> scale = <span class="keyword">this</span>.props.scale;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span></span><br><span class="line"><span class="javascript">        &lt;legend&gt;Enter temperature <span class="keyword">in</span> &#123;scaleNames[scale]&#125;:<span class="xml"><span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">value</span>=<span class="string">&#123;temperature&#125;</span></span></span></span><br><span class="line"><span class="javascript">               onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">constructor</span>(props) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">super</span>(props);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.handleCelsiusChange = <span class="keyword">this</span>.handleCelsiusChange.bind(<span class="keyword">this</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.handleFahrenheitChange = <span class="keyword">this</span>.handleFahrenheitChange.bind(<span class="keyword">this</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.state = &#123;<span class="attr">temperature</span>: <span class="string">''</span>, <span class="attr">scale</span>: <span class="string">'c'</span>&#125;;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  handleCelsiusChange(temperature) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.setState(&#123;<span class="attr">scale</span>: <span class="string">'c'</span>, temperature&#125;);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  handleFahrenheitChange(temperature) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.setState(&#123;<span class="attr">scale</span>: <span class="string">'f'</span>, temperature&#125;);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  render() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> scale = <span class="keyword">this</span>.state.scale;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> temperature = <span class="keyword">this</span>.state.temperature;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> celsius = scale === <span class="string">'f'</span> ? tryConvert(temperature, toCelsius) : temperature;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> fahrenheit = scale === <span class="string">'c'</span> ? tryConvert(temperature, toFahrenheit) : temperature;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> (</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="undefined">        &lt;TemperatureInput</span></span><br><span class="line"><span class="javascript">          scale=<span class="string">"c"</span></span></span><br><span class="line"><span class="undefined">          temperature=&#123;celsius&#125;</span></span><br><span class="line"><span class="javascript">          onTemperatureChange=&#123;<span class="keyword">this</span>.handleCelsiusChange&#125; /&gt;</span></span><br><span class="line"><span class="undefined">        &lt;TemperatureInput</span></span><br><span class="line"><span class="javascript">          scale=<span class="string">"f"</span></span></span><br><span class="line"><span class="undefined">          temperature=&#123;fahrenheit&#125;</span></span><br><span class="line"><span class="javascript">          onTemperatureChange=&#123;<span class="keyword">this</span>.handleFahrenheitChange&#125; /&gt;</span></span><br><span class="line"><span class="undefined">        &lt;BoilingVerdict</span></span><br><span class="line"><span class="javascript">          celsius=&#123;<span class="built_in">parseFloat</span>(celsius)&#125; /&gt;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    );</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">ReactDOM.render(</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">Calculator</span> /&gt;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span></span><br><span class="line"><span class="undefined">);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>组件的生命周期分成三个状态：</p>
+<ul>
+<li>Mounting：已插入真实 DOM</li>
+<li>Updating：正在被重新渲染</li>
+<li>Unmounting：已移出真实 DOM</li>
+</ul>
+<p>React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。</p>
+<ul>
+<li>componentWillMount()</li>
+<li>componentDidMount()</li>
+<li>componentWillUpdate(object nextProps, object nextState)</li>
+<li>componentDidUpdate(object prevProps, object prevState)</li>
+<li>componentWillUnmount()</li>
+</ul>
+<p>此外，React 还提供两种特殊状态的处理函数。</p>
+<ul>
+<li>componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用</li>
+<li>shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用</li>
+</ul>
+<p>参考文献：<br><a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="noopener">React入门实例教程——阮一峰</a><br><a href="https://discountry.github.io/react/" target="_blank" rel="noopener">React文档15.6</a><br><a href="https://www.zhihu.com/question/33471134" target="_blank" rel="noopener">React优缺点</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="FWHeart WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.png" alt="FWHeart Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端框架/" rel="tag"># 前端框架</a>
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/24/Angular2入门/" rel="next" title="Angular2入门">
+                <i class="fa fa-chevron-left"></i> Angular2入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/06/Vue2入门/" rel="prev" title="Vue2入门">
+                Vue2入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <ul class="sidebar-nav motion-element">
+      <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+        Table of Contents
+      </li>
+      <li class="sidebar-nav-overview" data-target="site-overview">
+        Overview
+      </li>
+    </ul>
+    
+    <section class="site-overview sidebar-panel">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+    
+    <!--noindex-->
+    <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+      <div class="post-toc">
+           
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React入门"><span class="nav-number">1.</span> <span class="nav-text"><a href="#React&#x5165;&#x95E8;" class="headerlink" title="React&#x5165;&#x95E8;"></a>React&#x5165;&#x95E8;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#React优缺点"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#React&#x4F18;&#x7F3A;&#x70B9;" class="headerlink" title="React&#x4F18;&#x7F3A;&#x70B9;"></a>React&#x4F18;&#x7F3A;&#x70B9;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x5143;&#x7D20;" class="headerlink" title="&#x5143;&#x7D20;"></a>&#x5143;&#x7D20;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件处理"><span class="nav-number">1.3.1.</span> <span class="nav-text"><a href="#&#x4E8B;&#x4EF6;&#x5904;&#x7406;" class="headerlink" title="&#x4E8B;&#x4EF6;&#x5904;&#x7406;"></a>&#x4E8B;&#x4EF6;&#x5904;&#x7406;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#&#x7EC4;&#x4EF6;" class="headerlink" title="&#x7EC4;&#x4EF6;"></a>&#x7EC4;&#x4EF6;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#props"><span class="nav-number">1.4.1.</span> <span class="nav-text"><a href="#props" class="headerlink" title="props"></a>props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#state"><span class="nav-number">1.4.2.</span> <span class="nav-text"><a href="#state" class="headerlink" title="state"></a>state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表-amp-Keys"><span class="nav-number">1.4.3.</span> <span class="nav-text"><a href="#&#x5217;&#x8868;-amp-Keys" class="headerlink" title="&#x5217;&#x8868; &amp; Keys"></a>&#x5217;&#x8868; &amp; Keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#受控组件"><span class="nav-number">1.4.4.</span> <span class="nav-text"><a href="#&#x53D7;&#x63A7;&#x7EC4;&#x4EF6;" class="headerlink" title="&#x53D7;&#x63A7;&#x7EC4;&#x4EF6;"></a>&#x53D7;&#x63A7;&#x7EC4;&#x4EF6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非受控组件"><span class="nav-number">1.4.5.</span> <span class="nav-text"><a href="#&#x975E;&#x53D7;&#x63A7;&#x7EC4;&#x4EF6;" class="headerlink" title="&#x975E;&#x53D7;&#x63A7;&#x7EC4;&#x4EF6;"></a>&#x975E;&#x53D7;&#x63A7;&#x7EC4;&#x4EF6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态提升"><span class="nav-number">1.4.6.</span> <span class="nav-text"><a href="#&#x72B6;&#x6001;&#x63D0;&#x5347;" class="headerlink" title="&#x72B6;&#x6001;&#x63D0;&#x5347;"></a>&#x72B6;&#x6001;&#x63D0;&#x5347;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">1.4.7.</span> <span class="nav-text"><a href="#&#x751F;&#x547D;&#x5468;&#x671F;" class="headerlink" title="&#x751F;&#x547D;&#x5468;&#x671F;"></a>&#x751F;&#x547D;&#x5468;&#x671F;</span></a></li></ol></li></ol></li></ol></div>
+          
+      </div>
+    </section>
+    <!--/noindex-->
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+ 
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>
