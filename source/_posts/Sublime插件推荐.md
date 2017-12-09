@@ -167,3 +167,8 @@ python语法检测插件配合sublimelinter使用，同时还需要使用pip安�
 
 ### [Material](https://github.com/equinusocio/material-theme)
 ![Material](Material.gif) -->
+
+## React
+### [react-native-snippet](https://github.com/Shrugs/react-native-snippets)
+react native代码片段插件，可生成的代码片段包括生命周期函数、快速定义组件、快速设置状态等。
+
