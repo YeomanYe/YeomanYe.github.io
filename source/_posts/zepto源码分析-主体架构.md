@@ -158,7 +158,7 @@ function classRE(name) {
   }
 ```
 
-isEmpty检测空对象
+isEmpty 检测空对象(使用for...in循环，判断是否具有非空属性)
 ```js
 $.isEmptyObject = function(obj) {
     var name
@@ -167,7 +167,7 @@ $.isEmptyObject = function(obj) {
   }
 ```
 
-removeProp 移除元素中的属性
+removeProp 移除元素中的属性(使用delete关键字)
 ```js
 removeProp: function(name){
       name = propMap[name] || name
@@ -175,7 +175,7 @@ removeProp: function(name){
     }
 ```
 
-extend 对象的深拷贝
+extend 对象的拷贝(采用一一赋值的方式，深拷贝时判断为数组还是为对象，进行相应的循环操作)
 ```js
 function extend(target, source, deep) {
     for (key in source)
@@ -211,7 +211,7 @@ pluck: function(property){
     }
 ```
 
-traverseNode 遍历节点
+traverseNode 使用递归遍历节点和其子节点
 ```js
 function traverseNode(node, fun) {
     fun(node)
