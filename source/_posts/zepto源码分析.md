@@ -1,13 +1,14 @@
-title: zepto源码分析-主体架构
+title: zepto源码分析
 tags:
-    - zepto源码分析
+    - 源码分析
     - JavaScript
 comments: true
 date: 2017-12-17
-brief: 主体架构
+brief: zepto源码分析
 categories:
     - 源码分析
 ---
+# Zepto源码分析
 Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0
 
 <!-- more -->
