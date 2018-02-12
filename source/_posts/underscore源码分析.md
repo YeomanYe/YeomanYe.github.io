@@ -170,3 +170,33 @@ _.mixin(_);
 ```
 
 ## 特殊方法实现
+_.partial 顺序填充一些参数给函数，并返回预处理后的函数使用`_`作为占位符
+
+```js
+var executeBound = function(sourceFunc, boundFunc, context, callingContext, args) {
+    if (!(callingContext instanceof boundFunc)) return sourceFunc.apply(context, args);
+    var self = baseCreate(sourceFunc.prototype);
+    var result = sourceFunc.apply(self, args);
+    if (_.isObject(result)) return result;
+    return self;
+  };
+//根据预定义参数返回代理函数
+_.partial = restArgs(function(func, boundArgs) {
+    var placeholder = _.partial.placeholder;
+    var bound = function() {
+      var position = 0, length = boundArgs.length;
+      var args = Array(length);
+      for (var i = 0; i < length; i++) {
+        //组装参数，如果预填充的参数为占位符，则使用调用时的参数来补齐。
+        args[i] = boundArgs[i] === placeholder ? arguments[position++] : boundArgs[i];
+      }
+      //添加剩余的参数
+      while (position < arguments.length) args.push(arguments[position++]);
+      return executeBound(func, bound, this, this, args);
+    };
+    return bound;
+  });
+//占位符
+_.partial.placeholder = _;
+```
+
