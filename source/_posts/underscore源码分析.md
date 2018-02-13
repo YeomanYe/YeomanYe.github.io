@@ -192,11 +192,59 @@ _.partial = restArgs(function(func, boundArgs) {
       }
       //添加剩余的参数
       while (position < arguments.length) args.push(arguments[position++]);
+      //执行原方法
       return executeBound(func, bound, this, this, args);
     };
     return bound;
   });
 //占位符
 _.partial.placeholder = _;
+```
+
+_.throttle 节流函数返回一个函数，在一段时间之内只调用一次，用于像onresize这样会频繁触发的事件。
+
+```js
+_.throttle = function(func, wait, options) {
+    var timeout, context, args, result;
+    var previous = 0;
+    if (!options) options = {};
+    // 最后一次是否执行
+    var later = function() {
+      previous = options.leading === false ? 0 : _.now();
+      timeout = null;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    };
+
+    var throttled = function() {
+      var now = _.now();
+      //leading参数表示是否是以调用函数的时间做时间间隔。
+      if (!previous && options.leading === false) previous = now;
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+        //trailing参数表示是否事件结束仍进行调用。
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+    //取消节流函数
+    throttled.cancel = function() {
+      clearTimeout(timeout);
+      previous = 0;
+      timeout = context = args = null;
+    };
+
+    return throttled;
+  };
 ```
 
