@@ -127,6 +127,7 @@ if (!_.isArguments(arguments)) {
     }
 
 var nodelist = root.document && root.document.childNodes;
+//浏览器特性监测，当前浏览器typeof，不将/./、NodeList视为函数,Int8Array视为对象，则可以使用typeof进行函数的判定
   if (typeof /./ != 'function' && typeof Int8Array != 'object' && typeof nodelist != 'function') {
     _.isFunction = function(obj) {
       return typeof obj == 'function' || false;
@@ -294,3 +295,32 @@ _.negate = function(predicate) {
 ```
 
 ### 其他
++0 不等于 -0的比较
+if (a === b) return a !== 0 || 1 / a === 1 / b;
+
+NaN比较
+typeof NaN == 'number' && NaN != NaN
+
+Symbol相等的比较
+Symbol.prototype.valueOf.call(a) === Symbol.prototype.valueOf.call(b)
+
+匹配所有文字
+`/[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;`
+
+函数定义时定义的参数的个数
+func.length
+
+去if,获得非undefined值的方式
+```js
+(keys || obj).length;
+
+keys = !isArrayLike(obj) && _.keys(obj);
+```
+
+根据dir的值，进行正反方向的迭代
+```js
+index = dir > 0 ? 0 : length - 1;
+for (; index >= 0 && index < length; index += dir) {
+    //...
+}
+```
