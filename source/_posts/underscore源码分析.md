@@ -26,7 +26,7 @@ var root = typeof self == 'object' && self.self === self && self ||
     }())
 ```
 
-仅供内部使用的函数都以驼峰命名法进行命名，供外部使用的函数都挂载在`_`上。当然能供外部使用的函数内部也有在使用。underscore主要有四个部分使用感到精彩，高内聚低耦合的内部方法、依据环境生成方法、特殊方法的实现、回调机制的实现。
+仅供内部使用的函数都以驼峰命名法进行命名，供外部使用的函数都挂载在`_`上。当然能供外部使用的函数内部也有在使用。underscore主要有四个部分使用感到精彩，高内聚低耦合的内部方法、依据环境生成方法、特殊方法的实现、其他。
 
 ## 高内聚低耦合的内部方法
 optimizeCb返回一个绑定了上下文的方法
@@ -201,7 +201,7 @@ _.partial = restArgs(function(func, boundArgs) {
 _.partial.placeholder = _;
 ```
 
-_.throttle 节流函数返回一个函数，在一段时间之内只调用一次，用于像onresize这样会频繁触发的事件。
+_.throttle 节流函数返回一个函数，在一段时间之内只调用一次，用于处理像onresize这样会频繁触发的事件的处理函数。
 
 ```js
 _.throttle = function(func, wait, options) {
@@ -248,3 +248,49 @@ _.throttle = function(func, wait, options) {
   };
 ```
 
+_.debounced 消抖函数，连续触发的情况下只会执行一次，用于作为像onresize这样会频繁触发的事件的处理函数。
+
+```js
+//wait延迟执行的时间，immediate是否立即执行
+_.debounce = function(func, wait, immediate) {
+var timeout, result;
+
+var later = function(context, args) {
+  timeout = null;
+  if (args) result = func.apply(context, args);
+};
+
+var debounced = restArgs(function(args) {
+    //含有timeout，即连续调用，不执行
+  if (timeout) clearTimeout(timeout);
+  if (immediate) {
+    var callNow = !timeout;
+    timeout = setTimeout(later, wait);
+    //有立即执行参数时，第一次调用马上执行。
+    if (callNow) result = func.apply(this, args);
+  } else {
+    timeout = _.delay(later, wait, this, args);
+  }
+
+  return result;
+});
+//取消执行函数
+debounced.cancel = function() {
+  clearTimeout(timeout);
+  timeout = null;
+};
+
+return debounced;
+};
+```
+
+_.negate 生成一个返回布尔类型相反的函数
+```js
+_.negate = function(predicate) {
+    return function() {
+      return !predicate.apply(this, arguments);
+    };
+  };
+```
+
+### 其他
