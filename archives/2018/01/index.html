@@ -66,7 +66,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,18 +84,13 @@
 
 
 
-<meta name="description" content="JS中的this众所周知，JS中this的代表的是当前函数调用者的上下文。JS是解释性的动态类型语言，函数在调用时刻才解释其中的语句，因此this所表示的对象也是动态决定的。">
-<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="website">
-<meta property="og:title" content="JS中的this">
-<meta property="og:url" content="http://yeomanye.github.io/draft/JS中的this.html">
+<meta property="og:title" content="探险">
+<meta property="og:url" content="http://yeomanye.github.io/archives/2018/01/index.html">
 <meta property="og:site_name" content="探险">
-<meta property="og:description" content="JS中的this众所周知，JS中this的代表的是当前函数调用者的上下文。JS是解释性的动态类型语言，函数在调用时刻才解释其中的语句，因此this所表示的对象也是动态决定的。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-09T15:40:31.500Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS中的this">
-<meta name="twitter:description" content="JS中的this众所周知，JS中this的代表的是当前函数调用者的上下文。JS是解释性的动态类型语言，函数在调用时刻才解释其中的语句，因此this所表示的对象也是动态决定的。">
+<meta name="twitter:title" content="探险">
 
 
 
@@ -123,19 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yeomanye.github.io/draft/JS中的this.html"/>
+  <link rel="canonical" href="http://yeomanye.github.io/archives/2018/01/"/>
 
 
 
 
 
-  <title>
-  
-
-  
-    JS中的this | 探险
-  
-</title>
+  <title> Archive | 探险 </title>
   <!-- canvas-nest背景 -->
   
   <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
@@ -157,7 +146,7 @@
 
 
     
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left  page-archive  ">
     <div class="headband"></div>
     <!-- fork me 代码段 -->
     <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
@@ -289,56 +278,71 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-  <header class="post-header">
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-	<h1 class="post-title" itemprop="name headline">JS中的this</h1>
-
-
-
-</header>
-
-    
-    
-      <h1 id="JS中的this"><a href="#JS中的this" class="headerlink" title="JS中的this"></a>JS中的this</h1><p>众所周知，JS中this的代表的是当前函数调用者的上下文。JS是解释性的动态类型语言，函数在调用时刻才解释其中的语句，因此this所表示的对象也是动态决定的。</p>
-<a id="more"></a>
-<h2 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h2><p>默认情况下this总是指向调用该函数的对象和全局对象(在最外层调用函数)，无论函数嵌套了多少层</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testThis</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    testThis:testThis</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">testThis();</span><br><span class="line">obj.testThis();</span><br></pre></td></tr></table></figure>
-<p>在浏览器下分别输出Window对象和Object对象</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//这里的this在此法上继承自foo()</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">        &#125;,<span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">9</span>;</span><br><span class="line">foo(); <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
-<p>结果为9，说明内层函数和外层函数一样指向了window对象;</p>
-<h2 id="显示绑定"><a href="#显示绑定" class="headerlink" title="显示绑定"></a>显示绑定</h2><p>显示绑定指的是人为改变this的指向,如call、apply、bind函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(++num + <span class="string">": "</span>,<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">test.call(<span class="number">123</span>);</span><br><span class="line">test.call(<span class="string">"123"</span>);</span><br><span class="line">test.call(<span class="literal">true</span>);</span><br><span class="line">test.call(<span class="literal">null</span>);</span><br><span class="line">test.call(<span class="literal">undefined</span>);</span><br><span class="line"></span><br><span class="line">test.apply(<span class="number">123</span>);</span><br><span class="line">test.apply(<span class="string">"123"</span>);</span><br><span class="line">test.apply(<span class="literal">false</span>);</span><br><span class="line">test.apply(<span class="literal">null</span>);</span><br><span class="line">test.apply(<span class="literal">undefined</span>);</span><br><span class="line"></span><br><span class="line">test.bind(<span class="number">123</span>)();</span><br><span class="line">test.bind(<span class="string">"123"</span>)();</span><br><span class="line">test.bind(<span class="literal">true</span>)();</span><br><span class="line">test.bind(<span class="literal">null</span>)();</span><br><span class="line">test.bind(<span class="literal">undefined</span>)();</span><br></pre></td></tr></table></figure>
-<p>输出结果皆是Number、String、Boolean、Window、Window</p>
-<p>从输出的结果可以看出this指向被修改了，并且如果是基本类型数字、字符串、布尔值等情况，this会将其转换成对应的包装类型。如果类型为null,undefined则会使用全局对象(window)。</p>
-<h2 id="new绑定"><a href="#new绑定" class="headerlink" title="new绑定"></a>new绑定</h2><p>使用new创建一个对象时：</p>
-<ol>
-<li>先创建一个空对象，把this指向该对象，创建原型链</li>
-<li>运行函数的逻辑</li>
-<li>如果函数中有返回值则返回的对象为返回值，否则默认返回this作为返回对象</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"in test1"</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"in test2"</span>)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Test1();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test1 = <span class="keyword">new</span> Test1();</span><br><span class="line"><span class="keyword">var</span> test2 = <span class="keyword">new</span> Test2();</span><br><span class="line">test1.func();</span><br><span class="line">test2.func();</span><br></pre></td></tr></table></figure>
-<p>可以看到输出为Test1、Test2、Test1、”in test1”、”in test2”</p>
-<p>说明:</p>
-<ul>
-<li>使用new确实要执行一遍函数;</li>
-<li>返回值影响到最后的生成对象;</li>
-<li>没有返回值时默认返回this</li>
-</ul>
-<p>参考文献：<br>你不知道的JavaScript（上卷）<br>JavaScript高级程序设计（第三版）</p>
+    <span class="archive-page-counter">
+      
+      
+       
+      
+      OK! 39 posts in total. Keep on posting.
+    </span>
 
     
-  </div>
+
+      
+      
+      
+
+      
+        
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
+        </div>
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2018/01/28/underscore源码分析/" itemprop="url">
+              
+                <span itemprop="name">underscore源码分析</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-01-28T00:00:00+08:00"
+              content="2018-01-28" >
+          01-28
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+    
+
+  </section>
+
+  
+
 
 
           </div>
           
 
  
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
          
@@ -365,21 +369,21 @@
         
         <div class="site-state-item site-state-posts">
           <a href="/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">posts</span>
               </a>
         </div>
            
         <div class="site-state-item site-state-categories">
           <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
         </div>
            
         <div class="site-state-item site-state-tags">
           <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">tags</span>
               </a>
         </div>
@@ -426,7 +430,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -513,7 +517,13 @@
 
   <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
 
+ 
   
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
+ 
 
 
   <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>

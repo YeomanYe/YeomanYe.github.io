@@ -66,7 +66,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript,zepto源码分析," />
+  <meta name="keywords" content="JavaScript,源码分析," />
 
 
 
@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0">
-<meta name="keywords" content="JavaScript,zepto源码分析">
+<meta name="description" content="Zepto源码分析Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0">
+<meta name="keywords" content="JavaScript,源码分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zepto源码分析-主体架构">
-<meta property="og:url" content="http://yeomanye.github.io/2017/12/17/zepto源码分析-主体架构/index.html">
+<meta property="og:title" content="zepto源码分析">
+<meta property="og:url" content="http://yeomanye.github.io/2017/12/17/zepto源码分析/index.html">
 <meta property="og:site_name" content="探险">
-<meta property="og:description" content="Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0">
+<meta property="og:description" content="Zepto源码分析Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-18T16:13:33.101Z">
+<meta property="og:updated_time" content="2018-01-28T12:04:05.152Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zepto源码分析-主体架构">
-<meta name="twitter:description" content="Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0">
+<meta name="twitter:title" content="zepto源码分析">
+<meta name="twitter:description" content="Zepto源码分析Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yeomanye.github.io/2017/12/17/zepto源码分析-主体架构/"/>
+  <link rel="canonical" href="http://yeomanye.github.io/2017/12/17/zepto源码分析/"/>
 
 
 
 
 
-  <title> zepto源码分析-主体架构 | 探险 </title>
+  <title> zepto源码分析 | 探险 </title>
   <!-- canvas-nest背景 -->
   
   <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
@@ -293,7 +293,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/12/17/zepto源码分析-主体架构/">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2017/12/17/zepto源码分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="FWHeart">
@@ -314,7 +314,7 @@
             
             
               
-                zepto源码分析-主体架构
+                zepto源码分析
               
             
           </h1>
@@ -369,7 +369,7 @@
 
           
           
-             <span id="/2017/12/17/zepto源码分析-主体架构/" class="leancloud_visitors" data-flag-title="zepto源码分析-主体架构">
+             <span id="/2017/12/17/zepto源码分析/" class="leancloud_visitors" data-flag-title="zepto源码分析">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -393,7 +393,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1,905
+                  1,910
                 </span>
               
 
@@ -428,7 +428,7 @@
       
 
       
-        <p>Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0</p>
+        <h1 id="Zepto源码分析"><a href="#Zepto源码分析" class="headerlink" title="Zepto源码分析"></a>Zepto源码分析</h1><p>Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 因Zepto的轻量性、与JQ的相似性以及好用的移动事件(tap、swipe、doubleTap等)的封装，使得Zepto移动端开发中有着不少的应用场景。分析的版本是zepto当前的最新版本v1.2.0</p>
 <a id="more"></a>
 <p>zepto将整个库的功能拆分到了许多模块中，便于减小体积。无论开发者选用哪一个模块core模块是必不可少的。因此也必从core开始分析源码。</p>
 <p>从github上下载源码后，打开src文件夹可以看到许多js文件，每个js文件对应一个模块。不用我说也能猜到js核心模块是zepto.js。</p>
@@ -510,7 +510,7 @@
           
             <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            <a href="/tags/zepto源码分析/" rel="tag"># zepto源码分析</a>
+            <a href="/tags/源码分析/" rel="tag"># 源码分析</a>
           
         </div>
       
@@ -532,6 +532,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/28/underscore源码分析/" rel="prev" title="underscore源码分析">
+                underscore源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -593,21 +597,21 @@
         
         <div class="site-state-item site-state-posts">
           <a href="/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">posts</span>
               </a>
         </div>
            
         <div class="site-state-item site-state-categories">
           <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
         </div>
            
         <div class="site-state-item site-state-tags">
           <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">tags</span>
               </a>
         </div>
@@ -646,7 +650,7 @@
     <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
       <div class="post-toc">
            
-          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#个人收获"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4E2A;&#x4EBA;&#x6536;&#x83B7;" class="headerlink" title="&#x4E2A;&#x4EBA;&#x6536;&#x83B7;"></a>&#x4E2A;&#x4EBA;&#x6536;&#x83B7;</span></a></li></ol></div>
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Zepto源码分析"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Zepto&#x6E90;&#x7801;&#x5206;&#x6790;" class="headerlink" title="Zepto&#x6E90;&#x7801;&#x5206;&#x6790;"></a>Zepto&#x6E90;&#x7801;&#x5206;&#x6790;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#个人收获"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x4E2A;&#x4EBA;&#x6536;&#x83B7;" class="headerlink" title="&#x4E2A;&#x4EBA;&#x6536;&#x83B7;"></a>&#x4E2A;&#x4EBA;&#x6536;&#x83B7;</span></a></li></ol></li></ol></div>
           
       </div>
     </section>
@@ -664,7 +668,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

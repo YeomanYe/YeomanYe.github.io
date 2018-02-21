@@ -1,0 +1,920 @@
+<!doctype html>    
+<html class="theme-next pisces use-motion" lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,源码分析," />
+
+
+
+
+
+  <link rel="alternate" href="/rss.xml" title="探险" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="underscore源码分析Underscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，前前后后总共100+个方法，但是没有扩展任何JavaScript内置对象。">
+<meta name="keywords" content="JavaScript,源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="underscore源码分析">
+<meta property="og:url" content="http://yeomanye.github.io/2018/01/28/underscore源码分析/index.html">
+<meta property="og:site_name" content="探险">
+<meta property="og:description" content="underscore源码分析Underscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，前前后后总共100+个方法，但是没有扩展任何JavaScript内置对象。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-14T14:54:10.907Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="underscore源码分析">
+<meta name="twitter:description" content="underscore源码分析Underscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，前前后后总共100+个方法，但是没有扩展任何JavaScript内置对象。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'K3DXI1HKAL',
+      apiKey: 'fcb6de21639aafce41d1b38f76b8d2d2',
+      indexName: 'YeomanYe_Blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"请输入关键词","hits_empty":"找不到包含 ${query} 的文章\"","hits_stats":"花了 ${time} ms，共找到 ${hits} 篇文章"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yeomanye.github.io/2018/01/28/underscore源码分析/"/>
+
+
+
+
+
+  <title> underscore源码分析 | 探险 </title>
+  <!-- canvas-nest背景 -->
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <!-- fork me 代码段 -->
+    <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">探险</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yeomanye.github.io/2018/01/28/underscore源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FWHeart">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="探险">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                underscore源码分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-28T00:00:00+08:00">
+                2018-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/源码分析/" itemprop="url" rel="index">
+                    <span itemprop="name">源码分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/01/28/underscore源码分析/" class="leancloud_visitors" data-flag-title="underscore源码分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  1,971
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="underscore源码分析"><a href="#underscore源码分析" class="headerlink" title="underscore源码分析"></a>underscore源码分析</h1><p>Underscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，前前后后总共100+个方法，但是没有扩展任何JavaScript内置对象。</p>
+<a id="more"></a>
+<p>underscore整体在一个闭包函数中，加载underscore类库时，执行代码自适应不同的JS环境。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="comment">//找出当前执行的环境的全局变量</span></span><br><span class="line"><span class="keyword">var</span> root = <span class="keyword">typeof</span> self == <span class="string">'object'</span> &amp;&amp; self.self === self &amp;&amp; self ||</span><br><span class="line">        <span class="keyword">typeof</span> global == <span class="string">'object'</span> &amp;&amp; global.global === global &amp;&amp; global ||</span><br><span class="line">        <span class="keyword">this</span> ||</span><br><span class="line">        &#123;&#125;;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">    &#125;())</span><br></pre></td></tr></table></figure>
+<p>仅供内部使用的函数都以驼峰命名法进行命名，供外部使用的函数都挂载在<code>_</code>上。当然能供外部使用的函数内部也有在使用。underscore主要有四个部分使用感到精彩，高内聚低耦合的内部方法、依据环境生成方法、特殊方法的实现、其他。</p>
+<h2 id="高内聚低耦合的内部方法"><a href="#高内聚低耦合的内部方法" class="headerlink" title="高内聚低耦合的内部方法"></a>高内聚低耦合的内部方法</h2><p>optimizeCb返回一个绑定了上下文的方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> optimizeCb = <span class="function"><span class="keyword">function</span>(<span class="params">func, context, argCount</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (context === <span class="keyword">void</span> <span class="number">0</span>) <span class="keyword">return</span> func;</span><br><span class="line">    <span class="keyword">switch</span> (argCount) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> func.call(context, value);</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="comment">//省略...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> func.apply(context, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+<p>cb 返回一个回调函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cb = <span class="function"><span class="keyword">function</span>(<span class="params">value, context, argCount</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 当外部自定义回调生成器时使用回调生成器，生成一个回调函数</span></span><br><span class="line">    <span class="keyword">if</span> (_.iteratee !== builtinIteratee) <span class="keyword">return</span> _.iteratee(value, context);</span><br><span class="line">    <span class="comment">// 返回一个默认的回调函数，该函数返回传入的第一个值</span></span><br><span class="line">    <span class="keyword">if</span> (value == <span class="literal">null</span>) <span class="keyword">return</span> _.identity;</span><br><span class="line">    <span class="comment">// 生成一个绑定上下文的函数</span></span><br><span class="line">    <span class="keyword">if</span> (_.isFunction(value)) <span class="keyword">return</span> optimizeCb(value, context, argCount);</span><br><span class="line">    <span class="comment">// 生成一个对象匹配器，随后可以使用数组、对象来判断是否匹配</span></span><br><span class="line">    <span class="keyword">if</span> (_.isObject(value) &amp;&amp; !_.isArray(value)) <span class="keyword">return</span> _.matcher(value);</span><br><span class="line">    <span class="comment">// 生成一个获取对象属性的函数</span></span><br><span class="line">    <span class="keyword">return</span> _.property(value);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>restArgs包装一个函数，将函数多余的参数包装为一个数组传递给最后一个参数，减少了每个函数中都是用arguments获取多余参数的麻烦<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> restArgs = <span class="function"><span class="keyword">function</span>(<span class="params">func, startIndex</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// func.length获取定义的形式参数个数</span></span><br><span class="line">  startIndex = startIndex == <span class="literal">null</span> ? func.length - <span class="number">1</span> : +startIndex;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> length = <span class="built_in">Math</span>.max(<span class="built_in">arguments</span>.length - startIndex, <span class="number">0</span>),</span><br><span class="line">        rest = <span class="built_in">Array</span>(length),</span><br><span class="line">        index = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 从命名的形式参数的最后一个开始到结尾的所有参数包装成一个数组参数</span></span><br><span class="line">    <span class="keyword">for</span> (; index &lt; length; index++) &#123;</span><br><span class="line">      rest[index] = <span class="built_in">arguments</span>[index + startIndex];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">switch</span> (startIndex) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0</span>: <span class="keyword">return</span> func.call(<span class="keyword">this</span>, rest);</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">return</span> func.call(<span class="keyword">this</span>, <span class="built_in">arguments</span>[<span class="number">0</span>], rest);</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>: <span class="keyword">return</span> func.call(<span class="keyword">this</span>, <span class="built_in">arguments</span>[<span class="number">0</span>], <span class="built_in">arguments</span>[<span class="number">1</span>], rest);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> args = <span class="built_in">Array</span>(startIndex + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; startIndex; index++) &#123;</span><br><span class="line">      args[index] = <span class="built_in">arguments</span>[index];</span><br><span class="line">    &#125;</span><br><span class="line">    args[startIndex] = rest;</span><br><span class="line">    <span class="keyword">return</span> func.apply(<span class="keyword">this</span>, args);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在对外函数中的使用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断元素是否全部满足</span></span><br><span class="line">_.every = _.all = <span class="function"><span class="keyword">function</span>(<span class="params">obj, predicate, context</span>) </span>&#123;</span><br><span class="line">    predicate = cb(predicate, context);</span><br><span class="line">    <span class="keyword">var</span> keys = !isArrayLike(obj) &amp;&amp; _.keys(obj),</span><br><span class="line">        length = (keys || obj).length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; length; index++) &#123;</span><br><span class="line">      <span class="keyword">var</span> currentKey = keys ? keys[index] : index;</span><br><span class="line">      <span class="keyword">if</span> (!predicate(obj[currentKey], currentKey, obj)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="comment">// 延迟函数执行</span></span><br><span class="line">_.delay = restArgs(<span class="function"><span class="keyword">function</span>(<span class="params">func, wait, args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> func.apply(<span class="literal">null</span>, args);</span><br><span class="line">    &#125;, wait);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="依据环境生成代码"><a href="#依据环境生成代码" class="headerlink" title="依据环境生成代码"></a>依据环境生成代码</h2><p>生成判断函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> _.each([<span class="string">'Arguments'</span>, <span class="string">'Function'</span>, <span class="string">'String'</span>, <span class="string">'Number'</span>, <span class="string">'Date'</span>, <span class="string">'RegExp'</span>, <span class="string">'Error'</span>, <span class="string">'Symbol'</span>, <span class="string">'Map'</span>, <span class="string">'WeakMap'</span>, <span class="string">'Set'</span>, <span class="string">'WeakSet'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    _[<span class="string">'is'</span> + name] = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> toString.call(obj) === <span class="string">'[object '</span> + name + <span class="string">']'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="comment">//测试判断函数是否有效，无效则用新方法代替</span></span><br><span class="line"><span class="keyword">if</span> (!_.isArguments(<span class="built_in">arguments</span>)) &#123;</span><br><span class="line">        _.isArguments = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> _.has(obj, <span class="string">'callee'</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> nodelist = root.document &amp;&amp; root.document.childNodes;</span><br><span class="line"><span class="comment">//浏览器特性监测，当前浏览器typeof，不将/./、NodeList视为函数,Int8Array视为对象，则可以使用typeof进行函数的判定</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> /./ != <span class="string">'function'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Int8Array</span> != <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> nodelist != <span class="string">'function'</span>) &#123;</span><br><span class="line">    _.isFunction = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">typeof</span> obj == <span class="string">'function'</span> || <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>生成链式函数调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成_对象,（只是将普通的对象包装为&#123;_wrapped:obj&#125;对象</span></span><br><span class="line"><span class="keyword">var</span> _ = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> _) <span class="keyword">return</span> obj;</span><br><span class="line">    <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> _)) <span class="keyword">return</span> <span class="keyword">new</span> _(obj);</span><br><span class="line">    <span class="keyword">this</span>._wrapped = obj;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="comment">// 开启链式调用</span></span><br><span class="line">_.chain = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> instance = _(obj);</span><br><span class="line">    instance._chain = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="comment">// 如果上个对象为链式调用，则继续使用链式调用（将对象包装为_对象，并继续使用链式调用）</span></span><br><span class="line"><span class="keyword">var</span> chainResult = <span class="function"><span class="keyword">function</span>(<span class="params">instance, obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> instance._chain ? _(obj).chain() : obj;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="comment">// 混成，使用外部的方法覆盖内部方法、原型方法</span></span><br><span class="line"><span class="comment">// 原型方法为，使用_对象作为第一个参数，并将结果进行链式包装</span></span><br><span class="line">_.mixin = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    _.each(_.functions(obj), <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> func = _[name] = obj[name];</span><br><span class="line">      _.prototype[name] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = [<span class="keyword">this</span>._wrapped];</span><br><span class="line">        push.apply(args, <span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">return</span> chainResult(<span class="keyword">this</span>, func.apply(_, args));</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> _;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="comment">// 生成原型方法</span></span><br><span class="line">_.mixin(_);</span><br></pre></td></tr></table></figure></p>
+<h2 id="特殊方法实现"><a href="#特殊方法实现" class="headerlink" title="特殊方法实现"></a>特殊方法实现</h2><p><em>.partial 顺序填充一些参数给函数，并返回预处理后的函数使用`</em>`作为占位符</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> executeBound = <span class="function"><span class="keyword">function</span>(<span class="params">sourceFunc, boundFunc, context, callingContext, args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!(callingContext <span class="keyword">instanceof</span> boundFunc)) <span class="keyword">return</span> sourceFunc.apply(context, args);</span><br><span class="line">    <span class="keyword">var</span> self = baseCreate(sourceFunc.prototype);</span><br><span class="line">    <span class="keyword">var</span> result = sourceFunc.apply(self, args);</span><br><span class="line">    <span class="keyword">if</span> (_.isObject(result)) <span class="keyword">return</span> result;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">  &#125;;</span><br><span class="line"><span class="comment">//根据预定义参数返回代理函数</span></span><br><span class="line">_.partial = restArgs(<span class="function"><span class="keyword">function</span>(<span class="params">func, boundArgs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> placeholder = _.partial.placeholder;</span><br><span class="line">    <span class="keyword">var</span> bound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> position = <span class="number">0</span>, length = boundArgs.length;</span><br><span class="line">      <span class="keyword">var</span> args = <span class="built_in">Array</span>(length);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="comment">//组装参数，如果预填充的参数为占位符，则使用调用时的参数来补齐。</span></span><br><span class="line">        args[i] = boundArgs[i] === placeholder ? <span class="built_in">arguments</span>[position++] : boundArgs[i];</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//添加剩余的参数</span></span><br><span class="line">      <span class="keyword">while</span> (position &lt; <span class="built_in">arguments</span>.length) args.push(<span class="built_in">arguments</span>[position++]);</span><br><span class="line">      <span class="comment">//执行原方法</span></span><br><span class="line">      <span class="keyword">return</span> executeBound(func, bound, <span class="keyword">this</span>, <span class="keyword">this</span>, args);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> bound;</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="comment">//占位符</span></span><br><span class="line">_.partial.placeholder = _;</span><br></pre></td></tr></table></figure>
+<p>_.throttle 节流函数返回一个函数，在一段时间之内只调用一次，用于处理像onresize这样会频繁触发的事件的处理函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">_.throttle = <span class="function"><span class="keyword">function</span>(<span class="params">func, wait, options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> timeout, context, args, result;</span><br><span class="line">    <span class="keyword">var</span> previous = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!options) options = &#123;&#125;;</span><br><span class="line">    <span class="comment">// 最后一次是否执行</span></span><br><span class="line">    <span class="keyword">var</span> later = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      previous = options.leading === <span class="literal">false</span> ? <span class="number">0</span> : _.now();</span><br><span class="line">      timeout = <span class="literal">null</span>;</span><br><span class="line">      result = func.apply(context, args);</span><br><span class="line">      <span class="keyword">if</span> (!timeout) context = args = <span class="literal">null</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> throttled = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> now = _.now();</span><br><span class="line">      <span class="comment">//leading参数表示是否是以调用函数的时间做时间间隔。</span></span><br><span class="line">      <span class="keyword">if</span> (!previous &amp;&amp; options.leading === <span class="literal">false</span>) previous = now;</span><br><span class="line">      <span class="keyword">var</span> remaining = wait - (now - previous);</span><br><span class="line">      context = <span class="keyword">this</span>;</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">      <span class="keyword">if</span> (remaining &lt;= <span class="number">0</span> || remaining &gt; wait) &#123;</span><br><span class="line">        <span class="keyword">if</span> (timeout) &#123;</span><br><span class="line">          clearTimeout(timeout);</span><br><span class="line">          timeout = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        previous = now;</span><br><span class="line">        result = func.apply(context, args);</span><br><span class="line">        <span class="keyword">if</span> (!timeout) context = args = <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">//trailing参数表示是否事件结束仍进行调用。</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!timeout &amp;&amp; options.trailing !== <span class="literal">false</span>) &#123;</span><br><span class="line">        timeout = setTimeout(later, remaining);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//取消节流函数</span></span><br><span class="line">    throttled.cancel = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      clearTimeout(timeout);</span><br><span class="line">      previous = <span class="number">0</span>;</span><br><span class="line">      timeout = context = args = <span class="literal">null</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> throttled;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+<p>_.debounced 消抖函数，连续触发的情况下只会执行一次，用于作为像onresize这样会频繁触发的事件的处理函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//wait延迟执行的时间，immediate是否立即执行</span></span><br><span class="line">_.debounce = <span class="function"><span class="keyword">function</span>(<span class="params">func, wait, immediate</span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> timeout, result;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> later = <span class="function"><span class="keyword">function</span>(<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">  timeout = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (args) result = func.apply(context, args);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> debounced = restArgs(<span class="function"><span class="keyword">function</span>(<span class="params">args</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//含有timeout，即连续调用，不执行</span></span><br><span class="line">  <span class="keyword">if</span> (timeout) clearTimeout(timeout);</span><br><span class="line">  <span class="keyword">if</span> (immediate) &#123;</span><br><span class="line">    <span class="keyword">var</span> callNow = !timeout;</span><br><span class="line">    timeout = setTimeout(later, wait);</span><br><span class="line">    <span class="comment">//有立即执行参数时，第一次调用马上执行。</span></span><br><span class="line">    <span class="keyword">if</span> (callNow) result = func.apply(<span class="keyword">this</span>, args);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    timeout = _.delay(later, wait, <span class="keyword">this</span>, args);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//取消执行函数</span></span><br><span class="line">debounced.cancel = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  clearTimeout(timeout);</span><br><span class="line">  timeout = <span class="literal">null</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> debounced;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>_.negate 生成一个返回布尔类型相反的函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_.negate = <span class="function"><span class="keyword">function</span>(<span class="params">predicate</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> !predicate.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>+0 不等于 -0的比较<br>if (a === b) return a !== 0 || 1 / a === 1 / b;</p>
+<p>NaN比较<br>typeof NaN == ‘number’ &amp;&amp; NaN != NaN</p>
+<p>Symbol相等的比较<br>Symbol.prototype.valueOf.call(a) === Symbol.prototype.valueOf.call(b)</p>
+<p>匹配所有文字<br><code>/[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;</code></p>
+<p>函数定义时定义的参数的个数<br>func.length</p>
+<p>去if,获得非undefined值的方式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(keys || obj).length;</span><br><span class="line"></span><br><span class="line">keys = !isArrayLike(obj) &amp;&amp; _.keys(obj);</span><br></pre></td></tr></table></figure></p>
+<p>根据dir的值，进行正反方向的迭代<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index = dir &gt; <span class="number">0</span> ? <span class="number">0</span> : length - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (; index &gt;= <span class="number">0</span> &amp;&amp; index &lt; length; index += dir) &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.png" alt="FWHeart WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.png" alt="FWHeart Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/源码分析/" rel="tag"># 源码分析</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/17/zepto源码分析/" rel="next" title="zepto源码分析">
+                <i class="fa fa-chevron-left"></i> zepto源码分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+ 
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+         
+  
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+     
+    <ul class="sidebar-nav motion-element">
+      <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+        Table of Contents
+      </li>
+      <li class="sidebar-nav-overview" data-target="site-overview">
+        Overview
+      </li>
+    </ul>
+    
+    <section class="site-overview sidebar-panel">
+      <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <img class="site-author-image" itemprop="image" src="/images/avater.jpg" alt="FWHeart" />
+        <p class="site-author-name" itemprop="name">FWHeart</p>
+        
+        <p class="site-description motion-element" itemprop="description"></p>
+        
+      </div>
+      <nav class="site-state motion-element">
+        
+        <div class="site-state-item site-state-posts">
+          <a href="/archives">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-categories">
+          <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+        </div>
+           
+        <div class="site-state-item site-state-tags">
+          <a href="/tags/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+        </div>
+        
+      </nav>
+
+      <!-- 网易云音乐外链 Aphrodite -->
+      <div id="music-player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=819664&auto=0&height=66"></iframe>
+      </div>
+
+      
+      <div class="feed-link motion-element">
+        <a href="/rss.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+      </div>
+      
+      <div class="links-of-author motion-element">
+         
+        <span class="links-of-author-item">
+                <a href="https://github.com/YeomanYe" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>  
+      </div>
+          
+
+    </section>
+    
+    <!--noindex-->
+    <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+      <div class="post-toc">
+           
+          <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#underscore源码分析"><span class="nav-number">1.</span> <span class="nav-text"><a href="#underscore&#x6E90;&#x7801;&#x5206;&#x6790;" class="headerlink" title="underscore&#x6E90;&#x7801;&#x5206;&#x6790;"></a>underscore&#x6E90;&#x7801;&#x5206;&#x6790;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#高内聚低耦合的内部方法"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x9AD8;&#x5185;&#x805A;&#x4F4E;&#x8026;&#x5408;&#x7684;&#x5185;&#x90E8;&#x65B9;&#x6CD5;" class="headerlink" title="&#x9AD8;&#x5185;&#x805A;&#x4F4E;&#x8026;&#x5408;&#x7684;&#x5185;&#x90E8;&#x65B9;&#x6CD5;"></a>&#x9AD8;&#x5185;&#x805A;&#x4F4E;&#x8026;&#x5408;&#x7684;&#x5185;&#x90E8;&#x65B9;&#x6CD5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依据环境生成代码"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x4F9D;&#x636E;&#x73AF;&#x5883;&#x751F;&#x6210;&#x4EE3;&#x7801;" class="headerlink" title="&#x4F9D;&#x636E;&#x73AF;&#x5883;&#x751F;&#x6210;&#x4EE3;&#x7801;"></a>&#x4F9D;&#x636E;&#x73AF;&#x5883;&#x751F;&#x6210;&#x4EE3;&#x7801;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊方法实现"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x7279;&#x6B8A;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;" class="headerlink" title="&#x7279;&#x6B8A;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;"></a>&#x7279;&#x6B8A;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">1.3.1.</span> <span class="nav-text"><a href="#&#x5176;&#x4ED6;" class="headerlink" title="&#x5176;&#x4ED6;"></a>&#x5176;&#x4ED6;</span></a></li></ol></li></ol></li></ol></div>
+          
+      </div>
+    </section>
+    <!--/noindex-->
+     
+  </div>
+
+</aside>
+
+ 
+      </div>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FWHeart</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+ 
+ 
+      </div>
+    </footer>
+    
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i> 
+    </div>
+    
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+ 
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+ 
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+ 
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+ 
+ 
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("kVaL3zr24BY1CS1rdySN2w20-gzGzoHsz", "VyTG1aT3BiWNfzrdaidJw6YY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+ 
+ 
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+ 
+</body>
+
+</html>

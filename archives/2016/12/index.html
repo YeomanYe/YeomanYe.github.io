@@ -66,7 +66,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,18 +84,13 @@
 
 
 
-<meta name="description" content="JS中的隐含参数介绍JS的隐含参数callee、callee、arguments的含义，并通过实验证明。">
-<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="website">
-<meta property="og:title" content="JS中的隐含参数">
-<meta property="og:url" content="http://yeomanye.github.io/draft/JS的隐含参数.html">
+<meta property="og:title" content="探险">
+<meta property="og:url" content="http://yeomanye.github.io/archives/2016/12/index.html">
 <meta property="og:site_name" content="探险">
-<meta property="og:description" content="JS中的隐含参数介绍JS的隐含参数callee、callee、arguments的含义，并通过实验证明。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-09T15:40:31.501Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS中的隐含参数">
-<meta name="twitter:description" content="JS中的隐含参数介绍JS的隐含参数callee、callee、arguments的含义，并通过实验证明。">
+<meta name="twitter:title" content="探险">
 
 
 
@@ -123,19 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yeomanye.github.io/draft/JS的隐含参数.html"/>
+  <link rel="canonical" href="http://yeomanye.github.io/archives/2016/12/"/>
 
 
 
 
 
-  <title>
-  
-
-  
-    JS中的隐含参数 | 探险
-  
-</title>
+  <title> Archive | 探险 </title>
   <!-- canvas-nest背景 -->
   
   <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
@@ -157,7 +146,7 @@
 
 
     
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left  page-archive  ">
     <div class="headband"></div>
     <!-- fork me 代码段 -->
     <a target="_blank" href="https://github.com/YeomanYe"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 999" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
@@ -289,40 +278,71 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-  <header class="post-header">
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-	<h1 class="post-title" itemprop="name headline">JS中的隐含参数</h1>
-
-
-
-</header>
-
-    
-    
-      <h1 id="JS中的隐含参数"><a href="#JS中的隐含参数" class="headerlink" title="JS中的隐含参数"></a>JS中的隐含参数</h1><p>介绍JS的隐含参数callee、callee、arguments的含义，并通过实验证明。</p>
-<a id="more"></a>
-<h2 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h2><p>caller是函数的属性，代表调用当前函数的函数的引用。如果在全局作用域中调用，它的值为null。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (func.caller) &#123;</span><br><span class="line">         <span class="keyword">var</span> a= func.caller.toString();</span><br><span class="line">         <span class="built_in">console</span>.log(a);</span><br><span class="line">         <span class="built_in">console</span>.log(func.caller === callerFunc);</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">"this is not caller"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callerFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     func();</span><br><span class="line">     <span class="keyword">if</span> (callerFunc.caller) &#123;</span><br><span class="line">         <span class="keyword">var</span> a= callerFunc.caller.toString();</span><br><span class="line">         <span class="built_in">console</span>.log(a);</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">"this is not caller"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line">callerFunc();</span><br><span class="line"><span class="comment">//输出为：</span></span><br><span class="line"><span class="comment">//function ...</span></span><br><span class="line"><span class="comment">//true</span></span><br><span class="line"><span class="comment">//this is not caller</span></span><br></pre></td></tr></table></figure>
-<p>看到输出结果：<br>第一个为函数的字符串表示(chrome的控制台似乎是输出函数的字符串表示)<br>第二个为true，表明caller是等于它的调用函数<br>第三个为this is not caller，表明最外层调用函数时不存在caller</p>
-<h2 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h2><p>callee是arguments的属性，代表当前正在执行的函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (<span class="built_in">arguments</span>.callee) &#123;</span><br><span class="line">         <span class="keyword">var</span> a= <span class="built_in">arguments</span>.callee.toString();</span><br><span class="line">         <span class="built_in">console</span>.log(a);</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="built_in">arguments</span>.callee === func);</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">"this is not callee"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     func();</span><br><span class="line">     <span class="keyword">if</span> (<span class="built_in">arguments</span>.callee) &#123;</span><br><span class="line">         <span class="keyword">var</span> a= <span class="built_in">arguments</span>.callee.toString();</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="built_in">arguments</span>.callee === Func)</span><br><span class="line">         <span class="built_in">console</span>.log(a);</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">"this is not callee"</span>);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line">Func();</span><br><span class="line"><span class="comment">//结果为:</span></span><br><span class="line"><span class="comment">//function ...</span></span><br><span class="line"><span class="comment">//true</span></span><br><span class="line"><span class="comment">//true</span></span><br><span class="line"><span class="comment">//function ...</span></span><br></pre></td></tr></table></figure>
-<p>从输出结果可以看到无论调用在不在最外层arguments的callee属性都存在，且都等价于该函数本身</p>
-<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><p>arguments是一个类数组对象不是一个数组实例；arguments和命名参数共用同一块内存空间<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">argumentsTest</span>(<span class="params">arg1,arg2</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"arguments instanceof Array?"</span>,<span class="built_in">arguments</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"arguments instanceof Object?"</span>,<span class="built_in">arguments</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"arguments[0] === arg1?"</span>, arg1 === <span class="built_in">arguments</span>[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br><span class="line">argumentsTest(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line"><span class="comment">//输出结果为：</span></span><br><span class="line"><span class="comment">//arguments instanceof Array? false</span></span><br><span class="line"><span class="comment">//arguments instanceof Object? true</span></span><br><span class="line"><span class="comment">//arguments[0] === arg1? true</span></span><br></pre></td></tr></table></figure></p>
-<p>显然arguments是个类数组，并且各个位置的值等价于同名变量。</p>
+    <span class="archive-page-counter">
+      
+      
+       
+      
+      OK! 39 posts in total. Keep on posting.
+    </span>
 
     
-  </div>
+
+      
+      
+      
+
+      
+        
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+        </div>
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2016/12/30/2016年终总结与未来展望/" itemprop="url">
+              
+                <span itemprop="name">2016年终总结与未来展望</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-12-30T00:00:00+08:00"
+              content="2016-12-30" >
+          12-30
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+    
+
+  </section>
+
+  
+
 
 
           </div>
           
 
  
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
          
@@ -349,21 +369,21 @@
         
         <div class="site-state-item site-state-posts">
           <a href="/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">posts</span>
               </a>
         </div>
            
         <div class="site-state-item site-state-categories">
           <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
         </div>
            
         <div class="site-state-item site-state-tags">
           <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">tags</span>
               </a>
         </div>
@@ -410,7 +430,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -497,7 +517,13 @@
 
   <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
 
+ 
   
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
+ 
 
 
   <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
