@@ -69,8 +69,8 @@ algolia:
   chunkSize: 5000
 
 feed:
-  type: rss
-  path: rss.xml
+  type: rss2
+  path: rss2.xml
   limit: 5
   hub:
   content: 'true'
