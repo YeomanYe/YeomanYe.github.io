@@ -310,7 +310,11 @@ mathjax:
 
 # Support for changyan comments system.
 # You can get your uid from http://changyan.kuaizhan.com/
-changyan_uid: 2145309
+# changyan_uid: 2145309
+changyan:
+  enabled: true
+  appid: cytAv4tGc
+  appkey: 4accc174b77bd6847cdc35819b651660
 
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)
@@ -352,10 +356,10 @@ changyan_uid: 2145309
 # Make duoshuo show UA
 # user_id must NOT be null when admin_enable is true!
 # you can visit http://dev.duoshuo.com get duoshuo user id.
-duoshuo_info:
-  ua_enable: true
-  admin_enable: false
-  user_id: 0
+# duoshuo_info:
+#   ua_enable: true
+#   admin_enable: false
+#   user_id: 0
   #admin_nickname: Author
 
 
