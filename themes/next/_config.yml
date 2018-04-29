@@ -6,7 +6,7 @@
 favicon: /images/favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "Hexo, NexT"
+keywords: "Blog, NexT,FE"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -311,14 +311,14 @@ mathjax:
 # Support for changyan comments system.
 # You can get your uid from http://changyan.kuaizhan.com/
 # changyan_uid: 2145309
-changyan:
-  enable: true
-  appid: cytAv4tGc
-  appkey: 4accc174b77bd6847cdc35819b651660
+# changyan:
+#   enabled: true
+#   appid: cytAv4tGc
+#   appkey: 4accc174b77bd6847cdc35819b651660
 
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-# livere_uid: MTAyMC8zMTAwOC83NTU3
+livere_uid: MTAyMC8zMTAwOC83NTU3
 
 # Baidu Share
 # Available value:
