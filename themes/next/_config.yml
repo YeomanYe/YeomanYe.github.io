@@ -312,7 +312,7 @@ mathjax:
 # You can get your uid from http://changyan.kuaizhan.com/
 # changyan_uid: 2145309
 changyan:
-  enabled: true
+  enable: true
   appid: cytAv4tGc
   appkey: 4accc174b77bd6847cdc35819b651660
 
