@@ -9,7 +9,7 @@ categories:
     - 源码分析
 ---
 # underscore源码分析
-Underscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，前前后后总共100+个方法，但是没有扩展任何JavaScript内置对象。
+Underscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，前前后后总共100+个方法，但是没有扩展任何JavaScript内置对象。低耦合以及实用性、很适合用于学习分析。
 
 <!-- more -->
 
