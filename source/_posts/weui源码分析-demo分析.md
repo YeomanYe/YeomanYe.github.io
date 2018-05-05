@@ -1,14 +1,14 @@
-title: WeUI源码分析
+title: WeUI源码分析-demo分析
 tags:
     - 源码分析
     - JavaScript
 comments: true
 date: 2018-05-02
-brief: WeUI源码分析
+brief: WeUI源码分析-demo分析
 categories:
     - 源码分析
 ---
-# WeUI源码分析
+# WeUI源码分析-demo分析
 
 WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信 Web 开发量身设计，可以令用户的使用感知更加统一。WeUI是一套比较出众的移动端UI框架，我对比过许多同类框架，发现WeUI的star(18k)以及fork(5k)数量算是最高的。
 
@@ -18,12 +18,12 @@ WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官
 - [Mint UI](https://github.com/ElemeFE/mint-ui/):star(10.7k) fork(2.2k)
 - [Pure.css](https://github.com/pure-css/pure):star(18.5k) fork(2k)
 
+WeUI不仅仅框架本身出众，demo中页面的组织、页面组件化的方式也很值得人学习。本篇将讲解WeUI中值得人学习的部分，包括：页面组织、兼容性处理、性能优化。
+
 <!-- more -->
 
-WeUI不仅仅框架本身出众，demo中页面的组织、页面组件化的方式也很值得人学习。
 
-## Demo分析
-### html组件化
+## html组件化
 第一个很值得学习的点是页面的组件化
 
 demo中将页面拆分成不同的组件，然后使用如下的标签进行引入
@@ -72,7 +72,7 @@ gulp.task('build:example:html', function() {
 
 可以看到`<link rel="import"/>`被替换成了`<script type="text/html">`。浏览器不会解析该标签，因此可以使用该标签作为内容的模板。不过想读取模板的内容就必须获取标签的innerHTML了。其中tap模块就起到了处理文件中内容的功能，path模块处理一些路径参数。
 
-### history.state与hash组织整个网站
+## history.state与hash组织整个网站
 另外一个很值得学习的点是使用history.state与hash组织整个网站
 
 demo中将所有的页面作为模板(使用`<script type="text/html">`)加载到一个文档中，如果打开下一个文档。加载对应的html模板内容覆盖到当前页面上(通过如下的样式)
@@ -90,6 +90,8 @@ demo中将所有的页面作为模板(使用`<script type="text/html">`)加载�
 具体的实现方式是通过监听页面的hash值，如果hash值改变了，则进行相应的页面跳转。具体逻辑就是根据监听收到的hash值获取对应的模板，将模板添加到文档中即可。
 
 这里有几个细节，如何当成真正的当成点击触发页面的效果。使浏览器中保存这条历史记录。作者使用的是state属性和replaceState方法。replaceState会要替换的state为空时新建一个state，在有state的情况下，则会替换掉state。
+
+在老版本中是使用pushState和onpopstate的组合，改成replaceState的方式估计是为了节约资源。
 
 ```js
 history.replaceState(stateObj,desc,href);
@@ -146,7 +148,7 @@ pageManager = {
 
 不得不说这种方式很适合小型站点的搭建。
 
-### 其他
+## 其他
 除了以上这两个重要的点之外，demo中还值得借鉴的部分有
 
 预加载图片，减少后面加载时间
@@ -219,3 +221,5 @@ $.fn.on = function(){
     return this;
 };
 ```
+
+使用animationend webkitAnimationEnd监听animation结束事件
