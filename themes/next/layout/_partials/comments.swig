@@ -26,10 +26,10 @@
       <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
     {% elseif theme.youyan_uid %}
       <div id="uyan_frame"></div>
-    {% elseif theme.changyan_appid and theme.changyan_appkey %}
-      <div id="SOHUCS" ></div>
     {% elseif theme.livere_uid %}
       <div id="lv-container" data-id="city" data-uid="{{ theme.livere_uid }}"></div>
+    {% elseif theme.changyan_appid and theme.changyan_appkey %}
+      <div id="SOHUCS" ></div>
     {% endif %}
   </div>
 {% endif %}
