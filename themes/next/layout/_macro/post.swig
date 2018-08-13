@@ -160,6 +160,7 @@
                     <span id = "url::{{ post.permalink }}" class = "cy_cmt_count" data-xid="{{ post.path }}" itemprop="commentsCount" ></span>
                     </a>
                 {% endif %}
+              </span>
             {% elseif theme.hypercomments_id %}
             <!--noindex-->
               <span class="post-comments-count">
