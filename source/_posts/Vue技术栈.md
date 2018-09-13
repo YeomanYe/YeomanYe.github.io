@@ -19,6 +19,13 @@ Vue主要作用有两个：
 - 一作为MVVM框架，将UI和数据进行绑定实现响应式的更新，减少前端开发的UI更新渲染逻辑，
 - 二将UI进行组件化分割便于复用与操作。
 
+### Vue安装
+Vue安装主要有三种方式：
+
+1. 使用script标签引入（使用这种方式，就无法使用es6的模块化了）
+2. 使用包管理工具`yarn add vue`或`npm install vue`
+3. 使用命令行工具必须先安装命令行工具 `npm install -g @vue/cli` 或 `yarn global add @vue/cli`，然后使用`vue create vue-project`来初始化项目。使用脚手架比起包管理工具直接安装区别在于，脚手架集成了热重载、保存时lint校验、vue-loader插件等
+
 ### 数据绑定
 - 使用vue的指令绑定表单、事件、属性、文本、标签等。如：v-show、v-text、v-html、v-bind(别名`:`)、v-on(别名`@`)
 
