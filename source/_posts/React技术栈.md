@@ -364,6 +364,8 @@ const store = createStore(
 );
 ```
 
+示例：[TodoMVC](https://github.com/YeomanYe/todomvc-example)
+
 ## React Router v4
 react router作为react的路由，已经成为react技术栈的标准。v4版的react-router被拆分成了四个包，react-router、react-router-dom、react-router-native、react-router-config。
 - react-router:核心包一般不直接使用，而是在特定的环境下使用它封装好的包。
