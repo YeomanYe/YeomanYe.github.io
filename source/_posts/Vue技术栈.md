@@ -590,6 +590,6 @@ const router = new VueRouter({
 ## 参考文献:
 [Vue官方教程](https://cn.vuejs.org/v2/guide/computed.html#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E7%BC%93%E5%AD%98-vs-%E6%96%B9%E6%B3%95)
 [Vue API](https://cn.vuejs.org/v2/api/)
-[Vue2技术归纳与精粹](https://blog.csdn.net/sinat_17775997/article/details/78913968#Vue-directive-id-definition)
+[Vue2技术归纳与精粹](https://zhuanlan.zhihu.com/p/31161485#h5o-14)
 [Vuex文档](https://vuex.vuejs.org/zh/guide/)
 [Vue Router](https://router.vuejs.org/zh/)
