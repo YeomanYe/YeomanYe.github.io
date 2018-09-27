@@ -469,6 +469,9 @@ namespace Color {
 }
 ```
 
+## Demo
+[vue+vuex+router+ts](https://github.com/YeomanYe/heroeditor-example)
+
 ## 参考文献
 [TypeScript手册](https://www.tslang.cn/docs/handbook/basic-types.html)
 [TypeScript简介及编码规范](https://semlinker.com/ts-intro-and-guide/#%E5%8F%AF%E9%80%89-%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7)
