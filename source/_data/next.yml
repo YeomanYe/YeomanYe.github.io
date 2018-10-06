@@ -97,6 +97,7 @@ live2d:
     height: 200
     hOffset: 0
     vOffset: -20
+    opacity: 1
   mobile:
     show: true
 # Deployment
@@ -690,7 +691,7 @@ firestore:
 # Show PV/UV of the website/page with busuanzi.
 # Get more information on http://ibruce.info/2015/04/04/busuanzi/
 busuanzi_count:
-  enable: false
+  enable: true
   total_visitors: true
   total_visitors_icon: user
   total_views: true
