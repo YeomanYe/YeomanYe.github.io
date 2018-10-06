@@ -27,7 +27,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
+skip_render: README.md
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -80,6 +80,23 @@ feed:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next6
+# live2d
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  log: false
+  model:
+    use: live2d-widget-model-koharu
+  display:
+    position: right
+    width: 150
+    height: 300
+  mobile:
+    show: true
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
@@ -151,13 +168,13 @@ footer:
   copyright:
   # -------------------------------------------------------------
   # Hexo link (Powered by Hexo).
-  powered: true
+  powered: false
 
   theme:
     # Theme & scheme info link (Theme - NexT.scheme).
-    enable: true
+    enable: false
     # Version info of NexT after scheme info (vX.X.X).
-    version: true
+    version: false
   # -------------------------------------------------------------
   # Any custom text can be defined here.
   #custom_text: Hosted by <a target="_blank" href="https://pages.github.com">GitHub Pages</a>
@@ -239,6 +256,8 @@ social_icons:
   enable: true
   # Icon Mappings.
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
+
+github_banner: https://github.com/YeomanYe || Follow me on GitHub
 
 # Blog rolls
 links_icon: link
@@ -337,12 +356,12 @@ post_meta:
 
 # Post wordcount display settings
 # Dependencies: https://github.com/willin/hexo-wordcount
-post_wordcount:
-  item_text: true
-  wordcount: false
-  min2read: false
-  totalcount: false
+symbols_count_time:
   separated_meta: true
+  item_text_post: true
+  item_text_total: true
+  awl: 4
+  wpm: 275
 
 # Wechat Subscriber
 #wechat_subscriber:
@@ -388,7 +407,15 @@ custom_logo:
 # https://github.com/chriskempson/tomorrow-theme
 highlight_theme: normal
 
-
+codeblock:
+  # Manual define the border radius in codeblock
+  # Leave it empty for the default 1
+  border_radius:
+  # Add copy button on codeblock
+  copy_button:
+    enable: true
+    # Show text copy result
+    show_result: true
 # ---------------------------------------------------------------
 # Font Settings
 # - Find fonts on Google Fonts (https://www.google.com/fonts)
@@ -527,14 +554,14 @@ gitment:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-#baidushare:
-##  type: button
+baidushare:
+ type: slide
 
 # Share
 # This plugin is more useful in China, make sure you known how to use it.
 # And you can find the use guide at official webiste: http://www.jiathis.com/.
 # Warning: JiaThis does not support https.
-#jiathis:
+# jiathis: true
   ##uid: Get this uid from http://www.jiathis.com/
 #add_this_id:
 
@@ -784,7 +811,7 @@ motion:
 fancybox: true
 
 # Progress bar in the top during page loading.
-pace: false
+pace: true
 # Themes list:
 #pace-theme-big-counter
 #pace-theme-bounce
@@ -883,7 +910,7 @@ vendors:
 
   # Internal version: 1.0.0
   # https://github.com/hustcc/canvas-nest.js
-  canvas_nest:
+  canvas_nest: http://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js
 
   # three
   three:
