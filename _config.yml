@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 探险
+title: FWHeart's Blog
 subtitle:
 description:
 author: FWHeart
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -66,7 +66,7 @@ algolia:
   applicationID: "K3DXI1HKAL"
   apiKey: "fcb6de21639aafce41d1b38f76b8d2d2"
   adminApiKey: "b5f3069f99e3cbb433985af1a657e5b4"
-  indexName: "YeomanYe_Blog"
+  indexName: "FWHeart_Blog"
   chunkSize: 5000
 
 feed:
@@ -79,7 +79,7 @@ feed:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-next
+theme: next6
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:

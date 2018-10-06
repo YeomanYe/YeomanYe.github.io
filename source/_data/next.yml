@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 探险
+title: FWHeart's Blog
 subtitle:
 description:
 author: FWHeart
-language: en
+language: zh-CN
 timezone:
 
 # URL
@@ -209,9 +209,9 @@ menu_icons:
 
 # Schemes
 # scheme: Muse
-#scheme: Mist
+scheme: Mist
 # scheme: Pisces
-scheme: Gemini
+# scheme: Gemini
 
 
 # ---------------------------------------------------------------
@@ -253,7 +253,18 @@ links:
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
 # in site  directory(source/uploads): /uploads/avatar.gif
-avatar: /images/avater.jpg
+avatar:
+  # in theme directory(source/images): /images/avatar.gif
+  # in site  directory(source/uploads): /uploads/avatar.gif
+  # You can also use other linking images.
+  url: /images/avater.jpg
+  # If true, the avatar would be dispalyed in circle.
+  rounded: true
+  # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
+  opacity: 1
+  # If true, the avatar would be rotated with the cursor.
+  rotated: true
+# avatar: /images/avater.jpg
 
 # Table Of Contents in the Sidebar
 toc:
@@ -793,10 +804,10 @@ pace: false
 pace_theme: pace-theme-minimal
 
 # Canvas-nest
-canvas_nest: false
+canvas_nest: true
 
 # three_waves
-three_waves: false
+three_waves: true
 
 # canvas_lines
 canvas_lines: false
