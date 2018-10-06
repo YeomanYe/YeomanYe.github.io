@@ -100,6 +100,9 @@ live2d:
     opacity: 1
   mobile:
     show: true
+  react:
+    opacityDefault: 1
+    opacityOnHover: 1
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
