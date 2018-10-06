@@ -4,6 +4,7 @@ tags:
 comments: true
 brief: JavaScript的编译器Babel
 date: 2018-01-05
+password: 123456
 categories:
     - 前端
 ---

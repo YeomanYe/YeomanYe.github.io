@@ -5,7 +5,7 @@ tags:
 comments: true
 brief: Vue技术栈
 date: 2018-09-12
-password: 123456
+copyright: true
 categories:
     - 前端框架
 ---
