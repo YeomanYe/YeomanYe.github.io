@@ -99,7 +99,7 @@ live2d:
     vOffset: -20
     opacity: 1
   mobile:
-    show: true
+    show: false
   react:
     opacityDefault: 1
     opacityOnHover: 1
@@ -565,7 +565,7 @@ gitment:
 #    button | slide
 # Warning: Baidu Share does not support https.
 baidushare:
- type: slide
+ type: button
 
 # Share
 # This plugin is more useful in China, make sure you known how to use it.
@@ -669,8 +669,8 @@ vkontakte_api:
 # Star rating support to each article.
 # To get your ID visit https://widgetpack.com
 rating:
-  enable: false
-  id:     #<app_id>
+  enable: true
+  id:     14252
   color:  fc6423
 # ---------------------------------------------------------------
 
@@ -699,7 +699,7 @@ busuanzi_count:
   total_visitors_icon: user
   total_views: true
   total_views_icon: eye
-  post_views: true
+  post_views: false
   post_views_icon: eye
 
 
