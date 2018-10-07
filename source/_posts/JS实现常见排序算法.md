@@ -1,12 +1,11 @@
 title: JS实现常见排序算法
 tags:
     - JavaScript
-    - 前端框架
 comments: true
 brief: JS实现常见排序算法
 date: 2018-08-05
 categories:
-    - 前端框架
+    - JavaScript
 ---
 # JS实现常见排序算法
 常见的排序算法有：冒泡排序、选择排序、插入排序、归并排序、快速排序、希尔排序、堆排序。下面我们使用js来一一实现它们。
