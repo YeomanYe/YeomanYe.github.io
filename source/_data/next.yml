@@ -79,7 +79,7 @@ feed:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next6
+theme: hexo-theme-next
 # live2d
 live2d:
   enable: true
