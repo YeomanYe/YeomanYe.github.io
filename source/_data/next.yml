@@ -90,7 +90,7 @@ live2d:
   tagMode: false
   log: false
   model:
-    use: kesshouban_v2
+    use: live2d-widget-model-koharu
   display:
     position: left
     width: 100
