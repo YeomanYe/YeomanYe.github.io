@@ -319,9 +319,7 @@ export default {
 
 详情见:[通过dva-cli创建项目](https://dvajs.com/knowledgemap/#%E9%80%9A%E8%BF%87-dva-cli-%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
 
-其实两种方式都是在umi工程的基础上配以开启dva支持的插件`umi-plugin-react`或`umi-plugin-dva`
-
-集成dva的插件中默认带有`dva-loading`和`dva-immer`如果还需要其他插件，可以通过在`src/app.js`中编写配置，编写的配置会被合与默认配置进行合并。示例如下:
+其实两种方式都是在umi工程的基础上配以开启dva支持的插件`umi-plugin-react`或`umi-plugin-dva`。dva与umi集成后，dva初始化项目的五个步骤都不需要了，umi集成后自动带上了`dva-loading`和`dva-immer`如果还需要其他插件，可以通过在`src/app.js`中编写配置，编写的配置会被合与默认配置进行合并。示例如下:
 
 ```js
 export const dva = {
