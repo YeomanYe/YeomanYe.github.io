@@ -1,1 +1,0 @@
-hexo algolia && hexo clean && hexo d --config source/_data/next.yml && git add * && git commit -m "update" && git push
