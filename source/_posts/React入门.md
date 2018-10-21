@@ -6,7 +6,7 @@ comments: true
 brief: React入门概览
 date: 2017-06-30
 categories:
-    - 前端框架
+    - 前端
 ---
 # React入门
 本文介绍React的相关概念，使用方式。目的是使读者对React有一个大致的了解，以便于能够更加深入的学习、快速上手React。学习React要掌握其中的几个重要的概念JSX、元素（事件处理）、组件（props、state、ref、受控组件、生命周期）。

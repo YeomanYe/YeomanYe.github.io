@@ -6,7 +6,7 @@ comments: true
 brief: React技术栈
 date: 2018-07-15
 categories:
-    - 前端框架
+    - 前端
 ---
 # React技术栈
 React是facebook开源的一套用于构建用户界面的高效且灵活的前端框架。然而仅仅使用react，只能够做到页面UI的组件化，数据单向流动，UI随数据响应式变化。单单只使用react会造成多层级组件间数据交互的困难，以及组件状态维护的麻烦。因此出现了许多工具来帮助管理、维护react的状态，如：reflux、mobx、redux等。有了这两个工具后，就能很好的管理view与data的逻辑。一般react开发者还会添加react-router，来更好的处理view与路径的关系。

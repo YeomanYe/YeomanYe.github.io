@@ -1,11 +1,11 @@
 title: Web Component初体验
 tags:
-    - 前端框架
+    - 前端
 comments: true
 brief: Web Component初体验
 date: 2018-10-10
 categories:
-    - 前端框架
+    - 前端
 ---
 # Web Component初体验
 Web Components是w3c推出的关于组件化的一个标准，目的是希望它能将组件化更好的带进web开发，同时尽量保证标准规范，使得开发者可以更好的关注于开发。

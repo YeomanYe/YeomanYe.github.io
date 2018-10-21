@@ -6,7 +6,7 @@ comments: true
 brief: Angular入门概览
 date: 2017-06-24
 categories:
-    - 前端框架
+    - 前端
 ---
 # Angular2入门
 Angular 是一个用 HTML 和 JavaScript 或者一个可以编译成 JavaScript 的语言（例如 Dart 或者 TypeScript ），来构建客户端应用的框架。
