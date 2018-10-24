@@ -66,7 +66,7 @@ algolia:
   applicationID: "K3DXI1HKAL"
   apiKey: "fcb6de21639aafce41d1b38f76b8d2d2"
   adminApiKey: "b5f3069f99e3cbb433985af1a657e5b4"
-  indexName: "YeomanYe_Blog"
+  indexName: "FWHeart_Blog"
   chunkSize: 5000
 
 feed:
@@ -202,7 +202,7 @@ seo: false
 index_with_subtitle: false
 
 
-# daovoice 
+# daovoice
 daovoice: true
 daovoice_app_id: d71e8ee1
 
@@ -731,6 +731,8 @@ calendar:
   maxResults: 250
 
 # Algolia Search
+# See: https://github.com/theme-next/hexo-theme-next/blob/master/docs/ALGOLIA-SEARCH.md
+# Dependencies: https://github.com/theme-next/theme-next-algolia-instant-search
 algolia_search:
   enable: true
   hits:
@@ -811,7 +813,7 @@ motion:
     sidebar: slideUpIn
 
 # Fancybox
-fancybox: true
+fancybox: false
 
 # Progress bar in the top during page loading.
 pace: true
@@ -900,8 +902,8 @@ vendors:
 
   # Internal version: 1
   # https://www.algolia.com
-  algolia_instant_js:
-  algolia_instant_css:
+  algolia_instant_js: https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js
+  algolia_instant_css: https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css
 
   # Internal version: 1.0.2
   # See: https://github.com/HubSpot/pace
