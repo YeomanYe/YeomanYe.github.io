@@ -90,13 +90,13 @@ live2d:
   tagMode: false
   log: false
   model:
-    use: live2d-widget-model-koharu
+    use: kesshouban_v2
   display:
     position: left
-    width: 100
-    height: 200
-    hOffset: 0
-    vOffset: -20
+    width: 150
+    height: 300
+    hOffset: -40
+    vOffset: -120
     opacity: 1
   mobile:
     show: false
