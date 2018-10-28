@@ -90,7 +90,7 @@ live2d:
   tagMode: false
   log: false
   model:
-    use: kesshouban_v2
+    use: kesshouban_v1
   display:
     position: left
     width: 150
