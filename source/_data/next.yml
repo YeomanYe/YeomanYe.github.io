@@ -313,8 +313,8 @@ toc:
 
 sidebar:
   # Sidebar Position, available value: left | right (only for Pisces | Gemini).
+  # position: left
   position: left
-  #position: right
 
   # Sidebar Display, available value (only for Muse | Mist):
   #  - post    expand on posts automatically. Default.
@@ -336,7 +336,7 @@ sidebar:
   scrollpercent: false
 
   # Enable sidebar on narrow view (only for Muse | Mist).
-  onmobile: false
+  onmobile: true
 
 # ---------------------------------------------------------------
 # Post Settings
@@ -519,7 +519,13 @@ changyan:
   appid: cytAv4tGc
   appkey: 4accc174b77bd6847cdc35819b651660
 
-
+bookmark:
+  enable: true
+  # if auto
+  #   - save the reading position when closing the page
+  #   - or clicking the bookmark-icon
+  # if manual, only save it by clicking the bookmark-icon
+  save: auto
 # Valine.
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org

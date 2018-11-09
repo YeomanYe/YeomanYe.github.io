@@ -6,6 +6,7 @@ node_modules/
 public/
 .deploy*/
 .idea
-jacman
-hexo-theme-sagiri
-hexo-theme-archer
+
+themes/
+!themes/hexo-theme-polglass
+!themes/hexo-theme-next
