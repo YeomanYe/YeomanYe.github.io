@@ -10,7 +10,7 @@ categories:
 # SVG入门
 svg是一种用于描述二维矢量图形的一种图形格式。它由xml声明头，文档类型定义头，svg根标签组成。加上svg下的绘制内容组成，其中svg标签可以认为是绘制的画布，基本代码如下：
 
-```svg
+```xml
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +25,7 @@ svg是一种用于描述二维矢量图形的一种图形格式。它由xml声�
 ### circle
 circle标签代表圆形。
 
-```svg
+```xml
 <svg width="300" height="180">
   <circle cx="30"  cy="50" r="25" />
   <circle cx="90"  cy="50" r="25" class="red" />
@@ -50,7 +50,7 @@ circle标签代表圆形。
 ### line
 用来绘制直线
 
-```svg
+```xml
 <svg width="300" height="180">
   <line x1="0" y1="0" x2="200" y2="0" style="stroke:rgb(0,0,0);stroke-width:5" />
 </svg>
@@ -59,7 +59,7 @@ circle标签代表圆形。
 ### polyline
 用于绘制一根折线。
 
-```svg
+```xml
 <polyline points="3,3 30,28 3,53" fill="none" stroke="black" />
 ```
 
@@ -68,28 +68,28 @@ points用于指定每个端点坐标
 ### rect
 用于绘制矩形。
 
-```svg
+```xml
 <rect x="0" y="0" height="100" width="200" style="stroke: #70d5dd; fill: #dd524b" />
 ```
 
 ### ellipse
 用于绘制椭圆。
 
-```svg
+```xml
 <ellipse cx="60" cy="60" ry="40" rx="20" stroke="black" stroke-width="5" fill="silver"/>
 ```
 
 ### polygon
 用于绘制多边形。
 
-```svg
+```xml
 <polygon fill="green" stroke="orange" stroke-width="1" points="0,0 100,0 100,100 0,100 0,0"/>
 ```
 
 ### path
 用于制路径。
 
-```svg
+```xml
 <path d="
   M 18,3
   L 46,3
@@ -113,7 +113,7 @@ path的d属性表示绘制顺序，它的值是一个长字符串，每个字母
 ### text
 用于绘制文本。
 
-```svg
+```xml
 <text  font-family="Microsoft Yahei" font-size="60" font-weight="900" x="50" y="25">Hello World</text>
 ```
 
@@ -122,7 +122,7 @@ x属性和y属性，表示文本区块基线（baseline）起点的横坐标和�
 ### image
 用于插入图片文件。
 
-```svg
+```xml
 <image xlink:href="path/to/image.jpg"
     width="50%" height="50%"/>
 ```
@@ -139,7 +139,7 @@ linearGradient用于定义线性渐变
 - offset：偏移量，位置
 - stop标签，表示结束点
 
-```svg
+```xml
 <svg height="150" width="400">
   <defs>
     <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -158,7 +158,7 @@ radialGradient用于定义径向渐变
 
 属性值基本与linearGradient相同，没什么好说的
 
-```svg
+```xml
 <svg height="150" width="500">
   <defs>
     <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
@@ -181,7 +181,7 @@ radialGradient用于定义径向渐变
 
 失焦效果
 
-```svg
+```xml
 <svg height="110" width="110">
   <defs>
     <filter id="f1" x="0" y="0">
@@ -221,7 +221,7 @@ radialGradient用于定义径向渐变
 ### animate
 用于产生动画效果。
 
-```svg
+```xml
 <svg width="500px" height="500px">
   <rect x="0" y="0" width="100" height="100" fill="#feac5e">
     <animate attributeName="x" from="0" to="500" dur="2s" repeatCount="indefinite" />
@@ -239,7 +239,7 @@ radialGradient用于定义径向渐变
 ### animateTransform
 animate标签对 CSS 的transform属性不起作用，如果需要变形，就要使用animateTransform标签。
 
-```svg
+```xml
 <svg width="500px" height="500px">
   <rect x="250" y="250" width="50" height="50" fill="#4bc0c8">
     <animateTransform attributeName="transform" type="rotate" begin="0s" dur="10s" from="0 200 200" to="360 400 400" repeatCount="indefinite" />
@@ -254,7 +254,7 @@ animate标签对 CSS 的transform属性不起作用，如果需要变形，就�
 
 svg的width属性和height属性，指定了 SVG 图像在 HTML 元素中所占据的宽度和高度。除了相对单位，也可以采用绝对单位（单位：像素）。如果不指定这两个属性，SVG 图像默认大小是300像素（宽） x 150像素（高）。viewport属性的值有四个数字，分别是左上角的横坐标和纵坐标、视口的宽度和高度。
 
-```svg
+```xml
 <svg width="100" height="100" viewBox="50 50 50 50">
   <circle id="mycircle" cx="50" cy="50" r="50" />
 </svg>
@@ -263,7 +263,7 @@ svg的width属性和height属性，指定了 SVG 图像在 HTML 元素中所占�
 ### use
 用于复制一个形状
 
-```svg
+```xml
 <svg viewBox="0 0 30 10" xmlns="http://www.w3.org/2000/svg">
   <circle id="myCircle" cx="5" cy="5" r="4"/>
 
@@ -277,7 +277,7 @@ href属性指定所要复制的节点，x属性和y属性是use左上角的坐�
 ### g
 用于将多个形状组成一个组（group），方便复用。
 
-```svg
+```xml
 <svg width="300" height="100">
   <g id="myCircle">
     <text x="25" y="20">圆形</text>
@@ -292,7 +292,7 @@ href属性指定所要复制的节点，x属性和y属性是use左上角的坐�
 ### defs
 用于自定义形状，它内部的代码不会显示，仅供引用。
 
-```svg
+```xml
 <svg width="300" height="100">
   <defs>
     <g id="myCircle">
@@ -310,7 +310,7 @@ href属性指定所要复制的节点，x属性和y属性是use左上角的坐�
 ### pattern
 用于自定义一个形状，该形状可以被引用来平铺一个区域。
 
-```svg
+```xml
 <svg width="500" height="500">
   <defs>
     <pattern id="dots" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
