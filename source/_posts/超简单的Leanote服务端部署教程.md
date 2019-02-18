@@ -3,7 +3,7 @@ tags:
     - 软件
 comments: true
 brief: 超简单的Leanote服务端部署教程
-date: 2018-11-13
+date: 2018-6-13
 photos:
     - "https://qn-cdn.leanote.top/leanote/images/leanote-index-bg.jpg"
 categories:
