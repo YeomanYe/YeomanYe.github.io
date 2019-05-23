@@ -4,6 +4,7 @@ tags:
 comments: true
 brief: 从IP数据包到端口发送究竟经历了什么？
 date: 2019-5-21
+copyright: true
 photos:
     - "https://cdn.pixabay.com/photo/2017/09/25/11/55/cyberspace-2784907_1280.jpg"
 categories:
