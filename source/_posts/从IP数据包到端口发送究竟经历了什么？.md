@@ -3,7 +3,7 @@ tags:
     - 网络
 comments: true
 brief: 从IP数据包到端口发送究竟经历了什么？
-date: 2019-5-21
+date: 2019-05-21
 copyright: true
 photos:
     - "https://cdn.pixabay.com/photo/2017/09/25/11/55/cyberspace-2784907_1280.jpg"
@@ -99,7 +99,3 @@ PPP与SLIP一样有头尾标志字节，这就说明PPP也需要将数据报中�
 除了这两个字节外PPP还需要对小于0x20的字节进行转移，因为0x20的字节在ascii码中有控制含义，怕影响底层驱动程序。
 
 因此PPP具有转移规则，规则是在0x7d接下去的第1个byte的第6个bit取补码（即将byte取补码后，将这个byte的第6位，用补码的第6位取代）。
-
-    公众号二分之一程序员，专注计算机基础的学习，欢迎关注 :)
-
-<center class="center">![二分之一程序员](/images/qrcode_wechat_office.jpg)</center>
