@@ -5,10 +5,10 @@ comments: true
 brief: react-native-root-siblings源码解读
 copyright: true
 date: 2019-02-17
+top: 10
 categories:
     - 前端
 ---
-# react-native-root-siblings源码解读
 react-native-root-siblings是magicismight编写的react-native的工具库，它能够使用函数将组件作为兄弟节点插入到根组件中，如:
 
 ```js

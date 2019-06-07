@@ -1253,12 +1253,11 @@ hexo-generator-feed@^1.2.2:
     nunjucks "^3.0.0"
     object-assign "^4.1.1"
 
-hexo-generator-index@^0.2.0:
+"hexo-generator-index@git+https://github.com/YeomanYe/hexo-generator-index.git":
   version "0.2.1"
-  resolved "http://registry.npm.taobao.org/hexo-generator-index/download/hexo-generator-index-0.2.1.tgz#9042229fcac79aaf700575da19332bf3f7ee5c5d"
+  resolved "git+https://github.com/YeomanYe/hexo-generator-index.git#d7019c77ea3de3554d6639f692bd68560e81f45c"
   dependencies:
-    hexo-pagination "0.0.2"
-    object-assign "^4.0.1"
+    hexo-pagination "0.1.0"
 
 hexo-generator-tag@^0.2.0:
   version "0.2.0"
@@ -1296,6 +1295,12 @@ hexo-pagination@0.0.2:
   resolved "http://registry.npm.taobao.org/hexo-pagination/download/hexo-pagination-0.0.2.tgz#8cf470c7db0de5b18a3926a76deb194015df7f2b"
   dependencies:
     utils-merge "^1.0.0"
+
+hexo-pagination@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npm.taobao.org/hexo-pagination/download/hexo-pagination-0.1.0.tgz#54f0be12e6ae51d1c0a6f0023674ba77ac514ce3"
+  dependencies:
+    object-assign "^4.1.0"
 
 hexo-renderer-ejs@^0.2.0:
   version "0.2.0"

@@ -4,11 +4,11 @@ tags:
     - CSS
 comments: true
 date: 2019-01-05
+top: 10
 brief: WeUI源码分析-框架分析
 categories:
     - 源码分析
 ---
-# WeUI源码分析-框架分析
 上一篇已经分析过了WeUI的demo中值得学习的部分，这一偏正式分析WeUI框架。WeUI框架将组件分为基础组件、表单、操作反馈、导航、搜索这几个部分，并制定层级规范：Popout、Mask、Navigation、Content。
 
 <!-- more -->

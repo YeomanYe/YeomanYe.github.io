@@ -8,7 +8,6 @@ brief: preact源码分析
 categories:
     - 源码分析
 ---
-# preact源码分析
 
 preact是react的轻量级解决方案，它与react的api十分相近，并且有着许多的周边:redux、router等等。无论是通过学习源码来深入的了解react，还是为了日后使用react轻量级解决方案都非常有价值。虽然preact比起react精简了不少，但是仍然很复杂。为了最快速的了解核心，我从preact的早起版本开始阅读起，这篇分析的是v1.5.2版本的源码
 
