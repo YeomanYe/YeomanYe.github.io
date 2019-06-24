@@ -1,11 +1,13 @@
-title: 这一次你应该要读懂Redux源码
+title: 这一次你一定要读懂Redux源码
 tags:
     - 源码
     - 前端
 comments: true
 top: 100
-brief: 这一次你应该要读懂Redux源码
-date: 2019-06-16
+brief: 这一次你一定要读懂Redux源码
+date: 2019-06-23
+photos:
+    - "/images/article_banner/redux.jpeg"
 categories:
     - 前端
 ---
