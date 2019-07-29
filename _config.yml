@@ -87,5 +87,5 @@ deploy:
 #   repo: git@github.com:YeomanYe/YeomanYe.github.io.git
 #   branch: master
   type: git
-  repo: root@140.143.157.181:/data/GitLibrary/hexo
+  repo: root@47.98.98.178:blog.git
   branch: master
