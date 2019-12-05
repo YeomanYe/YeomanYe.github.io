@@ -3,14 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.7.1"
+    "version": "4.0.0"
   },
   "scripts": {
     "deploy": "hexo algolia && hexo clean && hexo d --config source/_data/next.yml && git add * && git commit -m \"update\" && git push",
     "start": "hexo server -p 5503 --config source/_data/next.yml"
   },
   "dependencies": {
-    "hexo": "^3.7.1",
+    "hexo": "./hexo",
     "hexo-algolia": "^1.2.5",
     "hexo-browsersync": "^0.2.0",
     "hexo-deployer-git": "^0.2.0",
