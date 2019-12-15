@@ -1,6 +1,6 @@
 title: Cmder
 tags:
-    - windows
+    - Windows
 ---
 
 为Windows缺失漂亮的终端界面而设计的(官方介绍)

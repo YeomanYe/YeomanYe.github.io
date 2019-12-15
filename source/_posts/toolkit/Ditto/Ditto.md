@@ -1,6 +1,6 @@
 title: Ditto
 tags:
-    - windows
+    - Windows
 ---
 
 Ditto是一个超好用的剪贴板历史工具
