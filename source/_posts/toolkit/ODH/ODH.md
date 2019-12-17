@@ -1,5 +1,5 @@
 title: ODH
-catego:
+categories:
     - Chrome Extension
 ---
 

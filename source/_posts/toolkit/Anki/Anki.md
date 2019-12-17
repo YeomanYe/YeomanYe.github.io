@@ -1,5 +1,5 @@
 title: Anki
-catego:
+categories:
     - Mac
     - Windows
     - Linux
