@@ -1,0 +1,13 @@
+- 
+  name: util
+  desc: 工具类
+  collection: 
+    - 
+      name: pretty-hrtime
+      desc: 以h, min, s, ms, μs, ns等单位人性化显示process.hrtime时间
+- 
+  name: console
+  desc: 终端类
+  - 
+    name: chalk
+    desc: 给终端输出文本设置样式（颜色、下划线、删除线、模糊、粗体、斜体）

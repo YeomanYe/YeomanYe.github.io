@@ -24,7 +24,7 @@ __特性：__
 
 <div class="justified-gallery">
 
-![image-20191201234019050](cmder/image-20191201234019050.png)
+![image-20191201234019050](assets/image-20191201234019050.png)
 
 </div>
 

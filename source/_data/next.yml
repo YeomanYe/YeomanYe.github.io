@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: FWHeart's Blog
+title: FWHearts Blog
 subtitle:
 description:
 author: FWHeart
@@ -11,7 +11,7 @@ language: zh-CN
 timezone:
 
 # URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+## If your site is put in a subdirectory, set url as http://yoursite.com/child and root as /child/
 # url: http://yeomanye.github.io
 # url: http://140.143.157.181
 url: http://www.fwheart.club
@@ -74,7 +74,7 @@ feed:
   path: rss2.xml
   limit: 5
   hub:
-  content: 'true'
+  content: true
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
@@ -123,7 +123,7 @@ deploy:
 # ===============================================================
 # NexT repository is moving here: https://github.com/theme-next
 # ===============================================================
-# It's rebase to v6.0.0 and future maintenance will resume there
+# Its rebase to v6.0.0 and future maintenance will resume there
 # ===============================================================
 
 # ---------------------------------------------------------------
@@ -131,7 +131,7 @@ deploy:
 # ---------------------------------------------------------------
 
 # Set to true, if you want to fully override the default configuration.
-# Useful if you don't want to inherit the theme _config.yml configurations.
+# Useful if you dont want to inherit the theme _config.yml configurations.
 override: false
 
 # ---------------------------------------------------------------
@@ -158,7 +158,7 @@ favicon:
 keywords: "Blog, NexT,FE"
 
 # Set rss to false to disable feed link.
-# Leave rss as empty to use site's feed link.
+# Leave rss as empty to use sites feed link.
 # Set rss to specific value if you have burned your feed already.
 rss:
 
@@ -406,7 +406,7 @@ android_chrome_color: "#222"
 # !!Only available for Default Scheme currently.
 # Options:
 #   enabled: [true/false] - Replace with specific image
-#   image: url-of-image   - Images's url
+#   image: url-of-image   - Imagess url
 custom_logo:
   enabled: false
   image:
@@ -557,7 +557,7 @@ gitment:
   mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
   count: true # Show comments count in post meta area
   lazy: false # Comments lazy loading with a button
-  cleanly: false # Hide 'Powered by ...' on footer, and more
+  cleanly: false # Hide Powered by ... on footer, and more
   language: # Force language, or auto switch by theme
   github_user: # MUST HAVE, Your Github ID
   github_repo: # MUST HAVE, The repo you use to store Gitment comments

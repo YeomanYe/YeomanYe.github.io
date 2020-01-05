@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: FWHeart's Blog
+title: FWHearts Blog
 subtitle:
 description:
 author: FWHeart
@@ -11,7 +11,7 @@ language: zh-CN
 timezone:
 
 # URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+## If your site is put in a subdirectory, set url as http://yoursite.com/child and root as /child/
 # url: http://yeomanye.github.io
 # url: http://140.143.157.181
 url: http://www.fwheart.club
@@ -74,7 +74,7 @@ feed:
   path: rss2.xml
   limit: 5
   hub:
-  content: 'true'
+  content: true
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
