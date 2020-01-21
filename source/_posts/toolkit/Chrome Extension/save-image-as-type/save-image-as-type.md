@@ -1,0 +1,1 @@
+save-image-as-type 保存图片时，右击选中该扩展可改变保存图片的类型。可保存的类型有：jpg、png、webp

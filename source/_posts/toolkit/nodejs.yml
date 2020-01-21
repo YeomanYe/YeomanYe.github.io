@@ -5,9 +5,24 @@
     - 
       name: pretty-hrtime
       desc: 以h, min, s, ms, μs, ns等单位人性化显示process.hrtime时间
+    -
+      name: debug 
+      desc: nodejs和browser两用的调试库，能比较方便的格式化日志
+    - 
+      name: util
+      desc: node-util实用工具，类型判定、格式化、继承、callback/promise化、调试、文本编解码
 - 
   name: console
   desc: 终端类
   - 
     name: chalk
     desc: 给终端输出文本设置样式（颜色、下划线、删除线、模糊、粗体、斜体）
+  -
+    name: yargs
+    desc: 帮助开发者制作命令行工具，通过解析参数生成一个优雅的供他人使用的接口
+- 
+  name: multi_process
+  desc: 多进程多线程相关
+  - 
+    name: child_process
+    desc: 创建同步/异步子进程，子进程类：ChildProcess
