@@ -11,6 +11,12 @@
     - 
       name: util
       desc: node-util实用工具，类型判定、格式化、继承、callback/promise化、调试、文本编解码
+    -
+      name: html2js
+      desc: 将html文本转化为对应的js的字符串
+    - 
+      name: glob
+      desc: 使用./*/**等符号来匹配文件与路径
 - 
   name: console
   desc: 终端类
